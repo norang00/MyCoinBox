@@ -11,14 +11,6 @@ class BaseViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        configureNavigation("")
-    }
-    
-    func configureNavigation(_ title: String) {
-        navigationItem.title = title
-        navigationItem.backButtonTitle = ""
-        navigationController?.navigationBar.tintColor = .blue
     }
     
     func showAlert(title: String, message: String) {
