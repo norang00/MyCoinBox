@@ -13,10 +13,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
-        // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
-        // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-        guard let _ = (scene as? UIWindowScene) else { return }
+        guard let windowScene = (scene as? UIWindowScene) else { return }
+        window = UIWindow(windowScene: windowScene)
+        window?.rootViewController = SceneDelegate.getMainTabBarController()
+        window?.makeKeyAndVisible()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -46,7 +46,23 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
     }
+    
+    // MARK: - TabBarController
+    static func getMainTabBarController() -> UITabBarController {
+        let marketVC = UINavigationController(rootViewController: MarketViewController())
+        let trendingVC = UINavigationController(rootViewController: TrendingViewController())
+        let portfolioVC = UINavigationController(rootViewController: PortfolioViewController())
 
-
+        let tabBarController = UITabBarController()
+        tabBarController.setViewControllers([marketVC, trendingVC, portfolioVC], animated: true)
+        tabBarController.tabBar.tintColor = .accent
+        tabBarController.tabBar.items![0].title = Resources.Tab.Title.market.rawValue
+        tabBarController.tabBar.items![0].image = UIImage(systemName: Resources.Tab.Image.market.rawValue)
+        tabBarController.tabBar.items![1].title = Resources.Tab.Title.trending.rawValue
+        tabBarController.tabBar.items![1].image = UIImage(systemName: Resources.Tab.Image.trending.rawValue)
+        tabBarController.tabBar.items![2].title = Resources.Tab.Title.portfolio.rawValue
+        tabBarController.tabBar.items![2].image = UIImage(systemName: Resources.Tab.Image.portfolio.rawValue)
+        return tabBarController
+    }
 }
 
