@@ -13,10 +13,13 @@
 		EECAF4182D797F3F00950F89 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = EECAF4172D797F3F00950F89 /* SnapKit */; };
 		EECAF41B2D797F4D00950F89 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = EECAF41A2D797F4D00950F89 /* Kingfisher */; };
 		EECAF41E2D797F6300950F89 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = EECAF41D2D797F6300950F89 /* Alamofire */; };
+		EECAF4AA2D799AB500950F89 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = EECAF4A92D799AB500950F89 /* .gitignore */; };
+		EECAF4BD2D79A36900950F89 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = EECAF4BC2D79A36900950F89 /* Toast */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		EECAF3F62D797B0900950F89 /* MyCoinBox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyCoinBox.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EECAF4A92D799AB500950F89 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -50,6 +53,7 @@
 				EECAF4132D797F2600950F89 /* RxCocoa in Frameworks */,
 				EECAF41E2D797F6300950F89 /* Alamofire in Frameworks */,
 				EECAF4102D797F0D00950F89 /* RealmSwift in Frameworks */,
+				EECAF4BD2D79A36900950F89 /* Toast in Frameworks */,
 				EECAF41B2D797F4D00950F89 /* Kingfisher in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -60,6 +64,7 @@
 		EECAF3ED2D797B0900950F89 = {
 			isa = PBXGroup;
 			children = (
+				EECAF4A92D799AB500950F89 /* .gitignore */,
 				EECAF3F82D797B0900950F89 /* MyCoinBox */,
 				EECAF3F72D797B0900950F89 /* Products */,
 			);
@@ -99,6 +104,7 @@
 				EECAF4172D797F3F00950F89 /* SnapKit */,
 				EECAF41A2D797F4D00950F89 /* Kingfisher */,
 				EECAF41D2D797F6300950F89 /* Alamofire */,
+				EECAF4BC2D79A36900950F89 /* Toast */,
 			);
 			productName = MyCoinBox;
 			productReference = EECAF3F62D797B0900950F89 /* MyCoinBox.app */;
@@ -134,6 +140,7 @@
 				EECAF4162D797F3F00950F89 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				EECAF4192D797F4D00950F89 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				EECAF41C2D797F6300950F89 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				EECAF4BB2D79A36900950F89 /* XCRemoteSwiftPackageReference "Toast-Swift" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = EECAF3F72D797B0900950F89 /* Products */;
@@ -150,6 +157,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EECAF4AA2D799AB500950F89 /* .gitignore in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -417,6 +425,14 @@
 				minimumVersion = 5.10.2;
 			};
 		};
+		EECAF4BB2D79A36900950F89 /* XCRemoteSwiftPackageReference "Toast-Swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scalessec/Toast-Swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.1.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -449,6 +465,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = EECAF41C2D797F6300950F89 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
+		};
+		EECAF4BC2D79A36900950F89 /* Toast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EECAF4BB2D79A36900950F89 /* XCRemoteSwiftPackageReference "Toast-Swift" */;
+			productName = Toast;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
