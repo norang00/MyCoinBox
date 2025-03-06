@@ -40,6 +40,12 @@ enum Resources {
         }
     }
     
+    enum Keywords: String {
+        case coin = "코인"
+        case market = "거래소"
+        case nft = "NFT"
+    }
+    
     enum Alert {
         enum Title: String {
             case emptyInput = "검색어를 입력해주세요"

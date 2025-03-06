@@ -17,6 +17,8 @@ final class MarketViewController: BaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        navigationController?.isNavigationBarHidden = true
     }
 
 }
