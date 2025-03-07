@@ -61,6 +61,10 @@ final class SortButtonView: UIView {
         }
     }
     
+    func setDefault() {
+        status = .deselect
+    }
+    
 }
 
 // MARK: - Setup View

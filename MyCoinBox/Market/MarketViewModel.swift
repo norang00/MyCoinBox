@@ -14,6 +14,7 @@ final class MarketViewModel: BaseViewModel {
     
 //    var list = mockMarketData
     var list: [MarketData] = []
+    var sort: SortStatus?
     
     let disposeBag = DisposeBag()
     
@@ -34,23 +35,63 @@ final class MarketViewModel: BaseViewModel {
         input.currentTap
             .debug("currentTap")
             .withUnretained(self)
-            .flatMap { owner, _ in
-                owner.callRequestToNetworkManager()
+            .flatMap { owner, value in
+                owner.sort = value
+                return owner.callRequestToNetworkManager()
             }
             .subscribe { value in
-                resultList.accept(value)
+                var sorted: [MarketData] = []
+                switch self.sort {
+                case .deselect, .descending:
+                    sorted = value.sorted { $1.trade_price < $0.trade_price }
+                case .ascending:
+                    sorted = value.sorted { $0.trade_price < $1.trade_price }
+                case .none:
+                    sorted = []
+                }
+                resultList.accept(sorted)
             }
             .disposed(by: disposeBag)
         
         input.changeTap
-            .subscribe(with: self) { owner, value in
-                print(#function, "currentTap" ,value)
+            .debug("changeTap")
+            .withUnretained(self)
+            .flatMap { owner, value in
+                owner.sort = value
+                return owner.callRequestToNetworkManager()
+            }
+            .subscribe { value in
+                var sorted: [MarketData] = []
+                switch self.sort {
+                case .deselect, .descending:
+                    sorted = value.sorted { $1.signed_change_rate < $0.signed_change_rate }
+                case .ascending:
+                    sorted = value.sorted { $0.signed_change_rate < $1.signed_change_rate }
+                case .none:
+                    sorted = []
+                }
+                resultList.accept(sorted)
             }
             .disposed(by: disposeBag)
         
         input.priceTap
-            .subscribe(with: self) { owner, value in
-                print(#function, "currentTap" ,value)
+            .debug("priceTap")
+            .withUnretained(self)
+            .flatMap { owner, value in
+                owner.sort = value
+                return owner.callRequestToNetworkManager()
+            }
+            .subscribe { value in
+                var sorted: [MarketData] = []
+                switch self.sort {
+                case .deselect, .descending:
+                    sorted = value.sorted { $1.acc_trade_price_24h < $0.acc_trade_price_24h }
+                case .ascending:
+                    sorted = value.sorted { $0.acc_trade_price_24h < $1.acc_trade_price_24h }
+                case .none:
+                    sorted = []
+                }
+                resultList.accept(sorted)
             }
             .disposed(by: disposeBag)
         
