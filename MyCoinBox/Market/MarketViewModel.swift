@@ -12,7 +12,7 @@ import RxGesture
 
 final class MarketViewModel: BaseViewModel {
     
-//    var items = []
+    var list = mockMarketData
     
     let disposeBag = DisposeBag()
     
@@ -23,10 +23,11 @@ final class MarketViewModel: BaseViewModel {
     }
     
     struct Output {
-        
+        let resultList: BehaviorRelay<[Market]>
     }
     
     func transform(_ input: Input) -> Output {
+        let resultList = BehaviorRelay(value: list)
         
         //[TODO] Observable.merge
         input.currentTap
@@ -47,12 +48,8 @@ final class MarketViewModel: BaseViewModel {
             }
             .disposed(by: disposeBag)
         
-        
-        
-        
         return Output(
-            
+            resultList: resultList
         )
     }
-    
 }

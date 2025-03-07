@@ -7,38 +7,8 @@
 
 import Foundation
 
-/// #1. 거래소 화면
-struct MarketData {
-  let market: String
-  let tradeDate: String
-  let tradeTime: String
-  let tradeDateKst: String
-  let tradeTimeKst: String
-  let tradeTimestamp: Int64
-  let openingPrice: Double
-  let highPrice: Double
-  let lowPrice: Double
-  let tradePrice: Double
-  let prevClosingPrice: Double
-  let change: String
-  let changePrice: Double
-  let changeRate: Double
-  let signedChangePrice: Double
-  let signedChangeRate: Double
-  let tradeVolume: Double
-  let accTradePrice: Double
-  let accTradePrice24h: Double
-  let accTradeVolume: Double
-  let accTradeVolume24h: Double
-  let highest52WeekPrice: Double
-  let highest52WeekDate: String
-  let lowest52WeekPrice: Double
-  let lowest52WeekDate: String
-  let timestamp: Int64
-}
-
-let mockMarketData: [MarketData] = [
-  MarketData(
+let mockMarketData: [Market] = [
+  Market(
     market: "KRW-BTC",
     tradeDate: "20250306",
     tradeTime: "053346",
@@ -66,7 +36,7 @@ let mockMarketData: [MarketData] = [
     lowest52WeekDate: "2024-08-05",
     timestamp: 1741239226475
   ),
-  MarketData(
+  Market(
     market: "KRW-ETH",
     tradeDate: "20250306",
     tradeTime: "053345",
@@ -94,7 +64,7 @@ let mockMarketData: [MarketData] = [
     lowest52WeekDate: "2024-09-06",
     timestamp: 1741239225556
   ),
-  MarketData(
+  Market(
     market: "KRW-XRP",
     tradeDate: "20250306",
     tradeTime: "053347",
@@ -113,7 +83,7 @@ let mockMarketData: [MarketData] = [
     signedChangeRate: 0.0131614290,
     tradeVolume: 1261.02888888,
     accTradePrice: 198542910741.68432128,
-    accTradePrice24h: 865892603464.66665811,
+    accTradePrice24h: 13234, /*865892603464.66665811,*/
     accTradeVolume: 53103806.74003013,
     accTradeVolume24h: 232782437.24250982,
     highest52WeekPrice: 4984.00000000,
@@ -122,7 +92,7 @@ let mockMarketData: [MarketData] = [
     lowest52WeekDate: "2024-07-05",
     timestamp: 1741239227643
   ),
-  MarketData(
+  Market(
     market: "KRW-SOL",
     tradeDate: "20250306",
     tradeTime: "053346",
@@ -150,7 +120,7 @@ let mockMarketData: [MarketData] = [
     lowest52WeekDate: "2024-08-05",
     timestamp: 1741239227034
   ),
-  MarketData(
+  Market(
     market: "KRW-ADA",
     tradeDate: "20250306",
     tradeTime: "053347",
@@ -178,7 +148,7 @@ let mockMarketData: [MarketData] = [
     lowest52WeekDate: "2024-08-05",
     timestamp: 1741239227323
   ),
-  MarketData(
+  Market(
     market: "KRW-BCH",
     tradeDate: "20250306",
     tradeTime: "053347",
@@ -206,7 +176,7 @@ let mockMarketData: [MarketData] = [
     lowest52WeekDate: "2024-09-06",
     timestamp: 1741239227604
   ),
-  MarketData(
+  Market(
     market: "KRW-AAVE",
     tradeDate: "20250306",
     tradeTime: "053347",
@@ -234,7 +204,7 @@ let mockMarketData: [MarketData] = [
     lowest52WeekDate: "2024-07-05",
     timestamp: 1741239227322
   ),
-  MarketData(
+  Market(
     market: "KRW-DOGE",
     tradeDate: "20250306",
     tradeTime: "053347",
@@ -262,7 +232,7 @@ let mockMarketData: [MarketData] = [
     lowest52WeekDate: "2024-08-05",
     timestamp: 1741239227420
   ),
-  MarketData(
+  Market(
     market: "KRW-SHIB",
     tradeDate: "20250306",
     tradeTime: "053339",
@@ -290,7 +260,7 @@ let mockMarketData: [MarketData] = [
     lowest52WeekDate: "2024-08-05",
     timestamp: 1741239219718
   ),
-  MarketData(
+  Market(
     market: "KRW-MOVE",
     tradeDate: "20250306",
     tradeTime: "053346",
@@ -318,7 +288,7 @@ let mockMarketData: [MarketData] = [
     lowest52WeekDate: "2024-12-10",
     timestamp: 1741239226818
   ),
-  MarketData(
+  Market(
     market: "KRW-CRO",
     tradeDate: "20250306",
     tradeTime: "053341",
@@ -346,7 +316,7 @@ let mockMarketData: [MarketData] = [
     lowest52WeekDate: "2024-11-04",
     timestamp: 1741239221463
   ),
-  MarketData(
+  Market(
     market: "KRW-STPT",
     tradeDate: "20250306",
     tradeTime: "053346",
@@ -374,7 +344,7 @@ let mockMarketData: [MarketData] = [
     lowest52WeekDate: "2024-08-05",
     timestamp: 1741239226982
   ),
-  MarketData(
+  Market(
     market: "KRW-KAITO",
     tradeDate: "20250306",
     tradeTime: "053341",
@@ -402,7 +372,7 @@ let mockMarketData: [MarketData] = [
     lowest52WeekDate: "2025-03-05",
     timestamp: 1741239222001
   ),
-  MarketData(
+  Market(
     market: "KRW-USDT",
     tradeDate: "20250306",
     tradeTime: "053345",
@@ -430,7 +400,7 @@ let mockMarketData: [MarketData] = [
     lowest52WeekDate: "2024-12-03",
     timestamp: 1741239225877
   ),
-  MarketData(
+  Market(
     market: "KRW-USDC",
     tradeDate: "20250306",
     tradeTime: "053231",
@@ -458,7 +428,7 @@ let mockMarketData: [MarketData] = [
     lowest52WeekDate: "2024-09-30",
     timestamp: 1741239210919
   ),
-  MarketData(
+  Market(
     market: "KRW-BTT",
     tradeDate: "20250306",
     tradeTime: "053321",
@@ -486,7 +456,7 @@ let mockMarketData: [MarketData] = [
     lowest52WeekDate: "2024-08-05",
     timestamp: 1741239210351
   ),
-  MarketData(
+  Market(
     market: "KRW-PEPE",
     tradeDate: "20250306",
     tradeTime: "053345",

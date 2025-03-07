@@ -14,12 +14,21 @@ final class MarketView: BaseView {
     private let navigationTitle = UILabel()
     private let borderView = UIView()
 
-    private let headerView = UIView()
+    private let headerView = UIStackView()
     private let coinLabel = UILabel()
     let currentButtonView = SortButtonView(frame: .zero, title: Resources.Writing.current.rawValue)
     let changeButtonView = SortButtonView(frame: .zero, title: Resources.Writing.change.rawValue)
     let priceButtonView = SortButtonView(frame: .zero, title: Resources.Writing.price.rawValue)
-
+        
+    lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
+    
+    private func createLayout() -> UICollectionViewLayout {
+        var configuration = UICollectionLayoutListConfiguration(appearance: .plain)
+        configuration.showsSeparators = false
+        let layout = UICollectionViewCompositionalLayout.list(using: configuration)
+        return layout
+    }
+    
     override func configureHierarchy() {
         addSubview(navigationBar)
         navigationBar.addSubview(navigationTitle)
@@ -27,10 +36,12 @@ final class MarketView: BaseView {
         addSubview(borderView)
 
         addSubview(headerView)
-        headerView.addSubview(coinLabel)
-        headerView.addSubview(currentButtonView)
-        headerView.addSubview(changeButtonView)
-        headerView.addSubview(priceButtonView)
+        headerView.addArrangedSubview(coinLabel)
+        headerView.addArrangedSubview(currentButtonView)
+        headerView.addArrangedSubview(changeButtonView)
+        headerView.addArrangedSubview(priceButtonView)
+        
+        addSubview(collectionView)
     }
     
     override func configureLayout() {
@@ -57,29 +68,9 @@ final class MarketView: BaseView {
             make.height.equalTo(32)
         }
         
-        coinLabel.snp.makeConstraints { make in
-            make.leading.equalTo(headerView).inset(24)
-            make.centerY.equalTo(headerView)
-            make.width.equalTo(180)
-        }
-        
-        currentButtonView.snp.makeConstraints { make in
-            make.leading.equalTo(coinLabel.snp.trailing)
-            make.top.bottom.equalToSuperview()
-            make.width.equalTo(100)
-        }
-        
-        changeButtonView.snp.makeConstraints { make in
-            make.leading.equalTo(currentButtonView.snp.trailing)
-            make.top.bottom.equalToSuperview()
-            make.width.equalTo(100)
-        }
-        
-        priceButtonView.snp.makeConstraints { make in
-            make.leading.equalTo(changeButtonView.snp.trailing)
-            make.top.bottom.equalToSuperview()
-            make.width.equalTo(100)
-            make.trailing.equalTo(headerView.snp.trailing).inset(8)
+        collectionView.snp.makeConstraints { make in
+            make.top.equalTo(headerView.snp.bottom)
+            make.horizontalEdges.bottom.equalTo(safeAreaLayoutGuide)
         }
     }
 
@@ -90,7 +81,16 @@ final class MarketView: BaseView {
         
         borderView.backgroundColor = .lightGray
         
+        headerView.axis = .horizontal
+        headerView.isLayoutMarginsRelativeArrangement = true
+        headerView.layoutMargins = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
         headerView.backgroundColor = .sortBg
+        let width: CGFloat = (UIScreen.main.bounds.width-32)/4
+        for view in headerView.arrangedSubviews {
+            view.snp.makeConstraints { make in
+                make.width.equalTo(width)
+            }
+        }
         
         coinLabel.text = Resources.Writing.coin.rawValue
         coinLabel.textColor = .mainText

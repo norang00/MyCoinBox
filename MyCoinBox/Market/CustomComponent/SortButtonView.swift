@@ -16,6 +16,9 @@ enum SortStatus {
 final class SortButtonView: UIView {
     
     private let label = UILabel()
+    
+    private let stackView = UIStackView()
+    
     private let upTriangle = UIImageView()
     private let downTriangle = UIImageView()
     
@@ -71,27 +74,26 @@ extension SortButtonView {
     
     private func configureHierarchy() {
         addSubview(label)
-        addSubview(upTriangle)
-        addSubview(downTriangle)
+        
+        addSubview(stackView)
+        stackView.addArrangedSubview(upTriangle)
+        stackView.addArrangedSubview(downTriangle)
     }
     
     private func configureLayout() {
+        snp.makeConstraints { make in
+            make.width.greaterThanOrEqualTo(80)
+            make.height.equalTo(32)
+        }
         label.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
-            make.height.equalTo(12)
+            make.height.equalTo(16)
         }
-        upTriangle.snp.makeConstraints { make in
-            make.top.equalTo(label)
+        stackView.snp.makeConstraints { make in
+            make.top.bottom.equalTo(label)
             make.leading.equalTo(label.snp.trailing)
-            make.trailing.equalToSuperview().inset(8)
-            make.size.equalTo(10)
-        }
-        downTriangle.snp.makeConstraints { make in
-            make.top.equalTo(upTriangle.snp.bottom).offset(-4)
-            make.leading.equalTo(label.snp.trailing)
-            make.trailing.equalToSuperview().inset(8)
-            make.bottom.equalTo(label)
-            make.size.equalTo(10)
+            make.trailing.equalToSuperview()
+            make.width.equalTo(10)
         }
     }
 
@@ -100,6 +102,11 @@ extension SortButtonView {
         
         label.textColor = .mainText
         label.font = .boldSystemFont(ofSize: 12)
+        
+        stackView.axis = .vertical
+        stackView.alignment = .center
+        stackView.distribution = .fillEqually
+        stackView.spacing = -4
         
         upTriangle.tintColor = .deselect
         upTriangle.contentMode = .scaleAspectFit

@@ -20,18 +20,20 @@ final class MarketViewController: BaseViewController {
     override func loadView() {
         view = marketView
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         navigationController?.isNavigationBarHidden = true
+        marketView.collectionView.showsVerticalScrollIndicator = false
+        marketView.collectionView.register(MarketCollectioinViewCell.self, forCellWithReuseIdentifier: MarketCollectioinViewCell.identifier)
         
         bind()
     }
     
     private func bind() {
         let input = MarketViewModel.Input(
-            // [TODO] 너무 조잡한가?
+            // [TODO] 가능하면 정리
             currentTap: marketView.currentButtonView.rx.tapGesture()
                 .when(.recognized)
                 .do(onNext: {_ in self.marketView.currentButtonView.updateStatus()})
@@ -50,7 +52,16 @@ final class MarketViewController: BaseViewController {
         )
         let output = marketViewModel.transform(input)
         
-        
+        output.resultList
+            .debug("resultList")
+            .bind(to: marketView.collectionView.rx.items(
+                cellIdentifier: MarketCollectioinViewCell.identifier,
+                cellType: MarketCollectioinViewCell.self)) { index, item, cell in
+                    print(#function, index, item, cell)
+                    
+                    cell.configureData(item)
+                    
+                }
+                .disposed(by: disposeBag)
     }
-
 }

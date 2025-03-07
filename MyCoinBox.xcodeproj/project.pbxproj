@@ -43,6 +43,8 @@
 		EEF2BAA92D7AB89300ABEA79 /* 트렌딩데이터.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF2BAA52D7AB89300ABEA79 /* 트렌딩데이터.swift */; };
 		EEF2BAAB2D7AC26400ABEA79 /* MarketViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF2BAAA2D7AC26400ABEA79 /* MarketViewModel.swift */; };
 		EEF2BAB62D7AC4B300ABEA79 /* RxGesture in Frameworks */ = {isa = PBXBuildFile; productRef = EEF2BAB52D7AC4B300ABEA79 /* RxGesture */; };
+		EEF2BB0B2D7AD54F00ABEA79 /* MarketCollectioinViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF2BB0A2D7AD54F00ABEA79 /* MarketCollectioinViewCell.swift */; };
+		EEF2BB0D2D7ADBEC00ABEA79 /* Market.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF2BB0C2D7ADBDE00ABEA79 /* Market.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -76,6 +78,8 @@
 		EEF2BAA42D7AB89300ABEA79 /* 서치데이터.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "서치데이터.swift"; sourceTree = "<group>"; };
 		EEF2BAA52D7AB89300ABEA79 /* 트렌딩데이터.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "트렌딩데이터.swift"; sourceTree = "<group>"; };
 		EEF2BAAA2D7AC26400ABEA79 /* MarketViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketViewModel.swift; sourceTree = "<group>"; };
+		EEF2BB0A2D7AD54F00ABEA79 /* MarketCollectioinViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketCollectioinViewCell.swift; sourceTree = "<group>"; };
+		EEF2BB0C2D7ADBDE00ABEA79 /* Market.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Market.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,9 +162,10 @@
 			isa = PBXGroup;
 			children = (
 				EECAF5222D79C6F500950F89 /* CustomComponent */,
+				EEF2BB0C2D7ADBDE00ABEA79 /* Market.swift */,
 				EECAF4F92D79C3D600950F89 /* MarketView.swift */,
-				EECAF4FA2D79C3D600950F89 /* MarketViewController.swift */,
 				EEF2BAAA2D7AC26400ABEA79 /* MarketViewModel.swift */,
+				EECAF4FA2D79C3D600950F89 /* MarketViewController.swift */,
 			);
 			path = Market;
 			sourceTree = "<group>";
@@ -221,6 +226,7 @@
 		EECAF5222D79C6F500950F89 /* CustomComponent */ = {
 			isa = PBXGroup;
 			children = (
+				EEF2BB0A2D7AD54F00ABEA79 /* MarketCollectioinViewCell.swift */,
 				EECAF5202D79C5E600950F89 /* SortButtonView.swift */,
 			);
 			path = CustomComponent;
@@ -345,6 +351,7 @@
 				EECAF5162D79C3D600950F89 /* PortfolioView.swift in Sources */,
 				EECAF5172D79C3D600950F89 /* PortfolioViewController.swift in Sources */,
 				EECAF51D2D79C43300950F89 /* DBManager.swift in Sources */,
+				EEF2BB0D2D7ADBEC00ABEA79 /* Market.swift in Sources */,
 				EEF2BAA62D7AB89300ABEA79 /* 서치데이터.swift in Sources */,
 				EEF2BAA72D7AB89300ABEA79 /* 상세데이터.swift in Sources */,
 				EEF2BAA82D7AB89300ABEA79 /* 거래소데이터.swift in Sources */,
@@ -352,6 +359,7 @@
 				EECAF5182D79C3D600950F89 /* SearchView.swift in Sources */,
 				EECAF5192D79C3D600950F89 /* SearchViewController.swift in Sources */,
 				EECAF51A2D79C3D600950F89 /* TrendingView.swift in Sources */,
+				EEF2BB0B2D7AD54F00ABEA79 /* MarketCollectioinViewCell.swift in Sources */,
 				EECAF51B2D79C3D600950F89 /* TrendingViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
