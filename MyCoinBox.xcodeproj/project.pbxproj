@@ -17,7 +17,6 @@
 		EECAF4BD2D79A36900950F89 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = EECAF4BC2D79A36900950F89 /* Toast */; };
 		EECAF5082D79C3D600950F89 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EECAF4EB2D79C3D600950F89 /* Assets.xcassets */; };
 		EECAF5092D79C3D600950F89 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EECAF4ED2D79C3D600950F89 /* LaunchScreen.storyboard */; };
-		EECAF50B2D79C3D600950F89 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = EECAF4E92D79C3D600950F89 /* API.swift */; };
 		EECAF50C2D79C3D600950F89 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EECAF4EA2D79C3D600950F89 /* AppDelegate.swift */; };
 		EECAF50D2D79C3D600950F89 /* Resources.swift in Sources */ = {isa = PBXBuildFile; fileRef = EECAF4EE2D79C3D600950F89 /* Resources.swift */; };
 		EECAF50E2D79C3D600950F89 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EECAF4EF2D79C3D600950F89 /* SceneDelegate.swift */; };
@@ -37,6 +36,9 @@
 		EECAF51D2D79C43300950F89 /* DBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EECAF51C2D79C43300950F89 /* DBManager.swift */; };
 		EECAF51F2D79C43D00950F89 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EECAF51E2D79C43900950F89 /* NetworkManager.swift */; };
 		EECAF5212D79C5E600950F89 /* SortButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EECAF5202D79C5E600950F89 /* SortButtonView.swift */; };
+		EEDF53092D7B111C001F0A2C /* API_info.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDF53082D7B111C001F0A2C /* API_info.swift */; };
+		EEDF530B2D7B118A001F0A2C /* NetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDF530A2D7B118A001F0A2C /* NetworkRequest.swift */; };
+		EEDF53962D7B1450001F0A2C /* MarketData.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDF53952D7B1450001F0A2C /* MarketData.swift */; };
 		EEF2BAA62D7AB89300ABEA79 /* 서치데이터.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF2BAA42D7AB89300ABEA79 /* 서치데이터.swift */; };
 		EEF2BAA72D7AB89300ABEA79 /* 상세데이터.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF2BAA32D7AB89300ABEA79 /* 상세데이터.swift */; };
 		EEF2BAA82D7AB89300ABEA79 /* 거래소데이터.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF2BAA22D7AB89300ABEA79 /* 거래소데이터.swift */; };
@@ -50,7 +52,6 @@
 /* Begin PBXFileReference section */
 		EECAF3F62D797B0900950F89 /* MyCoinBox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyCoinBox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EECAF4A92D799AB500950F89 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
-		EECAF4E92D79C3D600950F89 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		EECAF4EA2D79C3D600950F89 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EECAF4EB2D79C3D600950F89 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EECAF4EC2D79C3D600950F89 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -73,6 +74,9 @@
 		EECAF51C2D79C43300950F89 /* DBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBManager.swift; sourceTree = "<group>"; };
 		EECAF51E2D79C43900950F89 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		EECAF5202D79C5E600950F89 /* SortButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortButtonView.swift; sourceTree = "<group>"; };
+		EEDF53082D7B111C001F0A2C /* API_info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API_info.swift; sourceTree = "<group>"; };
+		EEDF530A2D7B118A001F0A2C /* NetworkRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRequest.swift; sourceTree = "<group>"; };
+		EEDF53952D7B1450001F0A2C /* MarketData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketData.swift; sourceTree = "<group>"; };
 		EEF2BAA22D7AB89300ABEA79 /* 거래소데이터.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "거래소데이터.swift"; sourceTree = "<group>"; };
 		EEF2BAA32D7AB89300ABEA79 /* 상세데이터.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "상세데이터.swift"; sourceTree = "<group>"; };
 		EEF2BAA42D7AB89300ABEA79 /* 서치데이터.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "서치데이터.swift"; sourceTree = "<group>"; };
@@ -121,7 +125,6 @@
 		EECAF4F02D79C3D600950F89 /* App */ = {
 			isa = PBXGroup;
 			children = (
-				EECAF4E92D79C3D600950F89 /* API.swift */,
 				EECAF4EA2D79C3D600950F89 /* AppDelegate.swift */,
 				EECAF4EB2D79C3D600950F89 /* Assets.xcassets */,
 				EECAF4ED2D79C3D600950F89 /* LaunchScreen.storyboard */,
@@ -173,7 +176,10 @@
 		EECAF4FC2D79C3D600950F89 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				EEDF53942D7B1415001F0A2C /* Decodable */,
 				EECAF51E2D79C43900950F89 /* NetworkManager.swift */,
+				EEDF530A2D7B118A001F0A2C /* NetworkRequest.swift */,
+				EEDF53082D7B111C001F0A2C /* API_info.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -230,6 +236,14 @@
 				EECAF5202D79C5E600950F89 /* SortButtonView.swift */,
 			);
 			path = CustomComponent;
+			sourceTree = "<group>";
+		};
+		EEDF53942D7B1415001F0A2C /* Decodable */ = {
+			isa = PBXGroup;
+			children = (
+				EEDF53952D7B1450001F0A2C /* MarketData.swift */,
+			);
+			path = Decodable;
 			sourceTree = "<group>";
 		};
 		EEF2BAA12D7AB87100ABEA79 /* Test */ = {
@@ -336,18 +350,20 @@
 			files = (
 				EECAF51F2D79C43D00950F89 /* NetworkManager.swift in Sources */,
 				EEF2BAAB2D7AC26400ABEA79 /* MarketViewModel.swift in Sources */,
-				EECAF50B2D79C3D600950F89 /* API.swift in Sources */,
 				EECAF50C2D79C3D600950F89 /* AppDelegate.swift in Sources */,
 				EECAF50D2D79C3D600950F89 /* Resources.swift in Sources */,
 				EECAF5212D79C5E600950F89 /* SortButtonView.swift in Sources */,
 				EECAF50E2D79C3D600950F89 /* SceneDelegate.swift in Sources */,
 				EECAF50F2D79C3D600950F89 /* BaseView.swift in Sources */,
+				EEDF53962D7B1450001F0A2C /* MarketData.swift in Sources */,
 				EECAF5102D79C3D600950F89 /* BaseViewController.swift in Sources */,
 				EECAF5112D79C3D600950F89 /* BaseViewModel.swift in Sources */,
+				EEDF53092D7B111C001F0A2C /* API_info.swift in Sources */,
 				EECAF5122D79C3D600950F89 /* DetailView.swift in Sources */,
 				EECAF5132D79C3D600950F89 /* DetailViewController.swift in Sources */,
 				EECAF5142D79C3D600950F89 /* MarketView.swift in Sources */,
 				EECAF5152D79C3D600950F89 /* MarketViewController.swift in Sources */,
+				EEDF530B2D7B118A001F0A2C /* NetworkRequest.swift in Sources */,
 				EECAF5162D79C3D600950F89 /* PortfolioView.swift in Sources */,
 				EECAF5172D79C3D600950F89 /* PortfolioViewController.swift in Sources */,
 				EECAF51D2D79C43300950F89 /* DBManager.swift in Sources */,

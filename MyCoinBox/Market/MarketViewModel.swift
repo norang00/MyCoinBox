@@ -12,7 +12,8 @@ import RxGesture
 
 final class MarketViewModel: BaseViewModel {
     
-    var list = mockMarketData
+//    var list = mockMarketData
+    var list: [MarketData] = []
     
     let disposeBag = DisposeBag()
     
@@ -23,7 +24,7 @@ final class MarketViewModel: BaseViewModel {
     }
     
     struct Output {
-        let resultList: BehaviorRelay<[Market]>
+        let resultList: BehaviorRelay<[MarketData]>
     }
     
     func transform(_ input: Input) -> Output {
@@ -31,8 +32,13 @@ final class MarketViewModel: BaseViewModel {
         
         //[TODO] Observable.merge
         input.currentTap
-            .subscribe(with: self) { owner, value in
-                print(#function, "currentTap" ,value)
+            .debug("currentTap")
+            .withUnretained(self)
+            .flatMap { owner, _ in
+                owner.callRequestToNetworkManager()
+            }
+            .subscribe { value in
+                resultList.accept(value)
             }
             .disposed(by: disposeBag)
         
@@ -51,5 +57,20 @@ final class MarketViewModel: BaseViewModel {
         return Output(
             resultList: resultList
         )
+    }
+    
+    private func callRequestToNetworkManager() -> Single<[MarketData]> {
+        return Single<[MarketData]>.create { value in
+            let api = NetworkRequest.market
+            NetworkManager.shared.callRequestToAPIServer(api, [MarketData].self) { response in
+                switch response {
+                case .success(let data):
+                    value(.success(data))
+                case .failure(let error):
+                    value(.failure(error))
+                }
+            }
+            return Disposables.create()
+        }
     }
 }

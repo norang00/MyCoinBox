@@ -94,26 +94,39 @@ extension MarketCollectioinViewCell {
 
 extension MarketCollectioinViewCell {
     
-    func configureData(_ data: Market) {
+    func configureData(_ data: MarketData) {
         let sign: Bool = (data.change == "RISE")
 
-        coinLabel.text = data.market
+        coinLabel.text = convertCoinName(data.market)
 
         let currentFormatter = NumberFormatter()
         currentFormatter.maximumFractionDigits = 1
         currentFormatter.numberStyle = .decimal
-        currentLabel.text = currentFormatter.string(for: data.tradePrice) ?? ""
+        currentLabel.text = currentFormatter.string(for: data.trade_price) ?? ""
 
         let changeFormatter = NumberFormatter()
         changeFormatter.maximumFractionDigits = 2
         changeFormatter.numberStyle = .decimal
-        changeRateLabel.text = (changeFormatter.string(for: data.signedChangeRate) ?? "")+"%"
+        changeRateLabel.text = (changeFormatter.string(for: data.signed_change_rate) ?? "")+"%"
         changeRateLabel.textColor = sign ? .mainRed : .mainBlue
-        changePriceLabel.text = changeFormatter.string(for: data.signedChangePrice) ?? ""
+        changePriceLabel.text = changeFormatter.string(for: data.signed_change_price) ?? ""
         changePriceLabel.textColor = sign ? .mainRed : .mainBlue
         
+        priceLabel.text = convertPriceString(data.acc_trade_price_24h)
+    }
+    
+    private func convertCoinName(_ input: String) -> String {
+        let pattern = #"([A-Z]+)-([A-Z]+)"#
+        let regex = try! NSRegularExpression(pattern: pattern)
+        let transformed = regex.stringByReplacingMatches(
+            in: input, options: [],
+            range: NSRange(location: 0, length: input.utf16.count),
+            withTemplate: "$2/$1")
+        return transformed
+    }
+    
+    private func convertPriceString(_ price: Double) -> String {
         var result: String
-        let price = data.accTradePrice24h
         if price >= 1000000 {
             let formatted = round(price).formatted()
             let range = formatted.index(formatted.endIndex, offsetBy: -8)..<formatted.endIndex
@@ -121,6 +134,7 @@ extension MarketCollectioinViewCell {
         } else {
             result = price.formatted()
         }
-        priceLabel.text = result
+        return result
     }
+
 }
