@@ -7,26 +7,22 @@
 
 import UIKit
 
+enum SortStatus {
+    case deselect
+    case ascending
+    case descending
+}
+
 final class SortButtonView: UIView {
     
-    enum status {
-        case notSelected
-        case ascending
-        case descending
-    }
-
     private let label = UILabel()
     private let upTriangle = UIImageView()
     private let downTriangle = UIImageView()
-        
-    override init(frame: CGRect) {
+    
+    init(frame: CGRect, title: String) {
+        label.text = title
         super.init(frame: frame)
-        
-        configureHierarchy()
-        configureLayout()
-        configureView()
-        
-        configureTapGesture()
+        setupView()
     }
     
     @available(*, unavailable)
@@ -34,13 +30,52 @@ final class SortButtonView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configureHierarchy() {
+    // Status 관리    
+    var status: SortStatus = SortStatus.deselect {
+        didSet {
+            switch status {
+            case .deselect:
+                upTriangle.tintColor = .deselect
+                downTriangle.tintColor = .deselect
+            case .ascending:
+                upTriangle.tintColor = .accent
+                downTriangle.tintColor = .deselect
+            case .descending: //default
+                upTriangle.tintColor = .deselect
+                downTriangle.tintColor = .accent
+            }
+        }
+    }
+    
+    func updateStatus() {
+        switch status {
+        case .deselect:
+            status = .ascending
+        case .ascending:
+            status = .descending
+        case .descending:
+            status = .deselect
+        }
+    }
+    
+}
+
+// MARK: - Setup View
+extension SortButtonView {
+    
+    private func setupView() {
+        configureHierarchy()
+        configureLayout()
+        configureView()
+    }
+    
+    private func configureHierarchy() {
         addSubview(label)
         addSubview(upTriangle)
         addSubview(downTriangle)
     }
     
-    func configureLayout() {
+    private func configureLayout() {
         label.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.height.equalTo(12)
@@ -60,36 +95,18 @@ final class SortButtonView: UIView {
         }
     }
 
-    func configureView() {
+    private func configureView() {
         isUserInteractionEnabled = true
         
-        label.text = "현재가"
         label.textColor = .mainText
         label.font = .boldSystemFont(ofSize: 12)
         
-        upTriangle.tintColor = .disabled
+        upTriangle.tintColor = .deselect
         upTriangle.contentMode = .scaleAspectFit
         upTriangle.image = UIImage(systemName: Resources.SystemImage.arrowUp.rawValue)
         
-        downTriangle.tintColor = .disabled
+        downTriangle.tintColor = .deselect
         downTriangle.contentMode = .scaleAspectFit
         downTriangle.image = UIImage(systemName: Resources.SystemImage.arrowDown.rawValue)
-    }
-    
-}
-
-// MARK: - Button Tapped
-extension SortButtonView {
-    
-    private func configureTapGesture() {
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(buttonTapped))
-        addGestureRecognizer(tapGesture)
-    }
-    
-    @objc
-    func buttonTapped(_ sender: UIView) {
-        print(#function)
-        
-        upTriangle.tintColor = .accent
     }
 }
