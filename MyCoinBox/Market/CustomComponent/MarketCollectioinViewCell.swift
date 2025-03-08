@@ -99,20 +99,18 @@ extension MarketCollectioinViewCell {
 
         coinLabel.text = convertCoinName(data.market)
 
-        let currentFormatter = NumberFormatter()
-        currentFormatter.maximumFractionDigits = 1
-        currentFormatter.numberStyle = .decimal
-        currentLabel.text = currentFormatter.string(for: data.trade_price) ?? ""
-
-        let changeFormatter = NumberFormatter()
-        changeFormatter.maximumFractionDigits = 2
-        changeFormatter.numberStyle = .decimal
-        changeRateLabel.text = (changeFormatter.string(for: data.signed_change_rate) ?? "")+"%"
+        let currentText = NumberFormatter.formatter.string(for: data.tradePrice) ?? ""
+        currentLabel.text = currentText
+        
+        let changeRateText = NumberFormatter.formatter.string(for: data.signedChangeRate) ?? ""
+        changeRateLabel.text = changeRateText+"%"
         changeRateLabel.textColor = sign ? .mainRed : .mainBlue
-        changePriceLabel.text = changeFormatter.string(for: data.signed_change_price) ?? ""
+
+        let changePriceText = NumberFormatter.formatter.string(for: data.signedChangePrice) ?? ""
+        changePriceLabel.text = changePriceText
         changePriceLabel.textColor = sign ? .mainRed : .mainBlue
         
-        priceLabel.text = convertPriceString(data.acc_trade_price_24h)
+        priceLabel.text = convertPriceString(data.accTradePrice24h)
     }
     
     private func convertCoinName(_ input: String) -> String {

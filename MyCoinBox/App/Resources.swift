@@ -10,10 +10,6 @@ import Foundation
 enum Resources {
     
     enum Writing: String {
-        case current = "현재가"
-        case change = "전일대비"
-        case price = "거래대금"
-        
         case placeholder = "검색어를 입력해주세요."
         case trendingKeyword = "인기 검색어"
         case trendingNFT = "인기 NFT"

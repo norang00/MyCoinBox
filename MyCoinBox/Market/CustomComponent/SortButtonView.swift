@@ -13,6 +13,20 @@ enum SortStatus {
     case descending
 }
 
+enum SortValue {
+    case current
+    case change
+    case price
+    
+    var title: String {
+        switch self {
+        case .current: "현재가"
+        case .change: "전일대비"
+        case .price: "거래대금"
+        }
+    }
+}
+
 final class SortButtonView: UIView {
     
     private let label = UILabel()
@@ -22,8 +36,8 @@ final class SortButtonView: UIView {
     private let upTriangle = UIImageView()
     private let downTriangle = UIImageView()
     
-    init(frame: CGRect, title: String) {
-        label.text = title
+    init(frame: CGRect, sort: SortValue) {
+        label.text = sort.title
         super.init(frame: frame)
         setupView()
     }
@@ -32,6 +46,8 @@ final class SortButtonView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    var value: SortValue?
     
     // Status 관리    
     var status: SortStatus = SortStatus.deselect {

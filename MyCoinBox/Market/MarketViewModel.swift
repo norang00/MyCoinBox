@@ -12,10 +12,15 @@ import RxGesture
 
 final class MarketViewModel: BaseViewModel {
     
-//    var list = mockMarketData
-    var list: [MarketData] = []
-    var sort: SortStatus?
-    
+    var list: [MarketData] = [] {
+        didSet {
+            resultList.accept(list)
+        }
+    }
+    var sortWith: SortValue = .price
+    var sortBy: SortStatus = .descending
+    let resultList: BehaviorRelay<[MarketData]> = BehaviorRelay(value: [])
+
     let disposeBag = DisposeBag()
     
     struct Input {
@@ -25,93 +30,86 @@ final class MarketViewModel: BaseViewModel {
     }
     
     struct Output {
-        let resultList: BehaviorRelay<[MarketData]>
+        let resultList: Driver<[MarketData]>
     }
-    
+
     func transform(_ input: Input) -> Output {
-        let resultList = BehaviorRelay(value: list)
+        fetchMarketData()
+        Timer.scheduledTimer(timeInterval: 5, target: self,
+                             selector: #selector(fetchMarketData), userInfo: nil, repeats: true)
         
-        //[TODO] Observable.merge
-        input.currentTap
-            .debug("currentTap")
-            .withUnretained(self)
-            .flatMap { owner, value in
-                owner.sort = value
-                return owner.callRequestToNetworkManager()
-            }
-            .subscribe { value in
-                var sorted: [MarketData] = []
-                switch self.sort {
-                case .deselect, .descending:
-                    sorted = value.sorted { $1.trade_price < $0.trade_price }
-                case .ascending:
-                    sorted = value.sorted { $0.trade_price < $1.trade_price }
-                case .none:
-                    sorted = []
-                }
-                resultList.accept(sorted)
-            }
-            .disposed(by: disposeBag)
+        let buttons = [
+            input.currentTap.map { sortStatus in (SortValue.current, sortStatus) },
+            input.changeTap.map { sortStatus in (SortValue.change, sortStatus) },
+            input.priceTap.map { sortStatus in (SortValue.price, sortStatus) }
+        ]
         
-        input.changeTap
-            .debug("changeTap")
+        Observable.merge(buttons)
             .withUnretained(self)
-            .flatMap { owner, value in
-                owner.sort = value
-                return owner.callRequestToNetworkManager()
+            .do { owner, value in
+                owner.sortWith = value.0
+                owner.sortBy = value.1
+                owner.sortList(owner.list)
             }
-            .subscribe { value in
-                var sorted: [MarketData] = []
-                switch self.sort {
-                case .deselect, .descending:
-                    sorted = value.sorted { $1.signed_change_rate < $0.signed_change_rate }
-                case .ascending:
-                    sorted = value.sorted { $0.signed_change_rate < $1.signed_change_rate }
-                case .none:
-                    sorted = []
-                }
-                resultList.accept(sorted)
-            }
-            .disposed(by: disposeBag)
-        
-        input.priceTap
-            .debug("priceTap")
-            .withUnretained(self)
-            .flatMap { owner, value in
-                owner.sort = value
-                return owner.callRequestToNetworkManager()
-            }
-            .subscribe { value in
-                var sorted: [MarketData] = []
-                switch self.sort {
-                case .deselect, .descending:
-                    sorted = value.sorted { $1.acc_trade_price_24h < $0.acc_trade_price_24h }
-                case .ascending:
-                    sorted = value.sorted { $0.acc_trade_price_24h < $1.acc_trade_price_24h }
-                case .none:
-                    sorted = []
-                }
-                resultList.accept(sorted)
-            }
+            .subscribe()
             .disposed(by: disposeBag)
         
         return Output(
-            resultList: resultList
+            resultList: resultList.asDriver()
         )
     }
     
-    private func callRequestToNetworkManager() -> Single<[MarketData]> {
-        return Single<[MarketData]>.create { value in
-            let api = NetworkRequest.market
-            NetworkManager.shared.callRequestToAPIServer(api, [MarketData].self) { response in
-                switch response {
-                case .success(let data):
-                    value(.success(data))
-                case .failure(let error):
-                    value(.failure(error))
-                }
+    @objc
+    private func fetchMarketData() {
+        print(#function, sortWith, sortBy)
+        // [TODO] 인터넷 연결 상태 점검 checkNetworkConnection()
+        callRequestToNetworkManager()
+    }
+    
+    private func callRequestToNetworkManager() {
+        let api = NetworkRequest.market
+        NetworkManager.shared.callRequestToAPIServer(api, [MarketData].self) { [weak self] response in
+            switch response {
+            case .success(let data):
+                self?.sortList(data)
+            case .failure(let error):
+                print(error)
             }
-            return Disposables.create()
         }
+    }
+    
+    private func sortList(_ data: [MarketData]) {
+        var sorted: [MarketData] = []
+        // [TODO] 코드 정리
+        switch sortWith {
+        case .current:
+            switch sortBy {
+            case .deselect:
+                sortWith = .price
+                sorted = data.sorted { $1.accTradePrice24h < $0.accTradePrice24h }
+            case .descending:
+                sorted = data.sorted { $1.tradePrice < $0.tradePrice }
+            case .ascending:
+                sorted = data.sorted { $0.tradePrice < $1.tradePrice }
+            }
+        case .change:
+            switch sortBy {
+            case .deselect:
+                sortWith = .price
+                sorted = data.sorted { $1.accTradePrice24h < $0.accTradePrice24h }
+            case .descending:
+                sorted = data.sorted { $1.signedChangeRate < $0.signedChangeRate }
+            case .ascending:
+                sorted = data.sorted { $0.signedChangeRate < $1.signedChangeRate }
+            }
+        case .price:
+            switch sortBy {
+            case .deselect, .descending:
+                sorted = data.sorted { $1.accTradePrice24h < $0.accTradePrice24h }
+            case .ascending:
+                sorted = data.sorted { $0.accTradePrice24h < $1.accTradePrice24h }
+            }
+        }
+        list = sorted
     }
 }

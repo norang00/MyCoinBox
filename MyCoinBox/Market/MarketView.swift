@@ -16,9 +16,9 @@ final class MarketView: BaseView {
 
     private let headerView = UIStackView()
     private let coinLabel = UILabel()
-    let currentButtonView = SortButtonView(frame: .zero, title: Resources.Writing.current.rawValue)
-    let changeButtonView = SortButtonView(frame: .zero, title: Resources.Writing.change.rawValue)
-    let priceButtonView = SortButtonView(frame: .zero, title: Resources.Writing.price.rawValue)
+    let currentButtonView = SortButtonView(frame: .zero, sort: SortValue.current)
+    let changeButtonView = SortButtonView(frame: .zero, sort: SortValue.change)
+    let priceButtonView = SortButtonView(frame: .zero, sort: SortValue.price)
         
     lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
     

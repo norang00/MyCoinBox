@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EE1C7CB12D7C128800251E38 /* DateFormatter+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1C7CB02D7C128200251E38 /* DateFormatter+Extension.swift */; };
+		EE1C7CB32D7C12A800251E38 /* NumberFormatter+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1C7CB22D7C12A800251E38 /* NumberFormatter+Extension.swift */; };
 		EECAF4102D797F0D00950F89 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = EECAF40F2D797F0D00950F89 /* RealmSwift */; };
 		EECAF4132D797F2600950F89 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = EECAF4122D797F2600950F89 /* RxCocoa */; };
 		EECAF4152D797F2600950F89 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = EECAF4142D797F2600950F89 /* RxSwift */; };
@@ -46,10 +48,11 @@
 		EEF2BAAB2D7AC26400ABEA79 /* MarketViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF2BAAA2D7AC26400ABEA79 /* MarketViewModel.swift */; };
 		EEF2BAB62D7AC4B300ABEA79 /* RxGesture in Frameworks */ = {isa = PBXBuildFile; productRef = EEF2BAB52D7AC4B300ABEA79 /* RxGesture */; };
 		EEF2BB0B2D7AD54F00ABEA79 /* MarketCollectioinViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF2BB0A2D7AD54F00ABEA79 /* MarketCollectioinViewCell.swift */; };
-		EEF2BB0D2D7ADBEC00ABEA79 /* Market.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF2BB0C2D7ADBDE00ABEA79 /* Market.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		EE1C7CB02D7C128200251E38 /* DateFormatter+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Extension.swift"; sourceTree = "<group>"; };
+		EE1C7CB22D7C12A800251E38 /* NumberFormatter+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NumberFormatter+Extension.swift"; sourceTree = "<group>"; };
 		EECAF3F62D797B0900950F89 /* MyCoinBox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyCoinBox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EECAF4A92D799AB500950F89 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		EECAF4EA2D79C3D600950F89 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -83,7 +86,6 @@
 		EEF2BAA52D7AB89300ABEA79 /* 트렌딩데이터.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "트렌딩데이터.swift"; sourceTree = "<group>"; };
 		EEF2BAAA2D7AC26400ABEA79 /* MarketViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketViewModel.swift; sourceTree = "<group>"; };
 		EEF2BB0A2D7AD54F00ABEA79 /* MarketCollectioinViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketCollectioinViewCell.swift; sourceTree = "<group>"; };
-		EEF2BB0C2D7ADBDE00ABEA79 /* Market.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Market.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +107,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		EE1C7CAD2D7C125700251E38 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				EE1C7CB02D7C128200251E38 /* DateFormatter+Extension.swift */,
+				EE1C7CB22D7C12A800251E38 /* NumberFormatter+Extension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		EECAF3ED2D797B0900950F89 = {
 			isa = PBXGroup;
 			children = (
@@ -165,7 +176,6 @@
 			isa = PBXGroup;
 			children = (
 				EECAF5222D79C6F500950F89 /* CustomComponent */,
-				EEF2BB0C2D7ADBDE00ABEA79 /* Market.swift */,
 				EECAF4F92D79C3D600950F89 /* MarketView.swift */,
 				EEF2BAAA2D7AC26400ABEA79 /* MarketViewModel.swift */,
 				EECAF4FA2D79C3D600950F89 /* MarketViewController.swift */,
@@ -214,6 +224,7 @@
 		EECAF5072D79C3D600950F89 /* MyCoinBox */ = {
 			isa = PBXGroup;
 			children = (
+				EECAF5062D79C3D600950F89 /* Info.plist */,
 				EECAF4F02D79C3D600950F89 /* App */,
 				EECAF4F42D79C3D600950F89 /* Base */,
 				EECAF4FB2D79C3D600950F89 /* Market */,
@@ -224,7 +235,7 @@
 				EECAF4F52D79C3D600950F89 /* Database */,
 				EECAF4FC2D79C3D600950F89 /* Network */,
 				EEF2BAA12D7AB87100ABEA79 /* Test */,
-				EECAF5062D79C3D600950F89 /* Info.plist */,
+				EE1C7CAD2D7C125700251E38 /* Extension */,
 			);
 			path = MyCoinBox;
 			sourceTree = "<group>";
@@ -356,6 +367,7 @@
 				EECAF50E2D79C3D600950F89 /* SceneDelegate.swift in Sources */,
 				EECAF50F2D79C3D600950F89 /* BaseView.swift in Sources */,
 				EEDF53962D7B1450001F0A2C /* MarketData.swift in Sources */,
+				EE1C7CB12D7C128800251E38 /* DateFormatter+Extension.swift in Sources */,
 				EECAF5102D79C3D600950F89 /* BaseViewController.swift in Sources */,
 				EECAF5112D79C3D600950F89 /* BaseViewModel.swift in Sources */,
 				EEDF53092D7B111C001F0A2C /* API_info.swift in Sources */,
@@ -367,10 +379,10 @@
 				EECAF5162D79C3D600950F89 /* PortfolioView.swift in Sources */,
 				EECAF5172D79C3D600950F89 /* PortfolioViewController.swift in Sources */,
 				EECAF51D2D79C43300950F89 /* DBManager.swift in Sources */,
-				EEF2BB0D2D7ADBEC00ABEA79 /* Market.swift in Sources */,
 				EEF2BAA62D7AB89300ABEA79 /* 서치데이터.swift in Sources */,
 				EEF2BAA72D7AB89300ABEA79 /* 상세데이터.swift in Sources */,
 				EEF2BAA82D7AB89300ABEA79 /* 거래소데이터.swift in Sources */,
+				EE1C7CB32D7C12A800251E38 /* NumberFormatter+Extension.swift in Sources */,
 				EEF2BAA92D7AB89300ABEA79 /* 트렌딩데이터.swift in Sources */,
 				EECAF5182D79C3D600950F89 /* SearchView.swift in Sources */,
 				EECAF5192D79C3D600950F89 /* SearchViewController.swift in Sources */,

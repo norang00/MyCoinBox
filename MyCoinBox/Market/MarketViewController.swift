@@ -33,7 +33,7 @@ final class MarketViewController: BaseViewController {
     
     private func bind() {
         let input = MarketViewModel.Input(
-            // [TODO] 가능하면 정리...제발
+            // [TODO] 코드 정리
             currentTap: marketView.currentButtonView.rx.tapGesture()
                 .when(.recognized)
                 .do(onNext: {_ in
@@ -41,7 +41,9 @@ final class MarketViewController: BaseViewController {
                     self.marketView.changeButtonView.setDefault()
                     self.marketView.priceButtonView.setDefault()
                 })
-                .map { [weak self] _ in self?.marketView.currentButtonView.status }
+                .map { [weak self] _ in
+                    self?.marketView.currentButtonView.status
+                }
                 .compactMap { $0 },
             changeTap: marketView.changeButtonView.rx.tapGesture()
                 .when(.recognized)
@@ -64,14 +66,10 @@ final class MarketViewController: BaseViewController {
         let output = marketViewModel.transform(input)
         
         output.resultList
-            .debug("resultList")
-            .bind(to: marketView.collectionView.rx.items(
+            .drive(marketView.collectionView.rx.items(
                 cellIdentifier: MarketCollectioinViewCell.identifier,
                 cellType: MarketCollectioinViewCell.self)) { index, item, cell in
-                    print(#function, index, item, cell)
-                    
                     cell.configureData(item)
-                    
                 }
                 .disposed(by: disposeBag)
     }
