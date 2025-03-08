@@ -12,10 +12,10 @@ import RxGesture
 
 final class MarketViewController: BaseViewController {
     
-    let marketView = MarketView()
-    let marketViewModel = MarketViewModel()
+    private let marketView = MarketView()
+    private let marketViewModel = MarketViewModel()
     
-    let disposeBag = DisposeBag()
+    private let disposeBag = DisposeBag()
     
     override func loadView() {
         view = marketView
@@ -29,6 +29,16 @@ final class MarketViewController: BaseViewController {
         marketView.collectionView.register(MarketCollectioinViewCell.self, forCellWithReuseIdentifier: MarketCollectioinViewCell.identifier)
         
         bind()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        marketViewModel.startTimer()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        marketViewModel.stopTimer()
     }
     
     private func bind() {

@@ -32,7 +32,6 @@ final class MarketView: BaseView {
     override func configureHierarchy() {
         addSubview(navigationBar)
         navigationBar.addSubview(navigationTitle)
-
         addSubview(borderView)
 
         addSubview(headerView)

@@ -8,9 +8,10 @@
 import Foundation
 import RxSwift
 import RxCocoa
-import RxGesture
 
 final class MarketViewModel: BaseViewModel {
+    
+    var timer = Timer()
     
     var list: [MarketData] = [] {
         didSet {
@@ -34,10 +35,6 @@ final class MarketViewModel: BaseViewModel {
     }
 
     func transform(_ input: Input) -> Output {
-        fetchMarketData()
-        Timer.scheduledTimer(timeInterval: 5, target: self,
-                             selector: #selector(fetchMarketData), userInfo: nil, repeats: true)
-        
         let buttons = [
             input.currentTap.map { sortStatus in (SortValue.current, sortStatus) },
             input.changeTap.map { sortStatus in (SortValue.change, sortStatus) },
@@ -57,6 +54,16 @@ final class MarketViewModel: BaseViewModel {
         return Output(
             resultList: resultList.asDriver()
         )
+    }
+    
+    func startTimer() {
+        fetchMarketData()
+        timer = Timer.scheduledTimer(timeInterval: 5, target: self,
+                             selector: #selector(fetchMarketData), userInfo: nil, repeats: true)
+    }
+    
+    func stopTimer() {
+        timer.invalidate()
     }
     
     @objc

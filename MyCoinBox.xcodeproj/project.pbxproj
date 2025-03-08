@@ -9,6 +9,12 @@
 /* Begin PBXBuildFile section */
 		EE1C7CB12D7C128800251E38 /* DateFormatter+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1C7CB02D7C128200251E38 /* DateFormatter+Extension.swift */; };
 		EE1C7CB32D7C12A800251E38 /* NumberFormatter+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1C7CB22D7C12A800251E38 /* NumberFormatter+Extension.swift */; };
+		EE1C7CBF2D7C1EAD00251E38 /* TrendingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1C7CBE2D7C1EA800251E38 /* TrendingViewModel.swift */; };
+		EE1C7CC22D7C283000251E38 /* TrendingData.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1C7CC12D7C283000251E38 /* TrendingData.swift */; };
+		EE1C7CC52D7C2C5200251E38 /* RxDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = EE1C7CC42D7C2C5200251E38 /* RxDataSources */; };
+		EE1C7CC72D7C327E00251E38 /* TrendingCoinCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1C7CC62D7C327E00251E38 /* TrendingCoinCell.swift */; };
+		EE1C7CC92D7C328D00251E38 /* TrendingNFTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1C7CC82D7C328D00251E38 /* TrendingNFTCell.swift */; };
+		EE1C7CCB2D7C32A600251E38 /* TrendingHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1C7CCA2D7C32A600251E38 /* TrendingHeaderCell.swift */; };
 		EECAF4102D797F0D00950F89 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = EECAF40F2D797F0D00950F89 /* RealmSwift */; };
 		EECAF4132D797F2600950F89 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = EECAF4122D797F2600950F89 /* RxCocoa */; };
 		EECAF4152D797F2600950F89 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = EECAF4142D797F2600950F89 /* RxSwift */; };
@@ -53,6 +59,11 @@
 /* Begin PBXFileReference section */
 		EE1C7CB02D7C128200251E38 /* DateFormatter+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Extension.swift"; sourceTree = "<group>"; };
 		EE1C7CB22D7C12A800251E38 /* NumberFormatter+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NumberFormatter+Extension.swift"; sourceTree = "<group>"; };
+		EE1C7CBE2D7C1EA800251E38 /* TrendingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingViewModel.swift; sourceTree = "<group>"; };
+		EE1C7CC12D7C283000251E38 /* TrendingData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingData.swift; sourceTree = "<group>"; };
+		EE1C7CC62D7C327E00251E38 /* TrendingCoinCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingCoinCell.swift; sourceTree = "<group>"; };
+		EE1C7CC82D7C328D00251E38 /* TrendingNFTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingNFTCell.swift; sourceTree = "<group>"; };
+		EE1C7CCA2D7C32A600251E38 /* TrendingHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingHeaderCell.swift; sourceTree = "<group>"; };
 		EECAF3F62D797B0900950F89 /* MyCoinBox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyCoinBox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EECAF4A92D799AB500950F89 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		EECAF4EA2D79C3D600950F89 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -99,6 +110,7 @@
 				EECAF4132D797F2600950F89 /* RxCocoa in Frameworks */,
 				EECAF41E2D797F6300950F89 /* Alamofire in Frameworks */,
 				EECAF4102D797F0D00950F89 /* RealmSwift in Frameworks */,
+				EE1C7CC52D7C2C5200251E38 /* RxDataSources in Frameworks */,
 				EECAF4BD2D79A36900950F89 /* Toast in Frameworks */,
 				EECAF41B2D797F4D00950F89 /* Kingfisher in Frameworks */,
 			);
@@ -114,6 +126,16 @@
 				EE1C7CB22D7C12A800251E38 /* NumberFormatter+Extension.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		EE1C7CC02D7C1EC800251E38 /* CustomComponent */ = {
+			isa = PBXGroup;
+			children = (
+				EE1C7CC62D7C327E00251E38 /* TrendingCoinCell.swift */,
+				EE1C7CC82D7C328D00251E38 /* TrendingNFTCell.swift */,
+				EE1C7CCA2D7C32A600251E38 /* TrendingHeaderCell.swift */,
+			);
+			path = CustomComponent;
 			sourceTree = "<group>";
 		};
 		EECAF3ED2D797B0900950F89 = {
@@ -215,7 +237,9 @@
 		EECAF5052D79C3D600950F89 /* Trending */ = {
 			isa = PBXGroup;
 			children = (
+				EE1C7CC02D7C1EC800251E38 /* CustomComponent */,
 				EECAF5032D79C3D600950F89 /* TrendingView.swift */,
+				EE1C7CBE2D7C1EA800251E38 /* TrendingViewModel.swift */,
 				EECAF5042D79C3D600950F89 /* TrendingViewController.swift */,
 			);
 			path = Trending;
@@ -232,10 +256,10 @@
 				EECAF5022D79C3D600950F89 /* Search */,
 				EECAF4F82D79C3D600950F89 /* Detail */,
 				EECAF4FF2D79C3D600950F89 /* Portfolio */,
-				EECAF4F52D79C3D600950F89 /* Database */,
 				EECAF4FC2D79C3D600950F89 /* Network */,
-				EEF2BAA12D7AB87100ABEA79 /* Test */,
+				EECAF4F52D79C3D600950F89 /* Database */,
 				EE1C7CAD2D7C125700251E38 /* Extension */,
+				EEF2BAA12D7AB87100ABEA79 /* Test */,
 			);
 			path = MyCoinBox;
 			sourceTree = "<group>";
@@ -253,6 +277,7 @@
 			isa = PBXGroup;
 			children = (
 				EEDF53952D7B1450001F0A2C /* MarketData.swift */,
+				EE1C7CC12D7C283000251E38 /* TrendingData.swift */,
 			);
 			path = Decodable;
 			sourceTree = "<group>";
@@ -293,6 +318,7 @@
 				EECAF41D2D797F6300950F89 /* Alamofire */,
 				EECAF4BC2D79A36900950F89 /* Toast */,
 				EEF2BAB52D7AC4B300ABEA79 /* RxGesture */,
+				EE1C7CC42D7C2C5200251E38 /* RxDataSources */,
 			);
 			productName = MyCoinBox;
 			productReference = EECAF3F62D797B0900950F89 /* MyCoinBox.app */;
@@ -330,6 +356,7 @@
 				EECAF41C2D797F6300950F89 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				EECAF4BB2D79A36900950F89 /* XCRemoteSwiftPackageReference "Toast-Swift" */,
 				EEF2BAB42D7AC4B300ABEA79 /* XCRemoteSwiftPackageReference "RxGesture" */,
+				EE1C7CC32D7C2C5200251E38 /* XCRemoteSwiftPackageReference "RxDataSources" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = EECAF3F72D797B0900950F89 /* Products */;
@@ -361,7 +388,9 @@
 			files = (
 				EECAF51F2D79C43D00950F89 /* NetworkManager.swift in Sources */,
 				EEF2BAAB2D7AC26400ABEA79 /* MarketViewModel.swift in Sources */,
+				EE1C7CC22D7C283000251E38 /* TrendingData.swift in Sources */,
 				EECAF50C2D79C3D600950F89 /* AppDelegate.swift in Sources */,
+				EE1C7CC92D7C328D00251E38 /* TrendingNFTCell.swift in Sources */,
 				EECAF50D2D79C3D600950F89 /* Resources.swift in Sources */,
 				EECAF5212D79C5E600950F89 /* SortButtonView.swift in Sources */,
 				EECAF50E2D79C3D600950F89 /* SceneDelegate.swift in Sources */,
@@ -374,6 +403,7 @@
 				EECAF5122D79C3D600950F89 /* DetailView.swift in Sources */,
 				EECAF5132D79C3D600950F89 /* DetailViewController.swift in Sources */,
 				EECAF5142D79C3D600950F89 /* MarketView.swift in Sources */,
+				EE1C7CBF2D7C1EAD00251E38 /* TrendingViewModel.swift in Sources */,
 				EECAF5152D79C3D600950F89 /* MarketViewController.swift in Sources */,
 				EEDF530B2D7B118A001F0A2C /* NetworkRequest.swift in Sources */,
 				EECAF5162D79C3D600950F89 /* PortfolioView.swift in Sources */,
@@ -384,6 +414,8 @@
 				EEF2BAA82D7AB89300ABEA79 /* 거래소데이터.swift in Sources */,
 				EE1C7CB32D7C12A800251E38 /* NumberFormatter+Extension.swift in Sources */,
 				EEF2BAA92D7AB89300ABEA79 /* 트렌딩데이터.swift in Sources */,
+				EE1C7CC72D7C327E00251E38 /* TrendingCoinCell.swift in Sources */,
+				EE1C7CCB2D7C32A600251E38 /* TrendingHeaderCell.swift in Sources */,
 				EECAF5182D79C3D600950F89 /* SearchView.swift in Sources */,
 				EECAF5192D79C3D600950F89 /* SearchViewController.swift in Sources */,
 				EECAF51A2D79C3D600950F89 /* TrendingView.swift in Sources */,
@@ -615,6 +647,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		EE1C7CC32D7C2C5200251E38 /* XCRemoteSwiftPackageReference "RxDataSources" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RxSwiftCommunity/RxDataSources.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.2;
+			};
+		};
 		EECAF40E2D797F0D00950F89 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/realm/realm-swift.git";
@@ -674,6 +714,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		EE1C7CC42D7C2C5200251E38 /* RxDataSources */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EE1C7CC32D7C2C5200251E38 /* XCRemoteSwiftPackageReference "RxDataSources" */;
+			productName = RxDataSources;
+		};
 		EECAF40F2D797F0D00950F89 /* RealmSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = EECAF40E2D797F0D00950F89 /* XCRemoteSwiftPackageReference "realm-swift" */;
