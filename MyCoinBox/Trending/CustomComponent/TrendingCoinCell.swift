@@ -53,23 +53,29 @@ extension TrendingCoinCell {
     }
     
     private func configureLayout() {
+        contentView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
         scoreLabel.snp.makeConstraints { make in
             make.centerY.equalTo(contentView)
             make.leading.equalTo(contentView)
-            make.size.equalTo(12)
+            make.size.equalTo(14)
         }
+
         iconImageView.snp.makeConstraints { make in
             make.centerY.equalTo(contentView)
-            make.leading.equalTo(scoreLabel.snp.trailing).offset(4)
+            make.leading.equalTo(scoreLabel.snp.trailing).offset(8)
             make.size.equalTo(26)
         }
         stackView.snp.makeConstraints { make in
             make.centerY.equalTo(contentView)
             make.leading.equalTo(iconImageView.snp.trailing).offset(4)
+            make.width.greaterThanOrEqualTo(50)
         }
         changeLabel.snp.makeConstraints { make in
             make.centerY.equalTo(contentView)
-            make.leading.greaterThanOrEqualTo(stackView.snp.trailing).offset(8)
+            make.leading.equalTo(stackView.snp.trailing).offset(16)
             make.trailing.equalTo(contentView)
         }
     }
@@ -82,7 +88,8 @@ extension TrendingCoinCell {
         iconImageView.clipsToBounds = true
         
         stackView.axis = .vertical
-        stackView.distribution = .fillEqually
+        stackView.distribution = .fill
+        stackView.spacing = 2
         
         symbolLabel.textColor = .mainText
         symbolLabel.font = .systemFont(ofSize: 12, weight: .bold)
@@ -99,6 +106,8 @@ extension TrendingCoinCell {
     
     func configureData(_ data: TrendingCoinItem) {
         scoreLabel.text = "\(data.score+1)"
+        scoreLabel.textAlignment = .center
+        
         iconImageView.kf.setImage(with: URL(string:data.thumb)!)
         symbolLabel.text = data.symbol
         nameLabel.text = data.name
@@ -114,5 +123,6 @@ extension TrendingCoinCell {
         } else {
             changeLabel.text = "\(changeData)%"
         }
+        changeLabel.textAlignment = .right
     }
 }

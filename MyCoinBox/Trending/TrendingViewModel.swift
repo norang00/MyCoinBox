@@ -13,34 +13,35 @@ final class TrendingViewModel: BaseViewModel {
     
     var timer = Timer()
     
-    //    let resultData: BehaviorRelay<TrendingData> = BehaviorRelay(value: mockTrendingData)
-    
-    let resultData: BehaviorRelay<[TrendingSectionModel]> = BehaviorRelay(value: [])
-    
+    let coinData: BehaviorRelay<[TrendingCoin]> = BehaviorRelay(value: [])
+    let nftData: BehaviorRelay<[TrendingNFT]> = BehaviorRelay(value: [])
+
     let disposeBag = DisposeBag()
     
     struct Input {
     }
     
     struct Output {
-        let resultData: BehaviorRelay<[TrendingSectionModel]>
+        let coinData: Driver<[TrendingCoin]>
+        let nftData: Driver<[TrendingNFT]>
     }
     
     func transform(_ input: Input) -> Output {
+//        startTimer()
+        
+        coinData.accept(mockCoinItem)
+        nftData.accept(mockNFTItem)
         
         return Output(
-            resultData: resultData
+            coinData: coinData.asDriver(),
+            nftData: nftData.asDriver()
         )
     }
     
     func startTimer() {
         fetchTrendingData()
-        timer = Timer.scheduledTimer(timeInterval: 5, target: self,
+        timer = Timer.scheduledTimer(timeInterval: 600, target: self,
                                      selector: #selector(fetchTrendingData), userInfo: nil, repeats: true)
-    }
-    
-    func stopTimer() {
-        timer.invalidate()
     }
     
     @objc
@@ -56,7 +57,6 @@ final class TrendingViewModel: BaseViewModel {
             switch response {
             case .success(let data):
                 self?.convertData(data)
-                //                self?.resultData.accept(data)
             case .failure(let error):
                 print(error)
             }
@@ -64,13 +64,9 @@ final class TrendingViewModel: BaseViewModel {
     }
     
     private func convertData(_ data: TrendingData) {
-        let result: [TrendingSectionModel]
-        let coinSection = TrendingSectionModel(section: .coin,
-                                               headerTitle: Resources.Writing.trendingKeyword.rawValue,
-                                               items: data.coins.prefix(14).map { .coin($0) })
-        let nftSection = TrendingSectionModel(section: .nft,
-                                              headerTitle: Resources.Writing.trendingNFT.rawValue,
-                                              items: data.nfts.prefix(7).map { .nft($0) })
-        resultData.accept([coinSection, nftSection])
+        let coins = data.coins
+        let nfts = data.nfts
+        coinData.accept(coins)
+        nftData.accept(nfts)
     }
 }

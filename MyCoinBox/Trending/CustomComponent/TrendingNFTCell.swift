@@ -49,6 +49,9 @@ extension TrendingNFTCell {
     }
     
     private func configureLayout() {
+        contentView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
         iconImageView.snp.makeConstraints { make in
             make.top.equalTo(contentView)
             make.centerX.equalTo(contentView)
@@ -56,25 +59,31 @@ extension TrendingNFTCell {
         }
         stackView.snp.makeConstraints { make in
             make.top.equalTo(iconImageView.snp.bottom).offset(4)
-            make.leading.trailing.bottom.equalTo(contentView)
+            make.horizontalEdges.equalTo(contentView)
+            make.bottom.equalTo(contentView)
         }
     }
 
     private func configureView() {
+        iconImageView.layer.cornerRadius = 16
         iconImageView.contentMode = .scaleAspectFit
         iconImageView.clipsToBounds = true
 
         stackView.axis = .vertical
         stackView.distribution = .fillProportionally
         stackView.spacing = 4
+        stackView.alignment = .center
         
         nameLabel.textColor = .mainText
+        nameLabel.textAlignment = .center
         nameLabel.font = .systemFont(ofSize: 9, weight: .bold)
         
         priceLabel.textColor = .subText
+        priceLabel.textAlignment = .center
         priceLabel.font = .systemFont(ofSize: 9, weight: .regular)
         
         changeLabel.textColor = .mainText
+        changeLabel.textAlignment = .center
         changeLabel.font = .systemFont(ofSize: 9, weight: .bold)
     }
 }
