@@ -79,7 +79,7 @@ final class MarketView: BaseView {
         navigationTitle.text = Resources.Navigation.Title.market.rawValue
         navigationTitle.textColor = .mainText
         navigationTitle.font = .boldSystemFont(ofSize: 20)
-        borderView.backgroundColor = .lightGray
+        borderView.backgroundColor = .badgeBg
         
         headerView.axis = .horizontal
         headerView.isLayoutMarginsRelativeArrangement = true

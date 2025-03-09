@@ -43,7 +43,6 @@ final class MarketViewController: BaseViewController {
     
     private func bind() {
         let input = MarketViewModel.Input(
-            // [TODO] 코드 정리
             currentTap: marketView.currentButtonView.rx.tapGesture()
                 .when(.recognized)
                 .do(onNext: {_ in

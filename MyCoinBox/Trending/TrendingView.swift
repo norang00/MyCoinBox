@@ -157,7 +157,7 @@ final class TrendingView: BaseView {
         navigationTitle.text = Resources.Navigation.Title.trending.rawValue
         navigationTitle.textColor = .mainText
         navigationTitle.font = .boldSystemFont(ofSize: 20)
-        borderView.backgroundColor = .lightGray
+        borderView.backgroundColor = .badgeBg
 
         searchBarBackground.layer.borderColor = UIColor.subText.cgColor
         searchBarBackground.layer.borderWidth = 1

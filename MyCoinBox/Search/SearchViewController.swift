@@ -26,7 +26,6 @@ final class SearchViewController: BaseViewController {
         searchView.collectionView.showsVerticalScrollIndicator = false
         searchView.collectionView.register(SearchCoinCell.self, forCellWithReuseIdentifier: SearchCoinCell.identifier)
 
-        
         bind()
     }
     
@@ -50,8 +49,6 @@ final class SearchViewController: BaseViewController {
                 owner.popToTrendingView()
             }
             .disposed(by: disposeBag)
-
-        
     }
     
     private func popToTrendingView() {

@@ -28,6 +28,8 @@ enum Resources {
         case fdv = "완전 희석 가치(FDV)"
         case totalVolume = "총 거래량"
         case more = "더보기"
+        
+        case notAvailable = "준비중입니다."
     }
     
     enum SystemImage: String {

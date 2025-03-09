@@ -15,11 +15,13 @@ final class SearchView: BaseView {
     let searchBar = UISearchBar()
     private let borderView = UIView()
 
+    var currentIndex = 0
     private let stackView = UIStackView()
-    private let coinTabButton = TabButton(title: Resources.Writing.coin.rawValue, frame: .zero)
-    private let nftTabButton = TabButton(title: Resources.Writing.nft.rawValue, frame: .zero)
-    private let marketTabButton = TabButton(title: Resources.Writing.market.rawValue, frame: .zero)
-
+    let coinTabButton = TabButton(title: Resources.Writing.coin.rawValue, frame: .zero)
+    let nftTabButton = TabButton(title: Resources.Writing.nft.rawValue, frame: .zero)
+    let marketTabButton = TabButton(title: Resources.Writing.market.rawValue, frame: .zero)
+    lazy var tabButtons: [TabButton] = [coinTabButton, nftTabButton, marketTabButton]
+    
     lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
     
     private let emptyView = UIView()
@@ -44,6 +46,9 @@ final class SearchView: BaseView {
         stackView.addArrangedSubview(marketTabButton)
 
         addSubview(collectionView)
+        
+        addSubview(emptyView)
+        emptyView.addSubview(emptyLabel)
     }
     
     override func configureLayout() {
@@ -77,6 +82,13 @@ final class SearchView: BaseView {
             make.top.equalTo(stackView.snp.bottom)
             make.horizontalEdges.bottom.equalTo(safeAreaLayoutGuide)
         }
+        emptyView.snp.makeConstraints { make in
+            make.top.equalTo(stackView.snp.bottom)
+            make.horizontalEdges.bottom.equalTo(safeAreaLayoutGuide)
+        }
+        emptyLabel.snp.makeConstraints { make in
+            make.center.equalTo(emptyView)
+        }
     }
 
     override func configureView() {
@@ -89,39 +101,76 @@ final class SearchView: BaseView {
         searchBar.setBackgroundImage(empty, for: .any, barMetrics: .default)
         searchBar.searchTextField.font = .systemFont(ofSize: 12, weight: .regular)
         searchBar.searchTextField.backgroundColor = .white
-        
-        borderView.backgroundColor = .lightGray
+        borderView.backgroundColor = .badgeBg
         
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
         stackView.isUserInteractionEnabled = true
-        
-        initButtons()
+                
+        emptyLabel.text = Resources.Writing.notAvailable.rawValue
+        emptyView.isHidden = true
+
+        initTabButtons()
+        configureSwipeGesture()
     }
 
-    private func initButtons() {
+    private func initTabButtons() {
         coinTabButton.isSelected = true
         coinTabButton.tag = 0
-        coinTabButton.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+        coinTabButton.addTarget(self, action: #selector(TabButtonTapped), for: .touchUpInside)
         
         nftTabButton.isSelected = false
         nftTabButton.tag = 1
-        nftTabButton.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+        nftTabButton.addTarget(self, action: #selector(TabButtonTapped), for: .touchUpInside)
 
         marketTabButton.isSelected = false
         marketTabButton.tag = 2
-        marketTabButton.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+        marketTabButton.addTarget(self, action: #selector(TabButtonTapped), for: .touchUpInside)
+    }
+    
+    private func configureSwipeGesture() {
+        let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(swipeRecognized(_:)))
+        leftSwipe.direction = .left
+        addGestureRecognizer(leftSwipe)
+
+        let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(swipeRecognized(_:)))
+        rightSwipe.direction = .right
+        addGestureRecognizer(rightSwipe)
     }
     
     @objc
-    private func buttonTapped(_ sender: UIButton) {
+    private func TabButtonTapped(_ sender: UIButton) {
         let index = sender.tag
-        print(#function)
+        switchTabTo(index)
+    }
+    
+    @objc
+    private func swipeRecognized(_ gesture: UISwipeGestureRecognizer) {
+        switch gesture.direction {
+        case .left:
+            if currentIndex < 2 { switchTabTo(currentIndex+1) }
+        case .right:
+            if currentIndex > 0 { switchTabTo(currentIndex-1) }
+        default:
+            switchTabTo(currentIndex)
+        }
+    }
+    
+    private func switchTabTo(_ index: Int) {
+        tabButtons.forEach { $0.isSelected = false }
+        tabButtons[index].isSelected = true
+        currentIndex = index
         
-        coinTabButton.isSelected = false
-        nftTabButton.isSelected = false
-        marketTabButton.isSelected = false
-
-        sender.isSelected = true
+        switch index {
+        case 0:
+            collectionView.isHidden = false
+            emptyView.isHidden = true
+        case 1, 2:
+            collectionView.isHidden = true
+            emptyView.isHidden = false
+        default:
+            collectionView.isHidden = true
+            emptyView.isHidden = true
+        }
     }
 }
