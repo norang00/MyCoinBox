@@ -26,7 +26,7 @@ final class MarketViewController: BaseViewController {
         
         navigationController?.isNavigationBarHidden = true
         marketView.collectionView.showsVerticalScrollIndicator = false
-        marketView.collectionView.register(MarketCollectioinViewCell.self, forCellWithReuseIdentifier: MarketCollectioinViewCell.identifier)
+        marketView.collectionView.register(MarketCell.self, forCellWithReuseIdentifier: MarketCell.identifier)
         
         bind()
     }
@@ -77,8 +77,8 @@ final class MarketViewController: BaseViewController {
         
         output.resultList
             .drive(marketView.collectionView.rx.items(
-                cellIdentifier: MarketCollectioinViewCell.identifier,
-                cellType: MarketCollectioinViewCell.self)) { index, item, cell in
+                cellIdentifier: MarketCell.identifier,
+                cellType: MarketCell.self)) { index, item, cell in
                     cell.configureData(item)
                 }
                 .disposed(by: disposeBag)

@@ -1,5 +1,5 @@
 //
-//  MarketCollectioinViewCell.swift
+//  MarketCell.swift
 //  MyCoinBox
 //
 //  Created by Kyuhee hong on 3/7/25.
@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-final class MarketCollectioinViewCell: UICollectionViewCell {
+final class MarketCell: UICollectionViewCell {
     
     static var identifier: String {
         return String(describing: self)
@@ -33,7 +33,7 @@ final class MarketCollectioinViewCell: UICollectionViewCell {
 }
 
 // MARK: - Setup View
-extension MarketCollectioinViewCell {
+extension MarketCell {
     
     private func setupView() {
         configureHierarchy()
@@ -42,14 +42,13 @@ extension MarketCollectioinViewCell {
     }
     
     private func configureHierarchy() {
-        changeStackView.addArrangedSubview(changeRateLabel)
-        changeStackView.addArrangedSubview(changePriceLabel)
-
         addSubview(stackView)
         stackView.addArrangedSubview(coinLabel)
         stackView.addArrangedSubview(currentLabel)
         stackView.addArrangedSubview(changeStackView)
         stackView.addArrangedSubview(priceLabel)
+        changeStackView.addArrangedSubview(changeRateLabel)
+        changeStackView.addArrangedSubview(changePriceLabel)
     }
     
     private func configureLayout() {
@@ -92,7 +91,7 @@ extension MarketCollectioinViewCell {
     }
 }
 
-extension MarketCollectioinViewCell {
+extension MarketCell {
     
     func configureData(_ data: MarketData) {
         let sign: Bool = (data.change == "RISE")

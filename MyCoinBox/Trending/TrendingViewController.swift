@@ -91,7 +91,7 @@ final class TrendingViewController: UIViewController {
     
     private func pushToSearchView(_ query: String) {
         let nextVC = SearchViewController()
-        nextVC.query = query
+        nextVC.searchView.searchBar.text = query
         navigationController?.pushViewController(nextVC, animated: true)
     }
     

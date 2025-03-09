@@ -19,14 +19,14 @@ extension DateFormatter {
     static let trending: DateFormatter = {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "ko_KR")
-        formatter.dateFormat = "MM.dd hh:mm 기준"
+        formatter.dateFormat = "MM.dd HH:mm 기준"
         return formatter
     }()
     
     static let update: DateFormatter = {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "ko_KR")
-        formatter.dateFormat = "M/d hh:mm:ss 업데이트"
+        formatter.dateFormat = "M/d HH:mm:ss 업데이트"
         return formatter
     }()
 }

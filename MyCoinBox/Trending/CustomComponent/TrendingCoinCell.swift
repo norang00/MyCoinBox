@@ -56,13 +56,11 @@ extension TrendingCoinCell {
         contentView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
-        
         scoreLabel.snp.makeConstraints { make in
             make.centerY.equalTo(contentView)
             make.leading.equalTo(contentView)
             make.size.equalTo(14)
         }
-
         iconImageView.snp.makeConstraints { make in
             make.centerY.equalTo(contentView)
             make.leading.equalTo(scoreLabel.snp.trailing).offset(8)
@@ -84,7 +82,8 @@ extension TrendingCoinCell {
         scoreLabel.textColor = .mainText
         scoreLabel.font = .systemFont(ofSize: 12, weight: .regular)
         
-        iconImageView.contentMode = .scaleAspectFit
+        iconImageView.layer.cornerRadius = 13
+        iconImageView.contentMode = .scaleAspectFill
         iconImageView.clipsToBounds = true
         
         stackView.axis = .vertical
@@ -109,7 +108,6 @@ extension TrendingCoinCell {
         scoreLabel.textAlignment = .center
         
         iconImageView.kf.setImage(with: URL(string:data.thumb)!)
-        iconImageView.layer.cornerRadius = 13
         
         symbolLabel.text = data.symbol
         nameLabel.text = data.name

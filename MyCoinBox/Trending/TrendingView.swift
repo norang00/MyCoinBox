@@ -159,18 +159,20 @@ final class TrendingView: BaseView {
         navigationTitle.font = .boldSystemFont(ofSize: 20)
         borderView.backgroundColor = .lightGray
 
-        searchBarBackground.layer.cornerRadius = 25
         searchBarBackground.layer.borderColor = UIColor.subText.cgColor
         searchBarBackground.layer.borderWidth = 1
+        searchBarBackground.layer.cornerRadius = 25
 
-        searchBar.searchTextField.backgroundColor = .white
+        let empty = UIImage()
         searchBar.placeholder = Resources.Writing.placeholder.rawValue
-        
+        searchBar.setBackgroundImage(empty, for: .any, barMetrics: .default)
+        searchBar.searchTextField.font = .systemFont(ofSize: 14, weight: .regular)
+        searchBar.searchTextField.backgroundColor = .white
+
         trendingCoinTitleLabel.text = Resources.Writing.trendingKeyword.rawValue
         trendingCoinTitleLabel.textColor = .mainText
         trendingCoinTitleLabel.font = .systemFont(ofSize: 16, weight: .bold)
         
-//        updateLabel.text = DateFormatter.trending.string(for: Date())
         updateLabel.textColor = .subText
         updateLabel.font = .systemFont(ofSize: 12, weight: .regular)
         
