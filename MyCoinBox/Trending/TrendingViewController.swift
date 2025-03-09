@@ -25,7 +25,6 @@ final class TrendingViewController: UIViewController {
         super.viewDidLoad()
 
         navigationController?.isNavigationBarHidden = true
-        trendingView.trendingNFTCollectionView.showsHorizontalScrollIndicator = false
 
         configureCollectionView()
         
@@ -38,6 +37,12 @@ final class TrendingViewController: UIViewController {
         )
         let output = trendingViewModel.transform(input)
 
+        output.update
+            .bind(with: self) { owner, date in
+                owner.trendingView.updateLabel.text = DateFormatter.trending.string(for: date)
+            }
+            .disposed(by: disposeBag)
+        
         output.coinData
             .drive(trendingView.trendingCoinCollectionView.rx.items(
                 cellIdentifier: TrendingCoinCell.identifier,
@@ -53,12 +58,46 @@ final class TrendingViewController: UIViewController {
                     cell.configureData(item)
                 }
                 .disposed(by: disposeBag)
+        
+        trendingView.searchBar.rx.searchButtonClicked
+            .withLatestFrom(trendingView.searchBar.rx.text.orEmpty)
+            .distinctUntilChanged()
+            .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+            .bind(with: self) { owner, value in
+                if !value.isEmpty {
+                    owner.pushToSearchView(value)
+                }
+                owner.trendingView.searchBar.text = ""
+                owner.trendingView.endEditing(true)
+            }
+            .disposed(by: disposeBag)
+        
+        trendingView.trendingCoinCollectionView.rx.modelSelected(TrendingCoin.self)
+            .bind(with: self) { owner, value in
+                owner.pushToDetailView(value.item.id)
+            }
+            .disposed(by: disposeBag)
     }
  
     private func configureCollectionView() {
+        trendingView.trendingCoinCollectionView.keyboardDismissMode = .onDrag
         trendingView.trendingCoinCollectionView.register(TrendingCoinCell.self,
-                                             forCellWithReuseIdentifier: TrendingCoinCell.identifier)
+                                                         forCellWithReuseIdentifier: TrendingCoinCell.identifier)
+        
+        trendingView.trendingNFTCollectionView.showsHorizontalScrollIndicator = false
         trendingView.trendingNFTCollectionView.register(TrendingNFTCell.self,
-                                             forCellWithReuseIdentifier: TrendingNFTCell.identifier)
+                                                        forCellWithReuseIdentifier: TrendingNFTCell.identifier)
+    }
+    
+    private func pushToSearchView(_ query: String) {
+        let nextVC = SearchViewController()
+        nextVC.query = query
+        navigationController?.pushViewController(nextVC, animated: true)
+    }
+    
+    private func pushToDetailView(_ id: String) {
+        let nextVC = DetailViewController()
+        nextVC.id = id
+        navigationController?.pushViewController(nextVC, animated: true)
     }
 }

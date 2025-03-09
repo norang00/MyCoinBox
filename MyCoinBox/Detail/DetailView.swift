@@ -10,7 +10,7 @@ import SnapKit
 
 final class DetailView: BaseView {
     
-    private let label = UILabel()
+    let label = UILabel()
 
     override func configureHierarchy() {
         addSubview(label)
@@ -23,6 +23,8 @@ final class DetailView: BaseView {
     }
 
     override func configureView() {
+        super.configureView()
+        
         label.text = "DetailView"
     }
 

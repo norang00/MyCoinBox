@@ -13,6 +13,7 @@ final class TrendingViewModel: BaseViewModel {
     
     var timer = Timer()
     
+    let update: BehaviorRelay<Date> = BehaviorRelay(value: Date())
     let coinData: BehaviorRelay<[TrendingCoin]> = BehaviorRelay(value: [])
     let nftData: BehaviorRelay<[TrendingNFT]> = BehaviorRelay(value: [])
 
@@ -22,6 +23,7 @@ final class TrendingViewModel: BaseViewModel {
     }
     
     struct Output {
+        let update: BehaviorRelay<Date>
         let coinData: Driver<[TrendingCoin]>
         let nftData: Driver<[TrendingNFT]>
     }
@@ -30,6 +32,7 @@ final class TrendingViewModel: BaseViewModel {
         startTimer()
         
         return Output(
+            update: update,
             coinData: coinData.asDriver(),
             nftData: nftData.asDriver()
         )
@@ -61,8 +64,11 @@ final class TrendingViewModel: BaseViewModel {
     }
     
     private func convertData(_ data: TrendingData) {
+        let date = Date()
+        print(#function, date)
         let coins = Array(data.coins.prefix(14))
         let nfts = Array(data.nfts.prefix(7))
+        update.accept(date)
         coinData.accept(coins)
         nftData.accept(nfts)
     }

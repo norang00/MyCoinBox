@@ -74,6 +74,8 @@ final class MarketView: BaseView {
     }
 
     override func configureView() {
+        super.configureView()
+        
         navigationTitle.text = Resources.Navigation.Title.market.rawValue
         navigationTitle.textColor = .mainText
         navigationTitle.font = .boldSystemFont(ofSize: 20)

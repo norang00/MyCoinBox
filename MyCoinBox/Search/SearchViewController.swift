@@ -10,6 +10,7 @@ import UIKit
 final class SearchViewController: BaseViewController {
     
     let searchView = SearchView()
+    var query: String = ""
     
     override func loadView() {
         view = searchView

@@ -15,11 +15,11 @@ final class TrendingView: BaseView {
     private let borderView = UIView()
 
     private let searchBarBackground = UIView()
-    private let searchBar = UISearchBar()
+    let searchBar = UISearchBar()
 
     private let trendingCoinTitleView = UIView()
     private let trendingCoinTitleLabel = UILabel()
-    private let updateLabel = UILabel()
+    let updateLabel = UILabel()
     lazy var trendingCoinCollectionView = UICollectionView(frame: .zero, collectionViewLayout: createCoinLayout())
     
     private let trendingNFTTitleView = UIView()
@@ -42,7 +42,6 @@ final class TrendingView: BaseView {
         
         let section = NSCollectionLayoutSection(group: outerGroup)
         section.contentInsets = .init(top: 0, leading: 20, bottom: 0, trailing: 20)
-        section.orthogonalScrollingBehavior = .none
 
         let layout = UICollectionViewCompositionalLayout(section: section)
         return layout
@@ -153,6 +152,8 @@ final class TrendingView: BaseView {
     }
 
     override func configureView() {
+        super.configureView()
+        
         navigationTitle.text = Resources.Navigation.Title.trending.rawValue
         navigationTitle.textColor = .mainText
         navigationTitle.font = .boldSystemFont(ofSize: 20)
@@ -169,7 +170,7 @@ final class TrendingView: BaseView {
         trendingCoinTitleLabel.textColor = .mainText
         trendingCoinTitleLabel.font = .systemFont(ofSize: 16, weight: .bold)
         
-        updateLabel.text = DateFormatter.trending.string(for: Date())
+//        updateLabel.text = DateFormatter.trending.string(for: Date())
         updateLabel.textColor = .subText
         updateLabel.font = .systemFont(ofSize: 12, weight: .regular)
         

@@ -23,6 +23,8 @@ final class PortfolioView: BaseView {
     }
 
     override func configureView() {
+        super.configureView()
+        
         label.text = "준비중입니다"
     }
 

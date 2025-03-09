@@ -23,6 +23,8 @@ final class SearchView: BaseView {
     }
 
     override func configureView() {
+        super.configureView()
+        
         label.text = "SearchView"
     }
 

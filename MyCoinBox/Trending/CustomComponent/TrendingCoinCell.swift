@@ -115,7 +115,6 @@ extension TrendingCoinCell {
         nameLabel.text = data.name
         
         let changeData = data.data.priceChangePercentage24h["krw"] ?? 0
-        print("chageData", changeData)
         let formatted = NumberFormatter.formatter.string(for: abs(changeData)) ?? ""
         if changeData > 0 {
             changeLabel.textColor = .mainRed

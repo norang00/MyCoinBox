@@ -10,6 +10,7 @@ import UIKit
 final class DetailViewController: BaseViewController {
     
     let detailView = DetailView()
+    var id: String = ""
     
     override func loadView() {
         view = detailView
@@ -17,6 +18,7 @@ final class DetailViewController: BaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        detailView.label.text = id
     }
 
 }
