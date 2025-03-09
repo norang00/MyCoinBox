@@ -12,7 +12,8 @@ final class TrendingView: BaseView {
     
     private let navigationBar = UIView()
     private let navigationTitle = UILabel()
-    
+    private let borderView = UIView()
+
     private let searchBarBackground = UIView()
     private let searchBar = UISearchBar()
 
@@ -68,7 +69,8 @@ final class TrendingView: BaseView {
     override func configureHierarchy() {
         addSubview(navigationBar)
         navigationBar.addSubview(navigationTitle)
-        
+        addSubview(borderView)
+
         addSubview(searchBarBackground)
         searchBarBackground.addSubview(searchBar)
         
@@ -94,8 +96,14 @@ final class TrendingView: BaseView {
             make.centerY.equalToSuperview()
         }
         
+        borderView.snp.makeConstraints { make in
+            make.top.equalTo(navigationBar.snp.bottom)
+            make.horizontalEdges.equalTo(safeAreaLayoutGuide)
+            make.height.equalTo(1)
+        }
+        
         searchBarBackground.snp.makeConstraints { make in
-            make.top.equalTo(navigationBar.snp.bottom).offset(16)
+            make.top.equalTo(borderView.snp.bottom).offset(16)
             make.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(20)
             make.height.equalTo(50)
         }
@@ -148,7 +156,8 @@ final class TrendingView: BaseView {
         navigationTitle.text = Resources.Navigation.Title.trending.rawValue
         navigationTitle.textColor = .mainText
         navigationTitle.font = .boldSystemFont(ofSize: 20)
-        
+        borderView.backgroundColor = .lightGray
+
         searchBarBackground.layer.cornerRadius = 25
         searchBarBackground.layer.borderColor = UIColor.subText.cgColor
         searchBarBackground.layer.borderWidth = 1

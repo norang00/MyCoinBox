@@ -75,7 +75,7 @@ extension TrendingCoinCell {
         }
         changeLabel.snp.makeConstraints { make in
             make.centerY.equalTo(contentView)
-            make.leading.equalTo(stackView.snp.trailing).offset(16)
+            make.leading.equalTo(stackView.snp.trailing).offset(8)
             make.trailing.equalTo(contentView)
         }
     }
@@ -109,11 +109,14 @@ extension TrendingCoinCell {
         scoreLabel.textAlignment = .center
         
         iconImageView.kf.setImage(with: URL(string:data.thumb)!)
+        iconImageView.layer.cornerRadius = 13
+        
         symbolLabel.text = data.symbol
         nameLabel.text = data.name
         
-        let changeData = data.data.priceChangePercentage24h["kwr"] ?? 0
-        let formatted = NumberFormatter.formatter.string(for: changeData) ?? ""
+        let changeData = data.data.priceChangePercentage24h["krw"] ?? 0
+        print("chageData", changeData)
+        let formatted = NumberFormatter.formatter.string(for: abs(changeData)) ?? ""
         if changeData > 0 {
             changeLabel.textColor = .mainRed
             changeLabel.text = "▲ \(formatted)%"

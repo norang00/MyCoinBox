@@ -27,10 +27,7 @@ final class TrendingViewModel: BaseViewModel {
     }
     
     func transform(_ input: Input) -> Output {
-//        startTimer()
-        
-        coinData.accept(mockCoinItem)
-        nftData.accept(mockNFTItem)
+        startTimer()
         
         return Output(
             coinData: coinData.asDriver(),
@@ -52,7 +49,7 @@ final class TrendingViewModel: BaseViewModel {
     }
     
     private func callRequestToNetworkManager() {
-        let api = NetworkRequest.market
+        let api = NetworkRequest.trending
         NetworkManager.shared.callRequestToAPIServer(api, TrendingData.self) { [weak self] response in
             switch response {
             case .success(let data):
@@ -64,8 +61,8 @@ final class TrendingViewModel: BaseViewModel {
     }
     
     private func convertData(_ data: TrendingData) {
-        let coins = data.coins
-        let nfts = data.nfts
+        let coins = Array(data.coins.prefix(14))
+        let nfts = Array(data.nfts.prefix(7))
         coinData.accept(coins)
         nftData.accept(nfts)
     }

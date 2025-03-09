@@ -28,6 +28,10 @@ struct TrendingCoinItem: Decodable {
 
 struct TrendingCoinData: Decodable {
   let priceChangePercentage24h: [String: Double] // krw
+    
+    enum CodingKeys: String, CodingKey {
+        case priceChangePercentage24h = "price_change_percentage_24h"
+    }
 }
 
 // NFT
@@ -41,6 +45,10 @@ struct TrendingNFT: Decodable {
 struct TrendingNFTData: Decodable {
   let floorPrice: String
   let floorPriceInUsd24hPercentageChange: String
+    enum CodingKeys: String, CodingKey {
+        case floorPrice = "floor_price"
+        case floorPriceInUsd24hPercentageChange = "floor_price_in_usd_24h_percentage_change"
+    }
 }
 
 // MockData

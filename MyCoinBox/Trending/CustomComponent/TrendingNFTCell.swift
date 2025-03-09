@@ -65,7 +65,7 @@ extension TrendingNFTCell {
     }
 
     private func configureView() {
-        iconImageView.layer.cornerRadius = 16
+        iconImageView.layer.cornerRadius = 20
         iconImageView.contentMode = .scaleAspectFit
         iconImageView.clipsToBounds = true
 
