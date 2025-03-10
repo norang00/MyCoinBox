@@ -61,7 +61,6 @@ final class TrendingViewController: UIViewController {
         
         trendingView.searchBar.rx.searchButtonClicked
             .withLatestFrom(trendingView.searchBar.rx.text.orEmpty)
-            .distinctUntilChanged()
             .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
             .bind(with: self) { owner, value in
                 if !value.isEmpty {
@@ -80,7 +79,7 @@ final class TrendingViewController: UIViewController {
     }
  
     private func configureCollectionView() {
-        trendingView.trendingCoinCollectionView.keyboardDismissMode = .onDrag
+        trendingView.trendingCoinCollectionView.isScrollEnabled = false
         trendingView.trendingCoinCollectionView.register(TrendingCoinCell.self,
                                                          forCellWithReuseIdentifier: TrendingCoinCell.identifier)
         

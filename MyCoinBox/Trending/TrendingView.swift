@@ -7,16 +7,21 @@
 
 import UIKit
 import SnapKit
+import RxSwift
+import RxCocoa
+import RxGesture
 
 final class TrendingView: BaseView {
+    
+    private let disposeBag = DisposeBag()
     
     private let navigationBar = UIView()
     private let navigationTitle = UILabel()
     private let borderView = UIView()
-
+    
     private let searchBarBackground = UIView()
     let searchBar = UISearchBar()
-
+    
     private let trendingCoinTitleView = UIView()
     private let trendingCoinTitleLabel = UILabel()
     let updateLabel = UILabel()
@@ -25,7 +30,7 @@ final class TrendingView: BaseView {
     private let trendingNFTTitleView = UIView()
     private let trendingNFTTitleLabel = UILabel()
     lazy var trendingNFTCollectionView = UICollectionView(frame: .zero, collectionViewLayout: createNFTLayout())
-
+    
     private func createCoinLayout() -> UICollectionViewLayout {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                               heightDimension: .fractionalHeight(1/7))
@@ -42,7 +47,7 @@ final class TrendingView: BaseView {
         
         let section = NSCollectionLayoutSection(group: outerGroup)
         section.contentInsets = .init(top: 0, leading: 20, bottom: 0, trailing: 20)
-
+        
         let layout = UICollectionViewCompositionalLayout(section: section)
         return layout
     }
@@ -51,25 +56,25 @@ final class TrendingView: BaseView {
         let itemSize = NSCollectionLayoutSize(widthDimension: .absolute(72),
                                               heightDimension: .fractionalHeight(1.0))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
-
+        
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.5),
                                                heightDimension: .fractionalHeight(1.0))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
         group.interItemSpacing = .fixed(8)
-
+        
         let section = NSCollectionLayoutSection(group: group)
         section.contentInsets = .init(top: 8, leading: 20, bottom: 8, trailing: 20)
-
+        
         section.orthogonalScrollingBehavior = .continuous
         let layout = UICollectionViewCompositionalLayout(section: section)
         return layout
     }
-
+    
     override func configureHierarchy() {
         addSubview(navigationBar)
         navigationBar.addSubview(navigationTitle)
         addSubview(borderView)
-
+        
         addSubview(searchBarBackground)
         searchBarBackground.addSubview(searchBar)
         
@@ -106,7 +111,7 @@ final class TrendingView: BaseView {
             make.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(20)
             make.height.equalTo(50)
         }
-
+        
         searchBar.snp.makeConstraints { make in
             make.edges.equalTo(searchBarBackground).inset(8)
         }
@@ -150,7 +155,7 @@ final class TrendingView: BaseView {
             make.height.equalTo(120)
         }
     }
-
+    
     override func configureView() {
         super.configureView()
         
@@ -158,17 +163,17 @@ final class TrendingView: BaseView {
         navigationTitle.textColor = .mainText
         navigationTitle.font = .boldSystemFont(ofSize: 20)
         borderView.backgroundColor = .badgeBg
-
+        
         searchBarBackground.layer.borderColor = UIColor.subText.cgColor
         searchBarBackground.layer.borderWidth = 1
         searchBarBackground.layer.cornerRadius = 25
-
+        
         let empty = UIImage()
         searchBar.placeholder = Resources.Writing.placeholder.rawValue
         searchBar.setBackgroundImage(empty, for: .any, barMetrics: .default)
         searchBar.searchTextField.font = .systemFont(ofSize: 14, weight: .regular)
         searchBar.searchTextField.backgroundColor = .white
-
+        
         trendingCoinTitleLabel.text = Resources.Writing.trendingKeyword.rawValue
         trendingCoinTitleLabel.textColor = .mainText
         trendingCoinTitleLabel.font = .systemFont(ofSize: 16, weight: .bold)
@@ -179,5 +184,27 @@ final class TrendingView: BaseView {
         trendingNFTTitleLabel.text = Resources.Writing.trendingNFT.rawValue
         trendingNFTTitleLabel.textColor = .mainText
         trendingNFTTitleLabel.font = .systemFont(ofSize: 16, weight: .bold)
+
+        configureKeyboardDismiss()
+    }
+
+    private func configureKeyboardDismiss() {
+        self.rx.tapGesture() { recognizer, _ in
+            recognizer.cancelsTouchesInView = false
+        }
+        .when(.recognized)
+        .bind(with: self) { owner, _ in
+            owner.endEditing(true)
+        }
+        .disposed(by: disposeBag)
+        
+        trendingCoinCollectionView.rx.swipeGesture(.down, .left, .right, .up) { recognizer, _ in
+            recognizer.cancelsTouchesInView = false
+        }
+        .when(.recognized)
+        .bind(with: self) { owner, _ in
+            owner.endEditing(true)
+        }
+        .disposed(by: disposeBag)
     }
 }

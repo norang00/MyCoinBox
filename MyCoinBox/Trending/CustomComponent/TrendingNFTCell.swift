@@ -21,6 +21,8 @@ final class TrendingNFTCell: UICollectionViewCell {
     let priceLabel = UILabel()
     let changeLabel = UILabel()
     
+    let emptyView = UIView()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()
@@ -46,6 +48,7 @@ extension TrendingNFTCell {
         stackView.addArrangedSubview(nameLabel)
         stackView.addArrangedSubview(priceLabel)
         stackView.addArrangedSubview(changeLabel)
+        addSubview(emptyView)
     }
     
     private func configureLayout() {
@@ -59,6 +62,10 @@ extension TrendingNFTCell {
         }
         stackView.snp.makeConstraints { make in
             make.top.equalTo(iconImageView.snp.bottom).offset(4)
+            make.horizontalEdges.equalTo(contentView)
+        }
+        emptyView.snp.makeConstraints { make in
+            make.top.equalTo(stackView.snp.bottom)
             make.horizontalEdges.equalTo(contentView)
             make.bottom.equalTo(contentView)
         }

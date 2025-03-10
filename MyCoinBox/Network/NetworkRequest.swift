@@ -28,9 +28,9 @@ enum NetworkRequest {
             return URL(string: upbitURL)!
         case .trending:
             return URL(string: geckoURL+"/search/trending")!
-        case .search(query: let query):
+        case .search:
             return URL(string: geckoURL+"/search")!
-        case .detail(ids: let ids):
+        case .detail:
             return URL(string: geckoURL+"/coins/markets")!
         }
     }

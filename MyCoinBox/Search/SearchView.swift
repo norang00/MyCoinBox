@@ -12,19 +12,6 @@ import RxCocoa
 import RxGesture
 
 final class SearchView: BaseView {
-    init() {
-            super.init(frame: .zero)
-            print("✅ SearchView init")
-        }
-        
-        required init?(coder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
-        }
-
-        deinit {
-            print("❌ SearchView deinit")
-        }
-    
     private var disposeBag = DisposeBag()
     
     private let navigationBar = UIView()
@@ -109,7 +96,6 @@ final class SearchView: BaseView {
     }
 
     override func configureView() {
-        print(#function)
         super.configureView()
         
         backButton.setImage(UIImage(systemName: Resources.SystemImage.back.rawValue), for: .normal)
@@ -126,9 +112,12 @@ final class SearchView: BaseView {
                 
         emptyLabel.text = Resources.Writing.notAvailable.rawValue
         emptyView.isHidden = true
+        
+        collectionView.keyboardDismissMode = .onDrag
 
         configureTabButtons()
         configureSwipeGesture()
+        configureKeyboardDismiss()
     }
 
     private func configureTabButtons() {
@@ -144,19 +133,23 @@ final class SearchView: BaseView {
     }
     
     private func configureSwipeGesture() {
-        self.rx.swipeGesture(.left)
-            .when(.recognized, .began)
-            .subscribe(with: self) { owner, _ in
-                if owner.currentIndex < 2 { owner.switchTabTo(owner.currentIndex+1) }
-            }
-            .disposed(by: disposeBag)
+        self.rx.swipeGesture(.left) { recognizer, _ in
+            recognizer.cancelsTouchesInView = false
+        }
+        .when(.recognized)
+        .subscribe(with: self) { owner, _ in
+            if owner.currentIndex < 2 { owner.switchTabTo(owner.currentIndex+1) }
+        }
+        .disposed(by: disposeBag)
         
-        self.rx.swipeGesture(.right)
-            .when(.recognized, .began)
-            .subscribe(with: self) { owner, _ in
-                if owner.currentIndex > 0 { owner.switchTabTo(owner.currentIndex-1) }
-            }
-            .disposed(by: disposeBag)
+        self.rx.swipeGesture(.right) { recognizer, _ in
+            recognizer.cancelsTouchesInView = false
+        }
+        .when(.recognized)
+        .subscribe(with: self) { owner, _ in
+            if owner.currentIndex > 0 { owner.switchTabTo(owner.currentIndex-1) }
+        }
+        .disposed(by: disposeBag)
     }
     
     private func switchTabTo(_ index: Int) {
@@ -182,5 +175,16 @@ final class SearchView: BaseView {
         tabButtons.forEach { $0.isSelected = false }
         tabButtons[index].isSelected = true
         currentIndex = index
+    }
+    
+    private func configureKeyboardDismiss() {
+        self.rx.tapGesture() { recognizer, _ in
+            recognizer.cancelsTouchesInView = false
+        }
+        .when(.recognized)
+        .bind(with: self) { owner, _ in
+            owner.endEditing(true)
+        }
+        .disposed(by: disposeBag)
     }
 }
