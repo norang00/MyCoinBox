@@ -178,8 +178,8 @@ final class DetailView: BaseView {
         }
         changeChart.snp.makeConstraints { make in
             make.top.equalTo(changePercentLabel.snp.bottom).offset(8)
-            make.horizontalEdges.equalTo(contentView).inset(20)
-            make.height.equalTo(250)
+            make.horizontalEdges.equalTo(contentView).inset(16)
+            make.height.equalTo(200)
         }
         updateLabel.snp.makeConstraints { make in
             make.top.equalTo(changeChart.snp.bottom).offset(8)
@@ -225,8 +225,11 @@ final class DetailView: BaseView {
         navigationBar.distribution = .equalSpacing
         backButton.setImage(UIImage(systemName: Resources.SystemImage.back.rawValue), for: .normal)
         iconStackView.spacing = 8
+        
         iconImageView.image = UIImage(systemName: Resources.SystemImage.bitcoin.rawValue)
         iconImageView.contentMode = .scaleAspectFit
+        iconImageView.layer.cornerRadius = 15
+        
         coinSymbolLabel.text = "BTC"
         coinSymbolLabel.textColor = .mainText
         coinSymbolLabel.font = .systemFont(ofSize: 16, weight: .black)
@@ -376,6 +379,21 @@ final class DetailView: BaseView {
         totalVolumeValueLabel.text = "₩2,787,407,213,792,217"
         totalVolumeValueLabel.textColor = .mainText
         totalVolumeValueLabel.font = .systemFont(ofSize: 14, weight: .bold)
+        
+        configureChart()
     }
+}
 
+// MARK: - Charts
+extension DetailView {
+    
+    private func configureChart() {
+        changeChart.backgroundColor = .white
+
+        changeChart.rightAxis.enabled = false
+        changeChart.leftAxis.enabled = false
+        changeChart.xAxis.enabled = false
+        changeChart.legend.enabled = false
+        changeChart.animate(xAxisDuration: 2.5)
+    }
 }

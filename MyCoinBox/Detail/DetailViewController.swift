@@ -11,6 +11,7 @@ import RxCocoa
 import RealmSwift
 import Kingfisher
 import Toast
+import DGCharts
 
 final class DetailViewController: BaseViewController {
     
@@ -136,7 +137,41 @@ final class DetailViewController: BaseViewController {
         if let formatted = NumberFormatter.formatter.string(for: data.totalVolume) {
             detailView.totalVolumeValueLabel.text = "₩\(formatted)"
         }
+        
+        if let chartData = data.sparklineIn7d {
+            drawChart(chartData)
+        }
+    }
+    
+    private func drawChart(_ data: SparklineData) {
+        let chartData = convertChartData(data)
+        let dataSet = LineChartDataSet(entries: chartData)
+        dataSet.mode = .cubicBezier
+        dataSet.drawCirclesEnabled = false
+        dataSet.lineWidth = 2
+        dataSet.setColor(.mainBlue)
+        dataSet.drawHorizontalHighlightIndicatorEnabled = false
+        dataSet.drawVerticalHighlightIndicatorEnabled = false
+        
+        let gradientColors = [UIColor.mainBlue.cgColor, UIColor.white.cgColor] as CFArray
+        let colorLocations: [CGFloat] = [1.0, 0.0]
+        let gradient = CGGradient(colorsSpace: CGColorSpaceCreateDeviceRGB(), colors: gradientColors, locations: colorLocations)
+        let fill = LinearGradientFill(gradient: gradient!, angle: 90)
+        dataSet.fill = fill
+        dataSet.drawFilledEnabled = true
 
+        let data = LineChartData(dataSet: dataSet)
+        data.setDrawValues(false)
+        detailView.changeChart.data = data
+    }
+    
+    private func convertChartData(_ data: SparklineData) -> [ChartDataEntry] {
+        var result: [ChartDataEntry] = []
+        for index in 0..<data.price.count {
+            let entry = ChartDataEntry(x: Double(index), y: data.price[Int(index)])
+            result.append(entry)
+        }
+        return result
     }
     
     private func popView() {
