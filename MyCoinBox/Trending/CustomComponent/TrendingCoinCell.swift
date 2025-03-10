@@ -113,8 +113,6 @@ extension TrendingCoinCell {
         scoreLabel.text = "\(data.score+1)"
         scoreLabel.textAlignment = .center
         
-        iconImageView.kf.setImage(with: URL(string:data.thumb)!)
-        
         symbolLabel.text = data.symbol
         nameLabel.text = data.name
         
@@ -130,5 +128,11 @@ extension TrendingCoinCell {
             changeLabel.text = "\(changeData)%"
         }
         changeLabel.textAlignment = .right
+        
+        if let url = URL(string:data.thumb) {
+            iconImageView.kf.setImage(with: url)
+        } else {
+            iconImageView.image = UIImage(systemName: Resources.SystemImage.bitcoin.rawValue)
+        }
     }
 }

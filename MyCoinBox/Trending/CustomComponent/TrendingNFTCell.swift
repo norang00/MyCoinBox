@@ -104,7 +104,6 @@ extension TrendingNFTCell {
 extension TrendingNFTCell {
     
     func configureData(_ data: TrendingNFT) {
-        iconImageView.kf.setImage(with: URL(string:data.thumb)!)
         nameLabel.text = data.name
         priceLabel.text = data.data.floorPrice
         let changeData = Double(data.data.floorPriceInUsd24hPercentageChange) ?? 0
@@ -117,6 +116,12 @@ extension TrendingNFTCell {
             changeLabel.text = "▼ \(formatted)%"
         } else {
             changeLabel.text = "\(changeData)%"
+        }
+        
+        if let url = URL(string:data.thumb) {
+            iconImageView.kf.setImage(with: url)
+        } else {
+            iconImageView.image = UIImage(systemName: Resources.SystemImage.bitcoin.rawValue)
         }
     }
 }

@@ -118,12 +118,17 @@ extension SearchCoinCell {
 extension SearchCoinCell {
     
     func configureData(_ data: SearchCoin, _ isLiked: Bool) {
-        iconImageView.kf.setImage(with: URL(string:data.thumb)!)
         symbolLabel.text = data.symbol
         rankLabel.text = "#\(data.marketCapRank)"
         nameLabel.text = data.name
         likeButton.setImage(UIImage(systemName: isLiked ?
                                     Resources.SystemImage.like.rawValue :
                                     Resources.SystemImage.unlike.rawValue), for: .normal)
+        
+        if let url = URL(string:data.thumb) {
+            iconImageView.kf.setImage(with: url)
+        } else {
+            iconImageView.image = UIImage(systemName: Resources.SystemImage.bitcoin.rawValue)
+        }
     }
 }

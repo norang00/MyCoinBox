@@ -40,6 +40,7 @@ enum Resources {
         case like = "star.fill"
         case unlike = "star"
         case chevronRight = "chevron.right"
+        case bitcoin = "bitcoinsign.circle"
     }
     
     enum Tab {
