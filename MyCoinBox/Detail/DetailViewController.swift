@@ -28,7 +28,7 @@ final class DetailViewController: BaseViewController {
     override func loadView() {
         view = detailView
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         print("DetailViewController, id", id)
@@ -42,7 +42,7 @@ final class DetailViewController: BaseViewController {
             likeTap: detailView.likeButton.rx.tap
         )
         let output = detailViewModel.transform(input)
-
+        
         detailView.backButton.rx.tap
             .bind(with: self) { owner, _ in
                 owner.popView()
@@ -64,6 +64,17 @@ final class DetailViewController: BaseViewController {
             }
             .disposed(by: disposeBag)
         
+        let showMoreButtons = [
+            detailView.coinInfoShowMoreButton.rx.tap.asObservable(),
+            detailView.investShowMoreButton.rx.tap.asObservable()
+        ]
+        
+        Observable.merge(showMoreButtons)
+            .bind(with: self) { owner, _ in
+                owner.detailView.makeToast(Resources.Writing.notAvailable.rawValue)
+            }
+            .disposed(by: disposeBag)
+        
         output.result
             .drive(with: self) { owner, data in
                 guard let data = data.first else { return }
@@ -82,7 +93,7 @@ final class DetailViewController: BaseViewController {
         detailView.likeButton.setImage(UIImage(systemName: isLiked ?
                                                Resources.SystemImage.like.rawValue :
                                                 Resources.SystemImage.unlike.rawValue), for: .normal)
-
+        
         detailView.currentPriceLabel.text = "₩ \(data.currentPrice.formatted())"
         
         if let changeData = data.priceChangePercentage24h {
@@ -107,7 +118,7 @@ final class DetailViewController: BaseViewController {
         if let formatted = NumberFormatter.formatter.string(for: data.high24h) {
             detailView.high24hValueLabel.text = "₩\(formatted)"
         }
-
+        
         if let formatted = NumberFormatter.formatter.string(for: data.low24h) {
             detailView.low24hValueLabel.text = "₩\(formatted)"
         }
@@ -117,13 +128,13 @@ final class DetailViewController: BaseViewController {
             let formattedString = DateFormatter.basic.string(from: date)
             detailView.highestDateLabel.text = formattedString
         }
-
+        
         detailView.lowestValueLabel.text = "₩\(data.atl.formatted())"
         if let date = DateFormatter.isoFormatter.date(from: data.atlDate) {
             let formattedString = DateFormatter.basic.string(from: date)
             detailView.lowestDateLabel.text = formattedString
         }
-
+        
         if let formatted = NumberFormatter.formatter.string(for: data.marketCap) {
             detailView.marketCapValueLabel.text = "₩\(formatted)"
         }
@@ -155,7 +166,7 @@ final class DetailViewController: BaseViewController {
         let fill = LinearGradientFill(gradient: gradient!, angle: 90)
         dataSet.fill = fill
         dataSet.drawFilledEnabled = true
-
+        
         let data = LineChartData(dataSet: dataSet)
         data.setDrawValues(false)
         detailView.changeChart.data = data
@@ -182,7 +193,7 @@ final class DetailViewController: BaseViewController {
     
     private func updateLikeButtonUI(_ isLiked: Bool) {
         detailView.likeButton.setImage(UIImage(systemName: isLiked ?
-                                            Resources.SystemImage.like.rawValue :
-                                            Resources.SystemImage.unlike.rawValue), for: .normal)
+                                               Resources.SystemImage.like.rawValue :
+                                                Resources.SystemImage.unlike.rawValue), for: .normal)
     }
 }
