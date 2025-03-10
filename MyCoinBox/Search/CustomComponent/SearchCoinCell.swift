@@ -119,7 +119,9 @@ extension SearchCoinCell {
     
     func configureData(_ data: SearchCoin, _ isLiked: Bool) {
         symbolLabel.text = data.symbol
-        rankLabel.text = "#\(data.marketCapRank)"
+        if let rank = data.marketCapRank {
+            rankLabel.text = "#\(rank)"
+        }
         nameLabel.text = data.name
         likeButton.setImage(UIImage(systemName: isLiked ?
                                     Resources.SystemImage.like.rawValue :

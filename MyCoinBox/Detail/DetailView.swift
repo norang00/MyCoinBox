@@ -394,6 +394,6 @@ extension DetailView {
         changeChart.leftAxis.enabled = false
         changeChart.xAxis.enabled = false
         changeChart.legend.enabled = false
-        changeChart.animate(xAxisDuration: 2.5)
+        changeChart.animate(xAxisDuration: 1.5)
     }
 }

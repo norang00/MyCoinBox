@@ -15,7 +15,7 @@ struct SearchCoin: Decodable {
   let id: String
   let name: String
   let symbol: String
-  let marketCapRank: Int
+  let marketCapRank: Int?
   let thumb: String
 
     enum CodingKeys: String, CodingKey {

@@ -49,31 +49,27 @@ final class DetailViewController: BaseViewController {
             }
             .disposed(by: disposeBag)
         
+        detailView.likeButton.rx.tap
+            .bind(with: self) { owner, _ in
+                var isLiked = owner.checkIsLiked(owner.id)
+                if isLiked {
+                    self.dbManager.deleteLikedItem(coinId: owner.id)
+                    self.detailView.makeToast("즐겨찾기에서 제거되었습니다.", duration: 1.0)
+                } else {
+                    self.dbManager.createLikedItem(coinId: owner.id)
+                    self.detailView.makeToast("즐겨찾기되었습니다.", duration: 1.0)
+                }
+                isLiked.toggle()
+                owner.updateLikeButtonUI(isLiked)
+            }
+            .disposed(by: disposeBag)
+        
         output.result
             .drive(with: self) { owner, data in
                 guard let data = data.first else { return }
                 owner.drawData(data)
             }
             .disposed(by: disposeBag)
-
-//            .bind(with: self) { owner, data in
-//                var isLiked = owner.checkIsLiked(data.id)
-//                    cell.configureData(item, isLiked)
-//                    cell.onLikeButtonTapped = { [weak self] in
-//                        guard let self = self else { return }
-//
-//                        if isLiked {
-//                            self.dbManager.deleteLikedItem(coinId: data.id)
-//                            self.searchView.makeToast("\(data.name)이 즐겨찾기에서 제거되었습니다.", duration: 1.0)
-//                        } else {
-//                            self.dbManager.createLikedItem(coinId: data.id)
-//                            self.searchView.makeToast("\(data.name)이 즐겨찾기되었습니다.", duration: 1.0)
-//                        }
-//                        isLiked.toggle()
-//                        cell.configureData(item, isLiked)
-//                    }
-//                }
-//                .disposed(by: disposeBag)
     }
     
     private func drawData(_ data: CoinDetail) {
@@ -182,5 +178,11 @@ final class DetailViewController: BaseViewController {
         likedList = dbManager.getLikedItem()
         let result = likedList.where { $0.coinId == id }
         return !result.isEmpty
+    }
+    
+    private func updateLikeButtonUI(_ isLiked: Bool) {
+        detailView.likeButton.setImage(UIImage(systemName: isLiked ?
+                                            Resources.SystemImage.like.rawValue :
+                                            Resources.SystemImage.unlike.rawValue), for: .normal)
     }
 }
