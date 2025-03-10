@@ -16,24 +16,24 @@ final class DetailView: BaseView {
     private var disposeBag = DisposeBag()
 
     private let navigationBar = UIStackView()
-    private let backButton = UIButton()
+    let backButton = UIButton()
     private let iconStackView = UIStackView()
-    private let iconImageView = UIImageView()
-    private let coinSymbolLabel = UILabel()
-    private let likeButton = UIButton()
+    let iconImageView = UIImageView()
+    let coinSymbolLabel = UILabel()
+    let likeButton = UIButton()
     private let borderView = UIView()
 
     private let scrollView = UIScrollView()
     private let contentView = UIView()
     
-    private let currentPriceLabel = UILabel()
-    private let changePercentLabel = UILabel()
-    private let changeChart = LineChartView()
-    private let updateLabel = UILabel()
+    let currentPriceLabel = UILabel()
+    let changePercentLabel = UILabel()
+    let changeChart = LineChartView()
+    let updateLabel = UILabel()
     
     private let coinInfoTitleStack = UIStackView()
-    private let coinInfoTitleLabel = UILabel()
-    private let coinInfoShowMoreButton = UIButton()
+    let coinInfoTitleLabel = UILabel()
+    let coinInfoShowMoreButton = UIButton()
     
     private let coinInfoRoundedBackground = UIView()
     private let coinInfoStackView = UIStackView()
@@ -41,39 +41,39 @@ final class DetailView: BaseView {
     private let price24StackView = UIStackView()
     private let high24hStackView = UIStackView()
     private let high24hTitleLabel = UILabel()
-    private let high24hValueLabel = UILabel()
+    let high24hValueLabel = UILabel()
     private let low24hStackView = UIStackView()
     private let low24hTitleLabel = UILabel()
-    private let low24hValueLabel = UILabel()
+    let low24hValueLabel = UILabel()
 
     private let priceStackView = UIStackView()
     private let highestStackView = UIStackView()
     private let highestTitleLabel = UILabel()
-    private let highestValueLabel = UILabel()
-    private let highestDateLabel = UILabel()
+    let highestValueLabel = UILabel()
+    let highestDateLabel = UILabel()
     private let lowestStackView = UIStackView()
     private let lowestTitleLabel = UILabel()
-    private let lowestValueLabel = UILabel()
-    private let lowestDateLabel = UILabel()
+    let lowestValueLabel = UILabel()
+    let lowestDateLabel = UILabel()
 
     private let investTitleStack = UIStackView()
-    private let investTitleLabel = UILabel()
-    private let investShowMoreButton = UIButton()
+    let investTitleLabel = UILabel()
+    let investShowMoreButton = UIButton()
     
     private let investRoundedBackground = UIView()
     private let investInfoStackView = UIStackView()
     
     private let marketCapStackView = UIStackView()
     private let marketCapTitleLabel = UILabel()
-    private let marketCapValueLabel = UILabel()
+    let marketCapValueLabel = UILabel()
     
     private let fdvStackView = UIStackView()
     private let fdvTitleLabel = UILabel()
-    private let fdvValueLabel = UILabel()
+    let fdvValueLabel = UILabel()
 
     private let totalVolumeStackView = UIStackView()
     private let totalVolumeTitleLabel = UILabel()
-    private let totalVolumeValueLabel = UILabel()
+    let totalVolumeValueLabel = UILabel()
 
     override func configureHierarchy() {
         //navigation
@@ -229,7 +229,7 @@ final class DetailView: BaseView {
         iconImageView.contentMode = .scaleAspectFit
         coinSymbolLabel.text = "BTC"
         coinSymbolLabel.textColor = .mainText
-        coinSymbolLabel.font = .systemFont(ofSize: 12, weight: .black)
+        coinSymbolLabel.font = .systemFont(ofSize: 16, weight: .black)
         likeButton.tintColor = .accent
         likeButton.setImage(UIImage(systemName: Resources.SystemImage.unlike.rawValue), for: .normal)
         likeButton.imageView?.contentMode = .scaleAspectFit
@@ -272,16 +272,16 @@ final class DetailView: BaseView {
         coinInfoRoundedBackground.backgroundColor = .infoBg
 
         coinInfoStackView.axis = .vertical
-        coinInfoStackView.distribution = .fillEqually
+        coinInfoStackView.distribution = .fillProportionally
         coinInfoStackView.spacing = 16
         
         price24StackView.axis = .horizontal
         price24StackView.distribution = .fillEqually
         high24hStackView.axis = .vertical
         high24hStackView.distribution = .fillEqually
-        high24hStackView.spacing = 0
+        high24hStackView.spacing = 2
         low24hStackView.axis = .vertical
-        low24hStackView.spacing = 0
+        low24hStackView.spacing = 2
         low24hStackView.distribution = .fillEqually
 
         high24hTitleLabel.text = "24시간 고가"
@@ -302,8 +302,10 @@ final class DetailView: BaseView {
         priceStackView.distribution = .fillEqually
         highestStackView.axis = .vertical
         highestStackView.distribution = .fillEqually
+        highestStackView.spacing = 2
         lowestStackView.axis = .vertical
         lowestStackView.distribution = .fillEqually
+        lowestStackView.spacing = 2
         
         highestTitleLabel.text = "역대 최고가"
         highestTitleLabel.textColor = .subText

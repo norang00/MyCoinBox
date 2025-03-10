@@ -48,8 +48,9 @@ enum NetworkRequest {
         case .search(let query):
             return ["query": query]
         case .detail(let ids):
-            return ["vs_currency=krw": "krw",
-                    "ids": ids]
+            return ["vs_currency": "krw",
+                    "ids": ids,
+                    "sparkline": "true"]
         }
     }
 }
