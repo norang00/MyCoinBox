@@ -18,7 +18,7 @@ final class SearchViewController: BaseViewController {
     
     let dbManager = DBManager()
     var likedList: Results<LikedItem>!
-    
+
     let disposeBag = DisposeBag()
     
     override func loadView() {
@@ -49,11 +49,15 @@ final class SearchViewController: BaseViewController {
                 cellType: SearchCoinCell.self)) { index, item, cell in
                     var isLiked = self.checkIsLiked(item)
                     cell.configureData(item, isLiked)
-                    cell.onLikeButtonTapped = {
+                    cell.onLikeButtonTapped = { [weak self] in
+                        guard let self = self else { return }
+
                         if isLiked {
                             self.dbManager.deleteLikedItem(coinId: item.id)
+                            self.searchView.makeToast("\(item.name)이 즐겨찾기에서 제거되었습니다.", duration: 1.0)
                         } else {
                             self.dbManager.createLikedItem(coinId: item.id)
+                            self.searchView.makeToast("\(item.name)이 즐겨찾기되었습니다.", duration: 1.0)
                         }
                         isLiked.toggle()
                         cell.configureData(item, isLiked)
