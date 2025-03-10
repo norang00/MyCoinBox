@@ -28,6 +28,7 @@ final class TabButton: UIButton {
     }
     
     private func setupView() {
+        isSelected = false
         isUserInteractionEnabled = true
         
         backgroundColor = .white

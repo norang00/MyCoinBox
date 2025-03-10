@@ -7,8 +7,25 @@
 
 import UIKit
 import SnapKit
+import RxSwift
+import RxCocoa
+import RxGesture
 
 final class SearchView: BaseView {
+    init() {
+            super.init(frame: .zero)
+            print("✅ SearchView init")
+        }
+        
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+
+        deinit {
+            print("❌ SearchView deinit")
+        }
+    
+    private var disposeBag = DisposeBag()
     
     private let navigationBar = UIView()
     let backButton = UIButton()
@@ -92,10 +109,10 @@ final class SearchView: BaseView {
     }
 
     override func configureView() {
+        print(#function)
         super.configureView()
         
         backButton.setImage(UIImage(systemName: Resources.SystemImage.back.rawValue), for: .normal)
-
         let empty = UIImage()
         searchBar.setImage(empty, for: .search, state: .normal)
         searchBar.setBackgroundImage(empty, for: .any, barMetrics: .default)
@@ -110,67 +127,60 @@ final class SearchView: BaseView {
         emptyLabel.text = Resources.Writing.notAvailable.rawValue
         emptyView.isHidden = true
 
-        initTabButtons()
+        configureTabButtons()
         configureSwipeGesture()
     }
 
-    private func initTabButtons() {
-        coinTabButton.isSelected = true
-        coinTabButton.tag = 0
-        coinTabButton.addTarget(self, action: #selector(TabButtonTapped), for: .touchUpInside)
-        
-        nftTabButton.isSelected = false
-        nftTabButton.tag = 1
-        nftTabButton.addTarget(self, action: #selector(TabButtonTapped), for: .touchUpInside)
-
-        marketTabButton.isSelected = false
-        marketTabButton.tag = 2
-        marketTabButton.addTarget(self, action: #selector(TabButtonTapped), for: .touchUpInside)
+    private func configureTabButtons() {
+        tabButtons.enumerated().forEach { index, button in
+            button.tag = index
+            button.rx.tap
+                .subscribe(with: self) { owner, _ in
+                    owner.switchTabTo(button.tag)
+                }
+                .disposed(by: disposeBag)
+        }
+        tabButtons[0].isSelected = true // init
     }
     
     private func configureSwipeGesture() {
-        let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(swipeRecognized(_:)))
-        leftSwipe.direction = .left
-        addGestureRecognizer(leftSwipe)
-
-        let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(swipeRecognized(_:)))
-        rightSwipe.direction = .right
-        addGestureRecognizer(rightSwipe)
-    }
-    
-    @objc
-    private func TabButtonTapped(_ sender: UIButton) {
-        let index = sender.tag
-        switchTabTo(index)
-    }
-    
-    @objc
-    private func swipeRecognized(_ gesture: UISwipeGestureRecognizer) {
-        switch gesture.direction {
-        case .left:
-            if currentIndex < 2 { switchTabTo(currentIndex+1) }
-        case .right:
-            if currentIndex > 0 { switchTabTo(currentIndex-1) }
-        default:
-            switchTabTo(currentIndex)
-        }
+        self.rx.swipeGesture(.left)
+            .when(.recognized, .began)
+            .subscribe(with: self) { owner, _ in
+                if owner.currentIndex < 2 { owner.switchTabTo(owner.currentIndex+1) }
+            }
+            .disposed(by: disposeBag)
+        
+        self.rx.swipeGesture(.right)
+            .when(.recognized, .began)
+            .subscribe(with: self) { owner, _ in
+                if owner.currentIndex > 0 { owner.switchTabTo(owner.currentIndex-1) }
+            }
+            .disposed(by: disposeBag)
     }
     
     private func switchTabTo(_ index: Int) {
+        guard index != currentIndex else { return }
+
+        let direction: CGFloat = (index > currentIndex) ? 1 : -1
+        let offset = collectionView.frame.width * direction
+
+        let targetView = (index == 0) ? collectionView : emptyView
+        let currentView = (index == 0) ? emptyView : collectionView
+
+        targetView.transform = CGAffineTransform(translationX: offset, y: 0)
+        targetView.isHidden = false
+
+        UIView.animate(withDuration: 0.3, animations: {
+            targetView.transform = .identity
+            currentView.transform = CGAffineTransform(translationX: -offset, y: 0)
+        }) { _ in
+            currentView.isHidden = true
+            currentView.transform = .identity
+        }
+
         tabButtons.forEach { $0.isSelected = false }
         tabButtons[index].isSelected = true
         currentIndex = index
-        
-        switch index {
-        case 0:
-            collectionView.isHidden = false
-            emptyView.isHidden = true
-        case 1, 2:
-            collectionView.isHidden = true
-            emptyView.isHidden = false
-        default:
-            collectionView.isHidden = true
-            emptyView.isHidden = true
-        }
     }
 }

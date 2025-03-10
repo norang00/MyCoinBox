@@ -8,8 +8,11 @@
 import UIKit
 import SnapKit
 import Kingfisher
+import RxSwift
 
 final class SearchCoinCell: UICollectionViewCell {
+    
+    let disposeBag = DisposeBag()
     
     static var identifier: String {
         return String(describing: self)
@@ -98,22 +101,19 @@ extension SearchCoinCell {
         nameLabel.font = .systemFont(ofSize: 12, weight: .regular)
         
         likeButton.setImage(UIImage(systemName: Resources.SystemImage.unlike.rawValue), for: .normal)
+        likeButton.tintColor = .accent
     }
 }
 
 extension SearchCoinCell {
     
-    func configureData(_ data: SearchCoin, _ isLike: Bool = false) {
+    func configureData(_ data: SearchCoin, _ isLiked: Bool) {
         iconImageView.kf.setImage(with: URL(string:data.thumb)!)
-        
         symbolLabel.text = data.symbol
         rankLabel.text = "#\(data.marketCapRank)"
         nameLabel.text = data.name
-        
-        likeButton.setImage(
-            UIImage(systemName: isLike ?
-                    Resources.SystemImage.like.rawValue :
-                        Resources.SystemImage.unlike.rawValue),
-            for: .normal)
+        likeButton.setImage(UIImage(systemName: isLiked ?
+                                    Resources.SystemImage.like.rawValue :
+                                    Resources.SystemImage.unlike.rawValue), for: .normal)
     }
 }
