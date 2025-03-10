@@ -31,6 +31,8 @@ final class SearchViewController: BaseViewController {
         searchView.collectionView.showsVerticalScrollIndicator = false
         searchView.collectionView.register(SearchCoinCell.self, forCellWithReuseIdentifier: SearchCoinCell.identifier)
         
+        dbManager.getFileURL()
+        
         bind()
     }
     
@@ -45,32 +47,21 @@ final class SearchViewController: BaseViewController {
             .drive(searchView.collectionView.rx.items(
                 cellIdentifier: SearchCoinCell.identifier,
                 cellType: SearchCoinCell.self)) { index, item, cell in
-                    
                     var isLiked = self.checkIsLiked(item)
                     cell.configureData(item, isLiked)
-                    
-                    // Like Button                    
-                    cell.likeButton.rx.tap
-                        .debug("likeButton.rx.tap")
-                        .bind { [weak self] _ in
-                            print("likeButton", isLiked)
-                            if isLiked {
-                                // 좋아요 목록에 있음 isLiked = true -> false 로 바꿔줌 => Delete
-                                isLiked.toggle()
-                                self?.dbManager.deleteLikedItem(coinId: item.id)
-                            } else {
-                                // 좋아요 목록에 없음 isLiked = false -> true 로 바꿔줌 => Create
-                                isLiked.toggle()
-                                self?.dbManager.createLikedItem(coinId: item.id)
-                            }
+                    cell.onLikeButtonTapped = {
+                        if isLiked {
+                            self.dbManager.deleteLikedItem(coinId: item.id)
+                        } else {
+                            self.dbManager.createLikedItem(coinId: item.id)
                         }
-                        .disposed(by: cell.disposeBag)
-                    
+                        isLiked.toggle()
+                        cell.configureData(item, isLiked)
+                    }
                 }
                 .disposed(by: disposeBag)
         
         searchView.collectionView.rx.modelSelected(SearchCoin.self)
-            .debug("collectionView.rx.modelSelected")
             .subscribe(with: self) { owner, item in
                 let nextVC = DetailViewController()
                 nextVC.id = item.id

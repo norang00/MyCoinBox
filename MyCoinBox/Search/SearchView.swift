@@ -114,6 +114,7 @@ final class SearchView: BaseView {
         emptyView.isHidden = true
         
         collectionView.keyboardDismissMode = .onDrag
+        collectionView.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
 
         configureTabButtons()
         configureSwipeGesture()
@@ -179,6 +180,15 @@ final class SearchView: BaseView {
     
     private func configureKeyboardDismiss() {
         self.rx.tapGesture() { recognizer, _ in
+            recognizer.cancelsTouchesInView = false
+        }
+        .when(.recognized)
+        .bind(with: self) { owner, _ in
+            owner.endEditing(true)
+        }
+        .disposed(by: disposeBag)
+        
+        collectionView.rx.swipeGesture(.down, .up) { recognizer, _ in
             recognizer.cancelsTouchesInView = false
         }
         .when(.recognized)

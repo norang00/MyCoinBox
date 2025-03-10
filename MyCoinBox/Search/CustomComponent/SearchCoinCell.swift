@@ -8,12 +8,9 @@
 import UIKit
 import SnapKit
 import Kingfisher
-import RxSwift
 
 final class SearchCoinCell: UICollectionViewCell {
-    
-    var disposeBag = DisposeBag()
-    
+
     static var identifier: String {
         return String(describing: self)
     }
@@ -25,7 +22,8 @@ final class SearchCoinCell: UICollectionViewCell {
     let rankLabel = RankLabel()
     let nameLabel = UILabel()
     let likeButton = UIButton()
-    
+    var onLikeButtonTapped: (() -> Void)?
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()
@@ -37,7 +35,12 @@ final class SearchCoinCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        disposeBag = DisposeBag()
+
+        configureData(SearchCoin(id: "", name: "", symbol: "", marketCapRank: 0, thumb: ""), false)
+    }
+
+    @objc private func likeButtonTapped() {
+        onLikeButtonTapped?()
     }
 }
 
@@ -51,15 +54,15 @@ extension SearchCoinCell {
     }
     
     private func configureHierarchy() {
-        addSubview(iconImageView)
+        contentView.addSubview(iconImageView)
 
-        addSubview(stackView)
+        contentView.addSubview(stackView)
         stackView.addArrangedSubview(symbolView)
         stackView.addArrangedSubview(nameLabel)
         symbolView.addSubview(symbolLabel)
         symbolView.addSubview(rankLabel)
 
-        addSubview(likeButton)
+        contentView.addSubview(likeButton)
     }
     
     private func configureLayout() {
@@ -89,9 +92,8 @@ extension SearchCoinCell {
             make.centerY.equalTo(contentView)
             make.leading.equalTo(stackView.snp.trailing).offset(8)
             make.trailing.equalTo(contentView).inset(24)
-            make.size.equalTo(20)
+            make.size.equalTo(40)
         }
-        
     }
 
     private func configureView() {
@@ -105,12 +107,14 @@ extension SearchCoinCell {
         nameLabel.textColor = .subText
         nameLabel.font = .systemFont(ofSize: 12, weight: .regular)
         
-        likeButton.isUserInteractionEnabled = true
-        likeButton.setImage(UIImage(systemName: Resources.SystemImage.unlike.rawValue), for: .normal)
         likeButton.tintColor = .accent
+        likeButton.setImage(UIImage(systemName: Resources.SystemImage.unlike.rawValue), for: .normal)
+        likeButton.imageView?.contentMode = .scaleAspectFit
+        likeButton.addTarget(self, action: #selector(likeButtonTapped), for: .touchUpInside)
     }
 }
 
+// MARK: - Setup Data
 extension SearchCoinCell {
     
     func configureData(_ data: SearchCoin, _ isLiked: Bool) {

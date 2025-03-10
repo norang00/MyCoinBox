@@ -31,6 +31,12 @@ final class TrendingNFTCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        configureData(TrendingNFT(id: "", name: "", thumb: "", data: TrendingNFTData(floorPrice: "", floorPriceInUsd24hPercentageChange: "")))
+    }
 }
 
 // MARK: - Setup View
@@ -43,12 +49,12 @@ extension TrendingNFTCell {
     }
     
     private func configureHierarchy() {
-        addSubview(iconImageView)
-        addSubview(stackView)
+        contentView.addSubview(iconImageView)
+        contentView.addSubview(stackView)
         stackView.addArrangedSubview(nameLabel)
         stackView.addArrangedSubview(priceLabel)
         stackView.addArrangedSubview(changeLabel)
-        addSubview(emptyView)
+        contentView.addSubview(emptyView)
     }
     
     private func configureLayout() {

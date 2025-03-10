@@ -30,6 +30,12 @@ final class TrendingCoinCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        configureData(TrendingCoinItem(id: "", name: "", symbol: "", thumb: "", score: 0, data: TrendingCoinData(priceChangePercentage24h: ["":0.0])))
+    }
 }
 
 // MARK: - Setup View
@@ -42,14 +48,14 @@ extension TrendingCoinCell {
     }
     
     private func configureHierarchy() {
-        addSubview(scoreLabel)
-        addSubview(iconImageView)
+        contentView.addSubview(scoreLabel)
+        contentView.addSubview(iconImageView)
         
-        addSubview(stackView)
+        contentView.addSubview(stackView)
         stackView.addArrangedSubview(symbolLabel)
         stackView.addArrangedSubview(nameLabel)
         
-        addSubview(changeLabel)
+        contentView.addSubview(changeLabel)
     }
     
     private func configureLayout() {
