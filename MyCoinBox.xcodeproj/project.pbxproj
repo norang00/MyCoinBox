@@ -13,6 +13,8 @@
 		EE1C7CC22D7C283000251E38 /* TrendingData.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1C7CC12D7C283000251E38 /* TrendingData.swift */; };
 		EE1C7CC72D7C327E00251E38 /* TrendingCoinCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1C7CC62D7C327E00251E38 /* TrendingCoinCell.swift */; };
 		EE1C7CC92D7C328D00251E38 /* TrendingNFTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1C7CC82D7C328D00251E38 /* TrendingNFTCell.swift */; };
+		EE97DEF32D7EEFB7000C5865 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE97DEF22D7EEFB7000C5865 /* DetailViewModel.swift */; };
+		EE97DEF62D7EF2F5000C5865 /* DGCharts in Frameworks */ = {isa = PBXBuildFile; productRef = EE97DEF52D7EF2F5000C5865 /* DGCharts */; };
 		EECAF4102D797F0D00950F89 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = EECAF40F2D797F0D00950F89 /* RealmSwift */; };
 		EECAF4132D797F2600950F89 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = EECAF4122D797F2600950F89 /* RxCocoa */; };
 		EECAF4152D797F2600950F89 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = EECAF4142D797F2600950F89 /* RxSwift */; };
@@ -82,6 +84,7 @@
 		EE1C7CC12D7C283000251E38 /* TrendingData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingData.swift; sourceTree = "<group>"; };
 		EE1C7CC62D7C327E00251E38 /* TrendingCoinCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingCoinCell.swift; sourceTree = "<group>"; };
 		EE1C7CC82D7C328D00251E38 /* TrendingNFTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingNFTCell.swift; sourceTree = "<group>"; };
+		EE97DEF22D7EEFB7000C5865 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
 		EECAF3F62D797B0900950F89 /* MyCoinBox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyCoinBox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EECAF4A92D799AB500950F89 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		EECAF4EA2D79C3D600950F89 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -135,6 +138,7 @@
 				EECAF41E2D797F6300950F89 /* Alamofire in Frameworks */,
 				EECAF4102D797F0D00950F89 /* RealmSwift in Frameworks */,
 				EECAF4BD2D79A36900950F89 /* Toast in Frameworks */,
+				EE97DEF62D7EF2F5000C5865 /* DGCharts in Frameworks */,
 				EECAF41B2D797F4D00950F89 /* Kingfisher in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -212,6 +216,7 @@
 			isa = PBXGroup;
 			children = (
 				EECAF4F62D79C3D600950F89 /* DetailView.swift */,
+				EE97DEF22D7EEFB7000C5865 /* DetailViewModel.swift */,
 				EECAF4F72D79C3D600950F89 /* DetailViewController.swift */,
 			);
 			path = Detail;
@@ -355,6 +360,7 @@
 				EECAF41D2D797F6300950F89 /* Alamofire */,
 				EECAF4BC2D79A36900950F89 /* Toast */,
 				EEF2BAB52D7AC4B300ABEA79 /* RxGesture */,
+				EE97DEF52D7EF2F5000C5865 /* DGCharts */,
 			);
 			productName = MyCoinBox;
 			productReference = EECAF3F62D797B0900950F89 /* MyCoinBox.app */;
@@ -392,6 +398,7 @@
 				EECAF41C2D797F6300950F89 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				EECAF4BB2D79A36900950F89 /* XCRemoteSwiftPackageReference "Toast-Swift" */,
 				EEF2BAB42D7AC4B300ABEA79 /* XCRemoteSwiftPackageReference "RxGesture" */,
+				EE97DEF42D7EF2F5000C5865 /* XCRemoteSwiftPackageReference "Charts" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = EECAF3F72D797B0900950F89 /* Products */;
@@ -448,6 +455,7 @@
 				EECAF5152D79C3D600950F89 /* MarketViewController.swift in Sources */,
 				EEDF530B2D7B118A001F0A2C /* NetworkRequest.swift in Sources */,
 				EECAF5162D79C3D600950F89 /* PortfolioView.swift in Sources */,
+				EE97DEF32D7EEFB7000C5865 /* DetailViewModel.swift in Sources */,
 				EECAF5172D79C3D600950F89 /* PortfolioViewController.swift in Sources */,
 				EECAF51D2D79C43300950F89 /* DBManager.swift in Sources */,
 				EEF2BAA62D7AB89300ABEA79 /* 서치데이터.swift in Sources */,
@@ -689,6 +697,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		EE97DEF42D7EF2F5000C5865 /* XCRemoteSwiftPackageReference "Charts" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ChartsOrg/Charts.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.1.0;
+			};
+		};
 		EECAF40E2D797F0D00950F89 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/realm/realm-swift.git";
@@ -748,6 +764,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		EE97DEF52D7EF2F5000C5865 /* DGCharts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EE97DEF42D7EF2F5000C5865 /* XCRemoteSwiftPackageReference "Charts" */;
+			productName = DGCharts;
+		};
 		EECAF40F2D797F0D00950F89 /* RealmSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = EECAF40E2D797F0D00950F89 /* XCRemoteSwiftPackageReference "realm-swift" */;
