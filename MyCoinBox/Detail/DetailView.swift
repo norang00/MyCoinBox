@@ -17,7 +17,7 @@ final class DetailView: BaseView {
 
     private let navigationBar = UIStackView()
     let backButton = UIButton()
-    private let iconStackView = UIStackView()
+    private let iconView = UIView()
     let iconImageView = UIImageView()
     let coinSymbolLabel = UILabel()
     let likeButton = UIButton()
@@ -79,10 +79,10 @@ final class DetailView: BaseView {
         //navigation
         [navigationBar, borderView]
             .forEach { addSubview($0) }
-        [backButton, iconStackView, likeButton]
+        [backButton, iconView, likeButton]
             .forEach { navigationBar.addArrangedSubview($0) }
         [iconImageView, coinSymbolLabel]
-            .forEach { iconStackView.addArrangedSubview($0) }
+            .forEach { iconView.addSubview($0) }
 
         //background
         [scrollView]
@@ -148,8 +148,19 @@ final class DetailView: BaseView {
         backButton.snp.makeConstraints { make in
             make.size.equalTo(30)
         }
+        iconView.snp.makeConstraints { make in
+            make.height.equalTo(30)
+            make.width.greaterThanOrEqualTo(50)
+        }
         iconImageView.snp.makeConstraints { make in
+            make.centerY.equalTo(iconView)
+            make.leading.equalTo(iconView).inset(8)
             make.size.equalTo(30)
+        }
+        coinSymbolLabel.snp.makeConstraints { make in
+            make.centerY.equalTo(iconView)
+            make.leading.equalTo(iconImageView.snp.trailing).offset(8)
+            make.trailing.equalTo(iconView).inset(8)
         }
         likeButton.snp.makeConstraints { make in
             make.size.equalTo(30)
@@ -223,45 +234,47 @@ final class DetailView: BaseView {
         
         navigationBar.axis = .horizontal
         navigationBar.distribution = .equalSpacing
-        backButton.setImage(UIImage(systemName: Resources.SystemImage.back.rawValue), for: .normal)
-        iconStackView.spacing = 8
+        
+        let navConfig = UIImage.SymbolConfiguration(pointSize: 20, weight: .bold)
+        let backResizedImage = UIImage(systemName: Resources.SystemImage.back.rawValue, withConfiguration: navConfig)
+        backButton.setImage(backResizedImage, for: .normal)
         
         iconImageView.image = UIImage(systemName: Resources.SystemImage.bitcoin.rawValue)
         iconImageView.contentMode = .scaleAspectFit
         iconImageView.layer.cornerRadius = 15
         
-        coinSymbolLabel.text = "BTC"
         coinSymbolLabel.textColor = .mainText
         coinSymbolLabel.font = .systemFont(ofSize: 16, weight: .black)
-        likeButton.tintColor = .accent
-        likeButton.setImage(UIImage(systemName: Resources.SystemImage.unlike.rawValue), for: .normal)
+        
+        
+        let likeResizedImage = UIImage(systemName: Resources.SystemImage.unlike.rawValue, withConfiguration: navConfig)
+        likeButton.setImage(likeResizedImage, for: .normal)
         likeButton.imageView?.contentMode = .scaleAspectFit
+        likeButton.tintColor = .accent
+
         borderView.backgroundColor = .badgeBg
         
         scrollView.showsVerticalScrollIndicator = false
         
-        currentPriceLabel.text = "₩140,375,094"
         currentPriceLabel.textColor = .mainText
         currentPriceLabel.font = .systemFont(ofSize: 24, weight: .bold)
         
-        changePercentLabel.text = "0.00%"
         changePercentLabel.textColor = .mainText
         changePercentLabel.font = .systemFont(ofSize: 14, weight: .bold)
 
         changeChart.backgroundColor = .lightGray
         
-        updateLabel.text = "2/15 18:00:45 업데이트"
         updateLabel.textColor = .subText
         updateLabel.font = .systemFont(ofSize: 10, weight: .regular)
         
         coinInfoTitleStack.axis = .horizontal
         coinInfoTitleStack.distribution = .equalSpacing
         
-        coinInfoTitleLabel.text = "종목정보"
+        coinInfoTitleLabel.text = Resources.Writing.coinInfo.rawValue
         coinInfoTitleLabel.textColor = .mainText
         coinInfoTitleLabel.font = .systemFont(ofSize: 16, weight: .bold)
         
-        coinInfoShowMoreButton.setTitle("더보기", for: .normal)
+        coinInfoShowMoreButton.setTitle(Resources.Writing.more.rawValue, for: .normal)
         coinInfoShowMoreButton.setTitleColor(.subText, for: .normal)
         coinInfoShowMoreButton.titleLabel?.font = UIFont.systemFont(ofSize: 12, weight: .regular)
         coinInfoShowMoreButton.semanticContentAttribute = .forceRightToLeft
@@ -282,22 +295,20 @@ final class DetailView: BaseView {
         price24StackView.distribution = .fillEqually
         high24hStackView.axis = .vertical
         high24hStackView.distribution = .fillEqually
-        high24hStackView.spacing = 2
+        high24hStackView.spacing = 0
         low24hStackView.axis = .vertical
-        low24hStackView.spacing = 2
+        low24hStackView.spacing = 0
         low24hStackView.distribution = .fillEqually
 
-        high24hTitleLabel.text = "24시간 고가"
+        high24hTitleLabel.text = Resources.Writing.high24.rawValue
         high24hTitleLabel.textColor = .subText
         high24hTitleLabel.font = .systemFont(ofSize: 12, weight: .regular)
-        high24hValueLabel.text = "₩142,060,908"
         high24hValueLabel.textColor = .mainText
         high24hValueLabel.font = .systemFont(ofSize: 14, weight: .bold)
 
-        low24hTitleLabel.text = "24시간 저가"
+        low24hTitleLabel.text = Resources.Writing.low24.rawValue
         low24hTitleLabel.textColor = .subText
         low24hTitleLabel.font = .systemFont(ofSize: 12, weight: .regular)
-        low24hValueLabel.text = "₩139,531,878"
         low24hValueLabel.textColor = .mainText
         low24hValueLabel.font = .systemFont(ofSize: 14, weight: .bold)
         
@@ -305,39 +316,35 @@ final class DetailView: BaseView {
         priceStackView.distribution = .fillEqually
         highestStackView.axis = .vertical
         highestStackView.distribution = .fillEqually
-        highestStackView.spacing = 2
+        highestStackView.spacing = 0
         lowestStackView.axis = .vertical
         lowestStackView.distribution = .fillEqually
-        lowestStackView.spacing = 2
+        lowestStackView.spacing = 0
         
-        highestTitleLabel.text = "역대 최고가"
+        highestTitleLabel.text = Resources.Writing.highest.rawValue
         highestTitleLabel.textColor = .subText
         highestTitleLabel.font = .systemFont(ofSize: 12, weight: .regular)
-        highestValueLabel.text = "₩157,802,010"
         highestValueLabel.textColor = .mainText
         highestValueLabel.font = .systemFont(ofSize: 14, weight: .bold)
-        highestDateLabel.text = "25년 1월 20일"
         highestDateLabel.textColor = .subText
         highestDateLabel.font = .systemFont(ofSize: 9, weight: .regular)
         
-        lowestTitleLabel.text = "역대 최저가"
+        lowestTitleLabel.text = Resources.Writing.lowest.rawValue
         lowestTitleLabel.textColor = .subText
         lowestTitleLabel.font = .systemFont(ofSize: 12, weight: .regular)
-        lowestValueLabel.text = "₩75,594"
         lowestValueLabel.textColor = .mainText
         lowestValueLabel.font = .systemFont(ofSize: 14, weight: .bold)
-        lowestDateLabel.text = "13년 7월 5일"
         lowestDateLabel.textColor = .subText
         lowestDateLabel.font = .systemFont(ofSize: 9, weight: .regular)
         
         investTitleStack.axis = .horizontal
         investTitleStack.distribution = .equalSpacing
         
-        investTitleLabel.text = "투자지표"
+        investTitleLabel.text = Resources.Writing.investInfo.rawValue
         investTitleLabel.textColor = .mainText
         investTitleLabel.font = .systemFont(ofSize: 16, weight: .bold)
         
-        investShowMoreButton.setTitle("더보기", for: .normal)
+        investShowMoreButton.setTitle(Resources.Writing.more.rawValue, for: .normal)
         investShowMoreButton.setTitleColor(.subText, for: .normal)
         investShowMoreButton.titleLabel?.font = UIFont.systemFont(ofSize: 12, weight: .regular)
         investShowMoreButton.semanticContentAttribute = .forceRightToLeft
@@ -359,24 +366,21 @@ final class DetailView: BaseView {
         totalVolumeStackView.axis = .vertical
         totalVolumeStackView.distribution = .fillEqually
 
-        marketCapTitleLabel.text = "시가총액"
+        marketCapTitleLabel.text = Resources.Writing.marketCap.rawValue
         marketCapTitleLabel.textColor = .subText
         marketCapTitleLabel.font = .systemFont(ofSize: 12, weight: .regular)
-        marketCapValueLabel.text = "₩2,787,407,213,792,217"
         marketCapValueLabel.textColor = .mainText
         marketCapValueLabel.font = .systemFont(ofSize: 14, weight: .bold)
 
-        fdvTitleLabel.text = "완전 희석 가치(FDV)"
+        fdvTitleLabel.text = Resources.Writing.fdv.rawValue
         fdvTitleLabel.textColor = .subText
         fdvTitleLabel.font = .systemFont(ofSize: 12, weight: .regular)
-        fdvValueLabel.text = "₩2,787,407,213,792,217"
         fdvValueLabel.textColor = .mainText
         fdvValueLabel.font = .systemFont(ofSize: 14, weight: .bold)
         
-        totalVolumeTitleLabel.text = "총 거래량"
+        totalVolumeTitleLabel.text = Resources.Writing.totalVolume.rawValue
         totalVolumeTitleLabel.textColor = .subText
         totalVolumeTitleLabel.font = .systemFont(ofSize: 12, weight: .regular)
-        totalVolumeValueLabel.text = "₩2,787,407,213,792,217"
         totalVolumeValueLabel.textColor = .mainText
         totalVolumeValueLabel.font = .systemFont(ofSize: 14, weight: .bold)
         

@@ -31,7 +31,6 @@ final class DetailViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("DetailViewController, id", id)
         
         bind()
     }
@@ -87,12 +86,10 @@ final class DetailViewController: BaseViewController {
         if let url = URL(string:data.image) {
             detailView.iconImageView.kf.setImage(with: url)
         }
-        detailView.coinSymbolLabel.text = data.symbol
+        detailView.coinSymbolLabel.text = data.symbol.uppercased()
         
         let isLiked = checkIsLiked(data.id)
-        detailView.likeButton.setImage(UIImage(systemName: isLiked ?
-                                               Resources.SystemImage.like.rawValue :
-                                                Resources.SystemImage.unlike.rawValue), for: .normal)
+        updateLikeButtonUI(isLiked)
         
         detailView.currentPriceLabel.text = "₩ \(data.currentPrice.formatted())"
         
@@ -192,8 +189,11 @@ final class DetailViewController: BaseViewController {
     }
     
     private func updateLikeButtonUI(_ isLiked: Bool) {
-        detailView.likeButton.setImage(UIImage(systemName: isLiked ?
-                                               Resources.SystemImage.like.rawValue :
-                                                Resources.SystemImage.unlike.rawValue), for: .normal)
+        
+        let navConfig = UIImage.SymbolConfiguration(pointSize: 20, weight: .bold)
+        let likeResizedImage = UIImage(systemName: Resources.SystemImage.like.rawValue, withConfiguration: navConfig)
+        let unLikeResizedImage = UIImage(systemName: Resources.SystemImage.unlike.rawValue, withConfiguration: navConfig)
+
+        detailView.likeButton.setImage(isLiked ? likeResizedImage : unLikeResizedImage, for: .normal)
     }
 }
