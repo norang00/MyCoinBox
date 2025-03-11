@@ -14,8 +14,8 @@ final class TrendingViewModel: BaseViewModel {
     var timer = Timer()
     
     let update: BehaviorRelay<Date> = BehaviorRelay(value: Date())
-    let coinData: BehaviorRelay<[TrendingCoin]> = BehaviorRelay(value: [])
-    let nftData: BehaviorRelay<[TrendingNFT]> = BehaviorRelay(value: [])
+    let coinData = PublishRelay<[TrendingCoin]>()
+    let nftData = PublishRelay<[TrendingNFT]>()
     let errorMessage = PublishRelay<CustomError>()
 
     let disposeBag = DisposeBag()
@@ -35,8 +35,8 @@ final class TrendingViewModel: BaseViewModel {
         
         return Output(
             update: update,
-            coinData: coinData.asDriver(),
-            nftData: nftData.asDriver(),
+            coinData: coinData.asDriver(onErrorJustReturn: []),
+            nftData: nftData.asDriver(onErrorJustReturn: []),
             errorMessage: errorMessage
         )
     }

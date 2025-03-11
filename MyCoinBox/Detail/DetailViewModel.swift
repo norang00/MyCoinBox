@@ -11,7 +11,7 @@ import RxCocoa
 
 final class DetailViewModel: BaseViewModel {
     
-    let result: BehaviorRelay<[CoinDetail]> = BehaviorRelay(value: [])
+    let result = PublishRelay<[CoinDetail]>()
     let errorMessage = PublishRelay<CustomError>()
 
     let disposeBag = DisposeBag()
@@ -30,7 +30,7 @@ final class DetailViewModel: BaseViewModel {
         callRequestToNetworkManager(input.id)
 
         return Output(
-            result: result.asDriver(),
+            result: result.asDriver(onErrorJustReturn: []),
             errorMessage: errorMessage
         )
     }

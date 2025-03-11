@@ -21,7 +21,7 @@ final class MarketViewModel: BaseViewModel {
     var sortWith: SortValue = .price
     var sortBy: SortStatus = .descending
     
-    let resultList: BehaviorRelay<[MarketData]> = BehaviorRelay(value: [])
+    let resultList = PublishRelay<[MarketData]>()
     let errorMessage = PublishRelay<CustomError>()
 
     let disposeBag = DisposeBag()
@@ -56,7 +56,7 @@ final class MarketViewModel: BaseViewModel {
             .disposed(by: disposeBag)
         
         return Output(
-            resultList: resultList.asDriver(),
+            resultList: resultList.asDriver(onErrorJustReturn: []),
             errorMessage: errorMessage
         )
     }

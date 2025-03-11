@@ -13,6 +13,8 @@ import RxGesture
 
 final class TrendingView: BaseView {
     
+    let loadingView = LoadingView()
+
     private let disposeBag = DisposeBag()
     
     private let navigationBar = UIView()
@@ -57,7 +59,7 @@ final class TrendingView: BaseView {
                                               heightDimension: .fractionalHeight(1.0))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.5),
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.3),
                                                heightDimension: .fractionalHeight(1.0))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
         group.interItemSpacing = .fixed(8)
@@ -86,6 +88,8 @@ final class TrendingView: BaseView {
         addSubview(trendingNFTTitleView)
         trendingNFTTitleView.addSubview(trendingNFTTitleLabel)
         addSubview(trendingNFTCollectionView)
+        
+        addSubview(loadingView)
     }
     
     override func configureLayout() {
@@ -153,6 +157,11 @@ final class TrendingView: BaseView {
             make.top.equalTo(trendingNFTTitleView.snp.bottom)
             make.horizontalEdges.equalTo(safeAreaLayoutGuide)
             make.height.equalTo(120)
+        }
+        
+        loadingView.snp.makeConstraints { make in
+            make.top.equalTo(borderView.snp.bottom)
+            make.horizontalEdges.bottom.equalTo(safeAreaLayoutGuide)
         }
     }
     

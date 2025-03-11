@@ -11,7 +11,7 @@ import RxCocoa
 
 final class SearchViewModel: BaseViewModel {
     
-    let resultList: BehaviorRelay<[SearchCoin]> = BehaviorRelay(value: [])
+    let resultList = PublishRelay<[SearchCoin]>()
     let errorMessage = PublishRelay<CustomError>()
 
     let disposeBag = DisposeBag()
@@ -43,7 +43,7 @@ final class SearchViewModel: BaseViewModel {
             .disposed(by: disposeBag)
 
         return Output(
-            resultList: resultList.asDriver(),
+            resultList: resultList.asDriver(onErrorJustReturn: []),
             errorMessage: errorMessage
         )
     }

@@ -10,6 +10,8 @@ import SnapKit
 
 final class MarketView: BaseView {
     
+    let loadingView = LoadingView()
+    
     private let navigationBar = UIView()
     private let navigationTitle = UILabel()
     private let borderView = UIView()
@@ -41,6 +43,8 @@ final class MarketView: BaseView {
         headerView.addArrangedSubview(priceButtonView)
         
         addSubview(collectionView)
+        
+        addSubview(loadingView)
     }
     
     override func configureLayout() {
@@ -70,6 +74,11 @@ final class MarketView: BaseView {
         collectionView.snp.makeConstraints { make in
             make.top.equalTo(headerView.snp.bottom)
             make.horizontalEdges.bottom.equalTo(safeAreaLayoutGuide)
+        }
+        
+        loadingView.snp.makeConstraints { make in
+            make.top.equalTo(borderView.snp.bottom)
+            make.horizontalEdges.bottom.equalTo(collectionView)
         }
     }
 

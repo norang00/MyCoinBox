@@ -18,7 +18,7 @@ final class SearchViewController: BaseViewController {
     
     let dbManager = DBManager()
     var likedList: Results<LikedItem>!
-
+    
     let disposeBag = DisposeBag()
     
     override func loadView() {
@@ -30,6 +30,8 @@ final class SearchViewController: BaseViewController {
         
         searchView.collectionView.showsVerticalScrollIndicator = false
         searchView.collectionView.register(SearchCoinCell.self, forCellWithReuseIdentifier: SearchCoinCell.identifier)
+        
+        searchView.loadingView.showSpinner()
         
         dbManager.getFileURL()
         
@@ -48,6 +50,23 @@ final class SearchViewController: BaseViewController {
             searchText: searchView.searchBar.rx.text.orEmpty
         )
         let output = searchViewModel.transform(input)
+        
+        searchView.searchBar.rx.searchButtonClicked
+            .startWith(())
+            .withLatestFrom(searchView.searchBar.rx.text.orEmpty)
+            .distinctUntilChanged()
+            .bind(with: self) { owner, value in
+                print(value)
+                owner.searchView.loadingView.showSpinner()
+            }
+            .disposed(by: disposeBag)
+        
+        output.resultList
+            .asObservable()
+            .bind(with: self) { owner, value in
+                owner.searchView.loadingView.hideSpinner()
+            }
+            .disposed(by: disposeBag)
         
         output.resultList
             .do { resultList in

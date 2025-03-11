@@ -10,7 +10,6 @@ import RxSwift
 import RxCocoa
 import RxGesture
 
-// [TODO] 텍스트필드 탭시 키보드 등장이 너무 느림
 final class TrendingViewController: BaseViewController {
 
     private let trendingView = TrendingView()
@@ -26,9 +25,10 @@ final class TrendingViewController: BaseViewController {
         super.viewDidLoad()
 
         navigationController?.isNavigationBarHidden = true
-
         configureCollectionView()
         
+        trendingView.loadingView.showSpinner()
+
         bind()
     }
     
@@ -59,6 +59,13 @@ final class TrendingViewController: BaseViewController {
                     cell.configureData(item)
                 }
                 .disposed(by: disposeBag)
+        
+        output.nftData
+            .asObservable()
+            .bind(with: self) { owner, value in
+                owner.trendingView.loadingView.hideSpinner()
+            }
+            .disposed(by: disposeBag)
         
         output.errorMessage
             .debug("errorMessage")

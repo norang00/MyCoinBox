@@ -28,6 +28,8 @@ final class MarketViewController: BaseViewController {
         marketView.collectionView.showsVerticalScrollIndicator = false
         marketView.collectionView.register(MarketCell.self, forCellWithReuseIdentifier: MarketCell.identifier)
         
+        marketView.loadingView.showSpinner()
+        
         bind()
     }
     
@@ -45,10 +47,10 @@ final class MarketViewController: BaseViewController {
         let input = MarketViewModel.Input(
             currentTap: marketView.currentButtonView.rx.tapGesture()
                 .when(.recognized)
-                .do(onNext: {_ in
-                    self.marketView.currentButtonView.updateStatus()
-                    self.marketView.changeButtonView.setDefault()
-                    self.marketView.priceButtonView.setDefault()
+                .do(onNext: { [weak self] _ in
+                    self?.marketView.currentButtonView.updateStatus()
+                    self?.marketView.changeButtonView.setDefault()
+                    self?.marketView.priceButtonView.setDefault()
                 })
                 .map { [weak self] _ in
                     self?.marketView.currentButtonView.status
@@ -75,13 +77,20 @@ final class MarketViewController: BaseViewController {
         let output = marketViewModel.transform(input)
         
         output.resultList
+            .asObservable()
+            .bind(with: self) { owner, value in
+                owner.marketView.loadingView.hideSpinner()
+            }
+            .disposed(by: disposeBag)
+        
+        output.resultList
             .drive(marketView.collectionView.rx.items(
                 cellIdentifier: MarketCell.identifier,
                 cellType: MarketCell.self)) { index, item, cell in
                     cell.configureData(item)
                 }
                 .disposed(by: disposeBag)
-        
+                
         output.errorMessage
             .debug("errorMessage")
             .bind(with: self) { owner, error in

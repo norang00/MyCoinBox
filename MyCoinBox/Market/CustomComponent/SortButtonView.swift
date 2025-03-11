@@ -69,10 +69,10 @@ final class SortButtonView: UIView {
     func updateStatus() {
         switch status {
         case .deselect:
-            status = .ascending
-        case .ascending:
             status = .descending
         case .descending:
+            status = .ascending
+        case .ascending:
             status = .deselect
         }
     }

@@ -12,6 +12,9 @@ import RxCocoa
 import RxGesture
 
 final class SearchView: BaseView {
+    
+    let loadingView = LoadingView()
+
     private var disposeBag = DisposeBag()
     
     private let navigationBar = UIView()
@@ -53,6 +56,8 @@ final class SearchView: BaseView {
         
         addSubview(emptyView)
         emptyView.addSubview(emptyLabel)
+        
+        addSubview(loadingView)
     }
     
     override func configureLayout() {
@@ -92,6 +97,11 @@ final class SearchView: BaseView {
         }
         emptyLabel.snp.makeConstraints { make in
             make.center.equalTo(emptyView)
+        }
+        
+        loadingView.snp.makeConstraints { make in
+            make.top.equalTo(borderView.snp.bottom)
+            make.horizontalEdges.bottom.equalTo(collectionView)
         }
     }
 

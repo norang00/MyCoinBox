@@ -13,6 +13,9 @@ import RxGesture
 import DGCharts
 
 final class DetailView: BaseView {
+    
+    let loadingView = LoadingView()
+
     private var disposeBag = DisposeBag()
 
     private let navigationBar = UIStackView()
@@ -137,6 +140,9 @@ final class DetailView: BaseView {
             .forEach { fdvStackView.addArrangedSubview($0) }
         [totalVolumeTitleLabel, totalVolumeValueLabel]
             .forEach { totalVolumeStackView.addArrangedSubview($0) }
+
+        //로딩뷰
+        addSubview(loadingView)
     }
     
     override func configureLayout() {
@@ -226,6 +232,11 @@ final class DetailView: BaseView {
         }
         investInfoStackView.snp.makeConstraints { make in
             make.edges.equalTo(investRoundedBackground).inset(16)
+        }
+        
+        loadingView.snp.makeConstraints { make in
+            make.top.equalTo(borderView.snp.bottom)
+            make.horizontalEdges.bottom.equalTo(safeAreaLayoutGuide)
         }
     }
 

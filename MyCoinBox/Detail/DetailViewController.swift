@@ -33,6 +33,8 @@ final class DetailViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        detailView.loadingView.showSpinner()
+
         bind()
     }
     
@@ -72,6 +74,13 @@ final class DetailViewController: BaseViewController {
         Observable.merge(showMoreButtons)
             .bind(with: self) { owner, _ in
                 owner.detailView.makeToast(Resources.Writing.notAvailable.rawValue)
+            }
+            .disposed(by: disposeBag)
+        
+        output.result
+            .asObservable()
+            .bind(with: self) { owner, value in
+                owner.detailView.loadingView.hideSpinner()
             }
             .disposed(by: disposeBag)
         
