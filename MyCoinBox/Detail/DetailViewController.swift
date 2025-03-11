@@ -22,6 +22,7 @@ final class DetailViewController: BaseViewController {
     var likedList: Results<LikedItem>!
     
     var id: String = ""
+    var name: String = ""
     
     let disposeBag = DisposeBag()
     
@@ -53,10 +54,10 @@ final class DetailViewController: BaseViewController {
                 var isLiked = owner.checkIsLiked(owner.id)
                 if isLiked {
                     self.dbManager.deleteLikedItem(coinId: owner.id)
-                    self.detailView.makeToast("즐겨찾기에서 제거되었습니다.", duration: 1.0)
+                    self.detailView.makeToast("\(owner.name) 즐겨찾기에서 제거되었습니다.", duration: 1.0)
                 } else {
                     self.dbManager.createLikedItem(coinId: owner.id)
-                    self.detailView.makeToast("즐겨찾기되었습니다.", duration: 1.0)
+                    self.detailView.makeToast("\(owner.name) 즐겨찾기되었습니다.", duration: 1.0)
                 }
                 isLiked.toggle()
                 owner.updateLikeButtonUI(isLiked)
@@ -77,6 +78,7 @@ final class DetailViewController: BaseViewController {
         output.result
             .drive(with: self) { owner, data in
                 guard let data = data.first else { return }
+                owner.name = data.name
                 owner.drawData(data)
             }
             .disposed(by: disposeBag)
@@ -107,7 +109,6 @@ final class DetailViewController: BaseViewController {
         }
         
         if let date = DateFormatter.isoFormatter.date(from: data.lastUpdated) {
-            print("date", date)
             let formattedString = DateFormatter.update.string(from: date)
             detailView.updateLabel.text = formattedString
         }

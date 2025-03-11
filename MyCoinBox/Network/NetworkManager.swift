@@ -26,7 +26,7 @@ final class NetworkManager {
                     print(#function, "success")
                     completionHandler(.success(value))
                 case .failure(let error):
-                    print(#function, "error", error)
+                    print(#function, "error")
                     guard let customError = self?.handleError(response: response, error: error) else { return }
                     completionHandler(.failure(customError))
                 }

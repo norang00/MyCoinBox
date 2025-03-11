@@ -11,7 +11,7 @@ import RxCocoa
 import RxGesture
 
 // [TODO] 텍스트필드 탭시 키보드 등장이 너무 느림
-final class TrendingViewController: UIViewController {
+final class TrendingViewController: BaseViewController {
 
     private let trendingView = TrendingView()
     private let trendingViewModel = TrendingViewModel()

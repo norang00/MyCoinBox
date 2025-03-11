@@ -65,7 +65,6 @@ final class TrendingViewModel: BaseViewModel {
     
     private func convertData(_ data: TrendingData) {
         let date = Date()
-        print(#function, date)
         let coins = Array(data.coins.prefix(14))
         let nfts = Array(data.nfts.prefix(7))
         update.accept(date)

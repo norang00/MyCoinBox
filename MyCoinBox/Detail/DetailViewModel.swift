@@ -43,7 +43,6 @@ final class DetailViewModel: BaseViewModel {
         NetworkManager.shared.callRequestToAPIServer(api, [CoinDetail].self) { [weak self] response in
             switch response {
             case .success(let data):
-                dump(data)
                 self?.result.accept(data)
             case .failure(let error):
                 print(error)

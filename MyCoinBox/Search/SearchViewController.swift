@@ -59,10 +59,10 @@ final class SearchViewController: BaseViewController {
                         guard let self = self else { return }
                         if isLiked {
                             self.dbManager.deleteLikedItem(coinId: item.id)
-                            self.searchView.makeToast("\(item.name)이 즐겨찾기에서 제거되었습니다.", duration: 1.0)
+                            self.searchView.makeToast("\(item.name) 즐겨찾기에서 제거되었습니다.", duration: 1.0)
                         } else {
                             self.dbManager.createLikedItem(coinId: item.id)
-                            self.searchView.makeToast("\(item.name)이 즐겨찾기되었습니다.", duration: 1.0)
+                            self.searchView.makeToast("\(item.name) 즐겨찾기되었습니다.", duration: 1.0)
                         }
                         isLiked.toggle()
                         cell.configureData(item, isLiked)

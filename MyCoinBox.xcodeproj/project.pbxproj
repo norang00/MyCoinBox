@@ -16,6 +16,9 @@
 		EE97DEF32D7EEFB7000C5865 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE97DEF22D7EEFB7000C5865 /* DetailViewModel.swift */; };
 		EE97DEF62D7EF2F5000C5865 /* DGCharts in Frameworks */ = {isa = PBXBuildFile; productRef = EE97DEF52D7EF2F5000C5865 /* DGCharts */; };
 		EE97DEF82D7F0F55000C5865 /* DetailData.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE97DEF72D7F0F55000C5865 /* DetailData.swift */; };
+		EEC00B332D7FE19E00FF2B53 /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC00B322D7FE19E00FF2B53 /* NetworkMonitor.swift */; };
+		EEC00B892D7FF22000FF2B53 /* ErrorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC00B882D7FF22000FF2B53 /* ErrorViewController.swift */; };
+		EEC00B8B2D7FF24300FF2B53 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC00B8A2D7FF24300FF2B53 /* ErrorView.swift */; };
 		EECAF4102D797F0D00950F89 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = EECAF40F2D797F0D00950F89 /* RealmSwift */; };
 		EECAF4132D797F2600950F89 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = EECAF4122D797F2600950F89 /* RxCocoa */; };
 		EECAF4152D797F2600950F89 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = EECAF4142D797F2600950F89 /* RxSwift */; };
@@ -87,6 +90,9 @@
 		EE1C7CC82D7C328D00251E38 /* TrendingNFTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingNFTCell.swift; sourceTree = "<group>"; };
 		EE97DEF22D7EEFB7000C5865 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
 		EE97DEF72D7F0F55000C5865 /* DetailData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailData.swift; sourceTree = "<group>"; };
+		EEC00B322D7FE19E00FF2B53 /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
+		EEC00B882D7FF22000FF2B53 /* ErrorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorViewController.swift; sourceTree = "<group>"; };
+		EEC00B8A2D7FF24300FF2B53 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		EECAF3F62D797B0900950F89 /* MyCoinBox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyCoinBox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EECAF4A92D799AB500950F89 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		EECAF4EA2D79C3D600950F89 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -166,6 +172,15 @@
 			path = CustomComponent;
 			sourceTree = "<group>";
 		};
+		EEC00B872D7FF20B00FF2B53 /* Error */ = {
+			isa = PBXGroup;
+			children = (
+				EEC00B882D7FF22000FF2B53 /* ErrorViewController.swift */,
+				EEC00B8A2D7FF24300FF2B53 /* ErrorView.swift */,
+			);
+			path = Error;
+			sourceTree = "<group>";
+		};
 		EECAF3ED2D797B0900950F89 = {
 			isa = PBXGroup;
 			children = (
@@ -238,10 +253,12 @@
 		EECAF4FC2D79C3D600950F89 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				EEC00B872D7FF20B00FF2B53 /* Error */,
 				EEDF53942D7B1415001F0A2C /* Decodable */,
 				EECAF51E2D79C43900950F89 /* NetworkManager.swift */,
 				EEDF530A2D7B118A001F0A2C /* NetworkRequest.swift */,
 				EEDF53082D7B111C001F0A2C /* API_info.swift */,
+				EEC00B322D7FE19E00FF2B53 /* NetworkMonitor.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -436,6 +453,7 @@
 				EEF2BAAB2D7AC26400ABEA79 /* MarketViewModel.swift in Sources */,
 				EE1C7CC22D7C283000251E38 /* TrendingData.swift in Sources */,
 				EECAF50C2D79C3D600950F89 /* AppDelegate.swift in Sources */,
+				EEC00B892D7FF22000FF2B53 /* ErrorViewController.swift in Sources */,
 				EE1C7CC92D7C328D00251E38 /* TrendingNFTCell.swift in Sources */,
 				EECAF50D2D79C3D600950F89 /* Resources.swift in Sources */,
 				EEF8FE072D7D687F0035C8AA /* SearchData.swift in Sources */,
@@ -455,12 +473,14 @@
 				EECAF5132D79C3D600950F89 /* DetailViewController.swift in Sources */,
 				EECAF5142D79C3D600950F89 /* MarketView.swift in Sources */,
 				EE1C7CBF2D7C1EAD00251E38 /* TrendingViewModel.swift in Sources */,
+				EEC00B8B2D7FF24300FF2B53 /* ErrorView.swift in Sources */,
 				EECAF5152D79C3D600950F89 /* MarketViewController.swift in Sources */,
 				EEDF530B2D7B118A001F0A2C /* NetworkRequest.swift in Sources */,
 				EECAF5162D79C3D600950F89 /* PortfolioView.swift in Sources */,
 				EE97DEF32D7EEFB7000C5865 /* DetailViewModel.swift in Sources */,
 				EECAF5172D79C3D600950F89 /* PortfolioViewController.swift in Sources */,
 				EECAF51D2D79C43300950F89 /* DBManager.swift in Sources */,
+				EEC00B332D7FE19E00FF2B53 /* NetworkMonitor.swift in Sources */,
 				EEF2BAA62D7AB89300ABEA79 /* 서치데이터.swift in Sources */,
 				EEF2BAA72D7AB89300ABEA79 /* 상세데이터.swift in Sources */,
 				EE97DEF82D7F0F55000C5865 /* DetailData.swift in Sources */,

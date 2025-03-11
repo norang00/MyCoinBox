@@ -30,6 +30,8 @@ enum Resources {
         case more = "더보기"
         
         case notAvailable = "준비중입니다."
+        
+        case confirm = "확인"
     }
     
     enum SystemImage: String {
@@ -79,5 +81,12 @@ enum Resources {
             case warning = "관리자에게 문의하세요"
             case tooLongKeyword = "20자 이내로 적어주세요"
         }
+    }
+    
+    enum NoInternet: String {
+        case title = "안내"
+        case description = "네트워크 연결이 일시적으로 원활하지 않습니다. 데이터 또는 Wi-Fi 연결 상태를 확인해주세요."
+        case retry = "다시 시도하기"
+        case toastMessage = "네트워크 통신이 원활하지 않습니다."
     }
 }
