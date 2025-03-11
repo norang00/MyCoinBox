@@ -255,10 +255,10 @@
 			children = (
 				EEC00B872D7FF20B00FF2B53 /* Error */,
 				EEDF53942D7B1415001F0A2C /* Decodable */,
+				EEC00B322D7FE19E00FF2B53 /* NetworkMonitor.swift */,
 				EECAF51E2D79C43900950F89 /* NetworkManager.swift */,
 				EEDF530A2D7B118A001F0A2C /* NetworkRequest.swift */,
 				EEDF53082D7B111C001F0A2C /* API_info.swift */,
-				EEC00B322D7FE19E00FF2B53 /* NetworkMonitor.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";

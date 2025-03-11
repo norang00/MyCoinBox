@@ -16,6 +16,7 @@ final class TrendingViewModel: BaseViewModel {
     let update: BehaviorRelay<Date> = BehaviorRelay(value: Date())
     let coinData: BehaviorRelay<[TrendingCoin]> = BehaviorRelay(value: [])
     let nftData: BehaviorRelay<[TrendingNFT]> = BehaviorRelay(value: [])
+    let errorMessage = PublishRelay<CustomError>()
 
     let disposeBag = DisposeBag()
     
@@ -26,6 +27,7 @@ final class TrendingViewModel: BaseViewModel {
         let update: BehaviorRelay<Date>
         let coinData: Driver<[TrendingCoin]>
         let nftData: Driver<[TrendingNFT]>
+        let errorMessage: PublishRelay<CustomError>
     }
     
     func transform(_ input: Input) -> Output {
@@ -34,7 +36,8 @@ final class TrendingViewModel: BaseViewModel {
         return Output(
             update: update,
             coinData: coinData.asDriver(),
-            nftData: nftData.asDriver()
+            nftData: nftData.asDriver(),
+            errorMessage: errorMessage
         )
     }
     
@@ -47,8 +50,15 @@ final class TrendingViewModel: BaseViewModel {
     @objc
     private func fetchTrendingData() {
         print(#function)
-        // [TODO] 인터넷 연결 상태 점검 checkNetworkConnection()
-        callRequestToNetworkManager()
+        NetworkMonitor.shared.getCurrentStatus {  [weak self] status in
+            switch status {
+            case .satisfied:
+                self?.callRequestToNetworkManager()
+            default:
+                print(#function, status)
+                break
+            }
+        }
     }
     
     private func callRequestToNetworkManager() {
@@ -59,6 +69,7 @@ final class TrendingViewModel: BaseViewModel {
                 self?.convertData(data)
             case .failure(let error):
                 print(error)
+                self?.errorMessage.accept(error)
             }
         }
     }

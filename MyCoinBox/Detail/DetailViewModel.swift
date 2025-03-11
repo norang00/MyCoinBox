@@ -12,6 +12,7 @@ import RxCocoa
 final class DetailViewModel: BaseViewModel {
     
     let result: BehaviorRelay<[CoinDetail]> = BehaviorRelay(value: [])
+    let errorMessage = PublishRelay<CustomError>()
 
     let disposeBag = DisposeBag()
     
@@ -22,20 +23,29 @@ final class DetailViewModel: BaseViewModel {
     
     struct Output {
         let result: Driver<[CoinDetail]>
+        let errorMessage: PublishRelay<CustomError>
     }
     
     func transform(_ input: Input) -> Output {
         callRequestToNetworkManager(input.id)
 
         return Output(
-            result: result.asDriver()
+            result: result.asDriver(),
+            errorMessage: errorMessage
         )
     }
     
     private func fetchDetailData(_ query: String) {
         print(#function)
-        // [TODO] 인터넷 연결 상태 점검 checkNetworkConnection()
-        callRequestToNetworkManager(query)
+        NetworkMonitor.shared.getCurrentStatus {  [weak self] status in
+            switch status {
+            case .satisfied:
+                self?.callRequestToNetworkManager(query)
+            default:
+                print(#function, status)
+                break
+            }
+        }
     }
     
     private func callRequestToNetworkManager(_ ids: String) {
@@ -46,6 +56,7 @@ final class DetailViewModel: BaseViewModel {
                 self?.result.accept(data)
             case .failure(let error):
                 print(error)
+                self?.errorMessage.accept(error)
             }
         }
     }

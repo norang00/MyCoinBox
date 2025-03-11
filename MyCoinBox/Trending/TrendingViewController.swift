@@ -60,6 +60,14 @@ final class TrendingViewController: BaseViewController {
                 }
                 .disposed(by: disposeBag)
         
+        output.errorMessage
+            .debug("errorMessage")
+            .bind(with: self) { owner, error in
+                owner.showAlert(title: "이런! 문제가 발생했어요",
+                                message: error.rawValue)
+            }
+            .disposed(by: disposeBag)
+        
         trendingView.searchBar.rx.searchButtonClicked
             .withLatestFrom(trendingView.searchBar.rx.text.orEmpty)
             .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }

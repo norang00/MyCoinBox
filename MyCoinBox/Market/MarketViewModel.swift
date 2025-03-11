@@ -20,7 +20,9 @@ final class MarketViewModel: BaseViewModel {
     }
     var sortWith: SortValue = .price
     var sortBy: SortStatus = .descending
+    
     let resultList: BehaviorRelay<[MarketData]> = BehaviorRelay(value: [])
+    let errorMessage = PublishRelay<CustomError>()
 
     let disposeBag = DisposeBag()
     
@@ -32,9 +34,11 @@ final class MarketViewModel: BaseViewModel {
     
     struct Output {
         let resultList: Driver<[MarketData]>
+        let errorMessage: PublishRelay<CustomError>
     }
 
     func transform(_ input: Input) -> Output {
+
         let buttons = [
             input.currentTap.map { sortStatus in (SortValue.current, sortStatus) },
             input.changeTap.map { sortStatus in (SortValue.change, sortStatus) },
@@ -52,7 +56,8 @@ final class MarketViewModel: BaseViewModel {
             .disposed(by: disposeBag)
         
         return Output(
-            resultList: resultList.asDriver()
+            resultList: resultList.asDriver(),
+            errorMessage: errorMessage
         )
     }
     
@@ -69,8 +74,15 @@ final class MarketViewModel: BaseViewModel {
     @objc
     private func fetchMarketData() {
         print(#function, sortWith, sortBy)
-        // [TODO] 인터넷 연결 상태 점검 checkNetworkConnection()
-        callRequestToNetworkManager()
+        NetworkMonitor.shared.getCurrentStatus {  [weak self] status in
+            switch status {
+            case .satisfied:
+                self?.callRequestToNetworkManager()
+            default:
+                print(#function, status)
+                break
+            }
+        }
     }
     
     private func callRequestToNetworkManager() {
@@ -81,13 +93,13 @@ final class MarketViewModel: BaseViewModel {
                 self?.sortList(data)
             case .failure(let error):
                 print(error)
+                self?.errorMessage.accept(error)
             }
         }
     }
     
     private func sortList(_ data: [MarketData]) {
         var sorted: [MarketData] = []
-        // [TODO] 코드 정리
         switch sortWith {
         case .current:
             switch sortBy {

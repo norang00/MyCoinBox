@@ -50,6 +50,11 @@ final class SearchViewController: BaseViewController {
         let output = searchViewModel.transform(input)
         
         output.resultList
+            .do { resultList in
+                if resultList.isEmpty {
+                    self.showAlert(title: "검색결과가 없습니다.", message: "다른 검색어를 입력해보세요.")
+                }
+            }
             .drive(searchView.collectionView.rx.items(
                 cellIdentifier: SearchCoinCell.identifier,
                 cellType: SearchCoinCell.self)) { index, item, cell in
@@ -69,6 +74,14 @@ final class SearchViewController: BaseViewController {
                     }
                 }
                 .disposed(by: disposeBag)
+        
+        output.errorMessage
+            .debug("errorMessage")
+            .bind(with: self) { owner, error in
+                owner.showAlert(title: "이런! 문제가 발생했어요",
+                                message: error.rawValue)
+            }
+            .disposed(by: disposeBag)
         
         searchView.collectionView.rx.modelSelected(SearchCoin.self)
             .subscribe(with: self) { owner, item in

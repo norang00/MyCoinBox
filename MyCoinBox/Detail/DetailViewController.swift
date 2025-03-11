@@ -82,6 +82,14 @@ final class DetailViewController: BaseViewController {
                 owner.drawData(data)
             }
             .disposed(by: disposeBag)
+        
+        output.errorMessage
+            .debug("errorMessage")
+            .bind(with: self) { owner, error in
+                owner.showAlert(title: "이런! 문제가 발생했어요.",
+                                message: error.rawValue)
+            }
+            .disposed(by: disposeBag)
     }
     
     private func drawData(_ data: CoinDetail) {

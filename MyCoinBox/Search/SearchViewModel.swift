@@ -12,6 +12,7 @@ import RxCocoa
 final class SearchViewModel: BaseViewModel {
     
     let resultList: BehaviorRelay<[SearchCoin]> = BehaviorRelay(value: [])
+    let errorMessage = PublishRelay<CustomError>()
 
     let disposeBag = DisposeBag()
     
@@ -22,6 +23,7 @@ final class SearchViewModel: BaseViewModel {
     
     struct Output {
         let resultList: Driver<[SearchCoin]>
+        let errorMessage: PublishRelay<CustomError>
     }
     
     func transform(_ input: Input) -> Output {
@@ -41,14 +43,22 @@ final class SearchViewModel: BaseViewModel {
             .disposed(by: disposeBag)
 
         return Output(
-            resultList: resultList.asDriver()
+            resultList: resultList.asDriver(),
+            errorMessage: errorMessage
         )
     }
     
     private func fetchSearchData(_ query: String) {
         print(#function)
-        // [TODO] 인터넷 연결 상태 점검 checkNetworkConnection()
-        callRequestToNetworkManager(query)
+        NetworkMonitor.shared.getCurrentStatus {  [weak self] status in
+            switch status {
+            case .satisfied:
+                self?.callRequestToNetworkManager(query)
+            default:
+                print(#function, status)
+                break
+            }
+        }
     }
     
     private func callRequestToNetworkManager(_ query: String) {
@@ -59,6 +69,7 @@ final class SearchViewModel: BaseViewModel {
                 self?.resultList.accept(data.coins)
             case .failure(let error):
                 print(error)
+                self?.errorMessage.accept(error)
             }
         }
     }
