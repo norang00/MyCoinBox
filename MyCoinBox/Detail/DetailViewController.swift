@@ -94,6 +94,7 @@ final class DetailViewController: BaseViewController {
         
         output.errorMessage
             .bind(with: self) { owner, error in
+                owner.popView()
                 owner.showAlert(title: Resources.Alert.Title.warning.rawValue,
                                 message: error.rawValue)
             }

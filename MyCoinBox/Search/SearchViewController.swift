@@ -96,6 +96,7 @@ final class SearchViewController: BaseViewController {
         
         output.errorMessage
             .bind(with: self) { owner, error in
+                owner.popToTrendingView()
                 owner.showAlert(title: Resources.Alert.Title.warning.rawValue,
                                 message: error.rawValue)
             }
