@@ -56,7 +56,6 @@ final class SearchViewController: BaseViewController {
             .withLatestFrom(searchView.searchBar.rx.text.orEmpty)
             .distinctUntilChanged()
             .bind(with: self) { owner, value in
-                print(value)
                 owner.searchView.loadingView.showSpinner()
             }
             .disposed(by: disposeBag)

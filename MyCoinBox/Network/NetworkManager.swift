@@ -23,10 +23,8 @@ final class NetworkManager {
             .responseDecodable(of: T.self) { [weak self] response in
                 switch response.result {
                 case .success(let value):
-                    print(#function, "success")
                     completionHandler(.success(value))
                 case .failure(let error):
-                    print(#function, "error")
                     guard let customError = self?.handleError(response: response, error: error) else { return }
                     completionHandler(.failure(customError))
                 }

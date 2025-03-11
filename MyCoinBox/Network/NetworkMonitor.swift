@@ -22,7 +22,6 @@ final class NetworkMonitor {
     func getCurrentStatus(completion: @escaping (NWPath.Status) -> Void) {
         let tempMonitor = NWPathMonitor()
         tempMonitor.pathUpdateHandler = { path in
-            print(path.status)
             completion(path.status)
             tempMonitor.cancel()
         }
@@ -30,7 +29,6 @@ final class NetworkMonitor {
     }
     
     func startMonitoring(statusUpdateHandler: @escaping (NWPath.Status) -> Void) {
-        print(#function)
         monitor = NWPathMonitor()
         monitor.pathUpdateHandler = { path in
             DispatchQueue.main.async {
@@ -41,7 +39,6 @@ final class NetworkMonitor {
     }
     
     func stopMonitoring() {
-        print(#function)
         monitor.cancel()
     }
 }

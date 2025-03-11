@@ -73,13 +73,11 @@ final class MarketViewModel: BaseViewModel {
     
     @objc
     private func fetchMarketData() {
-        print(#function, sortWith, sortBy)
         NetworkMonitor.shared.getCurrentStatus {  [weak self] status in
             switch status {
             case .satisfied:
                 self?.callRequestToNetworkManager()
             default:
-                print(#function, status)
                 break
             }
         }
@@ -92,7 +90,6 @@ final class MarketViewModel: BaseViewModel {
             case .success(let data):
                 self?.sortList(data)
             case .failure(let error):
-                print(error)
                 self?.errorMessage.accept(error)
             }
         }

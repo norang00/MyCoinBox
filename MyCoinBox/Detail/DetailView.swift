@@ -252,11 +252,9 @@ final class DetailView: BaseView {
         
         iconImageView.image = UIImage(systemName: Resources.SystemImage.bitcoin.rawValue)
         iconImageView.contentMode = .scaleAspectFit
-        iconImageView.layer.cornerRadius = 15
         
         coinSymbolLabel.textColor = .mainText
         coinSymbolLabel.font = .systemFont(ofSize: 16, weight: .black)
-        
         
         let likeResizedImage = UIImage(systemName: Resources.SystemImage.unlike.rawValue, withConfiguration: navConfig)
         likeButton.setImage(likeResizedImage, for: .normal)
@@ -273,8 +271,6 @@ final class DetailView: BaseView {
         changePercentLabel.textColor = .mainText
         changePercentLabel.font = .systemFont(ofSize: 14, weight: .bold)
 
-        changeChart.backgroundColor = .lightGray
-        
         updateLabel.textColor = .subText
         updateLabel.font = .systemFont(ofSize: 10, weight: .regular)
         

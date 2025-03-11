@@ -37,7 +37,7 @@ final class SearchViewModel: BaseViewModel {
                 if !value.isEmpty {
                     owner.fetchSearchData(query)
                 } else {
-                    print("검색어가 비어있음")
+                    print("no query")
                 }
             }
             .disposed(by: disposeBag)
@@ -49,13 +49,11 @@ final class SearchViewModel: BaseViewModel {
     }
     
     private func fetchSearchData(_ query: String) {
-        print(#function)
         NetworkMonitor.shared.getCurrentStatus {  [weak self] status in
             switch status {
             case .satisfied:
                 self?.callRequestToNetworkManager(query)
             default:
-                print(#function, status)
                 break
             }
         }
@@ -68,7 +66,6 @@ final class SearchViewModel: BaseViewModel {
             case .success(let data):
                 self?.resultList.accept(data.coins)
             case .failure(let error):
-                print(error)
                 self?.errorMessage.accept(error)
             }
         }

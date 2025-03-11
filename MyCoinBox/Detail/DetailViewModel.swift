@@ -36,13 +36,11 @@ final class DetailViewModel: BaseViewModel {
     }
     
     private func fetchDetailData(_ query: String) {
-        print(#function)
         NetworkMonitor.shared.getCurrentStatus {  [weak self] status in
             switch status {
             case .satisfied:
                 self?.callRequestToNetworkManager(query)
             default:
-                print(#function, status)
                 break
             }
         }
@@ -55,7 +53,6 @@ final class DetailViewModel: BaseViewModel {
             case .success(let data):
                 self?.result.accept(data)
             case .failure(let error):
-                print(error)
                 self?.errorMessage.accept(error)
             }
         }

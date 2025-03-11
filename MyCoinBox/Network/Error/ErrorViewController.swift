@@ -34,14 +34,11 @@ final class ErrorViewController: UIViewController {
         NetworkMonitor.shared.getCurrentStatus { status in
             switch status {
             case .satisfied:
-                print(#function, "satisfied")
                 self.dismiss(animated: false)
                 self.restartMonitoring?()
             case .unsatisfied:
-                print(#function, "unsatisfied")
                 self.view.makeToast(Resources.NoInternet.toastMessage.rawValue)
             default:
-                print(#function, "default")
                 break
             }
         }

@@ -15,7 +15,6 @@ class BaseViewController: UIViewController {
     var noConnection: Bool = false
     
     deinit {
-        print("deinit")
         networkMonitor.stopMonitoring()
     }
     
@@ -33,23 +32,18 @@ class BaseViewController: UIViewController {
     }
     
     private func startMonitoring() {
-        print(#function)
         networkMonitor.startMonitoring { [weak self] status in
             switch status {
             case .satisfied:
-                print(#function, "satisfied")
             case .unsatisfied:
-                print(#function, "unsatisfied")
                 self?.showErrorView()
             default:
-                print(#function, "default")
                 break
             }
         }
     }
     
     private func showErrorView() {
-        print(#function)
         networkMonitor.stopMonitoring()
         let errorVC = ErrorViewController()
         errorVC.modalPresentationStyle = .overCurrentContext

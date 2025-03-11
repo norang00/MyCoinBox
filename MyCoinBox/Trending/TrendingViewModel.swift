@@ -49,13 +49,11 @@ final class TrendingViewModel: BaseViewModel {
     
     @objc
     private func fetchTrendingData() {
-        print(#function)
         NetworkMonitor.shared.getCurrentStatus {  [weak self] status in
             switch status {
             case .satisfied:
                 self?.callRequestToNetworkManager()
             default:
-                print(#function, status)
                 break
             }
         }
@@ -68,7 +66,6 @@ final class TrendingViewModel: BaseViewModel {
             case .success(let data):
                 self?.convertData(data)
             case .failure(let error):
-                print(error)
                 self?.errorMessage.accept(error)
             }
         }
