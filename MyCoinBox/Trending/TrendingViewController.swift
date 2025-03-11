@@ -68,9 +68,8 @@ final class TrendingViewController: BaseViewController {
             .disposed(by: disposeBag)
         
         output.errorMessage
-            .debug("errorMessage")
             .bind(with: self) { owner, error in
-                owner.showAlert(title: "이런! 문제가 발생했어요",
+                owner.showAlert(title: Resources.Alert.Title.warning.rawValue,
                                 message: error.rawValue)
             }
             .disposed(by: disposeBag)

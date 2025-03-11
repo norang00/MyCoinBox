@@ -34,7 +34,6 @@ class BaseViewController: UIViewController {
     private func startMonitoring() {
         networkMonitor.startMonitoring { [weak self] status in
             switch status {
-            case .satisfied:
             case .unsatisfied:
                 self?.showErrorView()
             default:

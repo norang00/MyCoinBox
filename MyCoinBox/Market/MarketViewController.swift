@@ -27,7 +27,6 @@ final class MarketViewController: BaseViewController {
         navigationController?.isNavigationBarHidden = true
         marketView.collectionView.showsVerticalScrollIndicator = false
         marketView.collectionView.register(MarketCell.self, forCellWithReuseIdentifier: MarketCell.identifier)
-        
         marketView.loadingView.showSpinner()
         
         bind()
@@ -92,9 +91,8 @@ final class MarketViewController: BaseViewController {
                 .disposed(by: disposeBag)
                 
         output.errorMessage
-            .debug("errorMessage")
             .bind(with: self) { owner, error in
-                owner.showAlert(title: "이런! 문제가 발생했어요",
+                owner.showAlert(title: Resources.Alert.Title.warning.rawValue,
                                 message: error.rawValue)
             }
             .disposed(by: disposeBag)

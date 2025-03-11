@@ -20,9 +20,9 @@ enum SortValue {
     
     var title: String {
         switch self {
-        case .current: "현재가"
-        case .change: "전일대비"
-        case .price: "거래대금"
+        case .current: Resources.ButtonTitle.current.rawValue
+        case .change: Resources.ButtonTitle.change.rawValue
+        case .price: Resources.ButtonTitle.price.rawValue
         }
     }
 }
@@ -80,7 +80,6 @@ final class SortButtonView: UIView {
     func setDefault() {
         status = .deselect
     }
-    
 }
 
 // MARK: - Setup View

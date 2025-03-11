@@ -70,7 +70,8 @@ final class SearchViewController: BaseViewController {
         output.resultList
             .do { resultList in
                 if resultList.isEmpty {
-                    self.showAlert(title: "검색결과가 없습니다.", message: "다른 검색어를 입력해보세요.")
+                    self.showAlert(title: Resources.Alert.Title.noResult.rawValue,
+                                   message: Resources.Alert.Message.noResult.rawValue)
                 }
             }
             .drive(searchView.collectionView.rx.items(
@@ -94,9 +95,8 @@ final class SearchViewController: BaseViewController {
                 .disposed(by: disposeBag)
         
         output.errorMessage
-            .debug("errorMessage")
             .bind(with: self) { owner, error in
-                owner.showAlert(title: "이런! 문제가 발생했어요",
+                owner.showAlert(title: Resources.Alert.Title.warning.rawValue,
                                 message: error.rawValue)
             }
             .disposed(by: disposeBag)

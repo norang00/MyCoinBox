@@ -93,9 +93,8 @@ final class DetailViewController: BaseViewController {
             .disposed(by: disposeBag)
         
         output.errorMessage
-            .debug("errorMessage")
             .bind(with: self) { owner, error in
-                owner.showAlert(title: "이런! 문제가 발생했어요.",
+                owner.showAlert(title: Resources.Alert.Title.warning.rawValue,
                                 message: error.rawValue)
             }
             .disposed(by: disposeBag)
@@ -177,7 +176,8 @@ final class DetailViewController: BaseViewController {
         
         let gradientColors = [UIColor.mainBlue.cgColor, UIColor.white.cgColor] as CFArray
         let colorLocations: [CGFloat] = [1.0, 0.0]
-        let gradient = CGGradient(colorsSpace: CGColorSpaceCreateDeviceRGB(), colors: gradientColors, locations: colorLocations)
+        let gradient = CGGradient(colorsSpace: CGColorSpaceCreateDeviceRGB(),
+                                  colors: gradientColors, locations: colorLocations)
         let fill = LinearGradientFill(gradient: gradient!, angle: 90)
         dataSet.fill = fill
         dataSet.drawFilledEnabled = true

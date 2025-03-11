@@ -13,7 +13,7 @@ final class MarketCell: UICollectionViewCell {
     static var identifier: String {
         return String(describing: self)
     }
-
+    
     let stackView = UIStackView()
     let coinLabel = UILabel()
     let currentLabel = UILabel()
@@ -25,7 +25,7 @@ final class MarketCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()
-   }
+    }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -57,7 +57,7 @@ extension MarketCell {
             make.leading.trailing.equalTo(contentView).inset(16)
         }
     }
-
+    
     private func configureView() {
         stackView.axis = .horizontal
         let width: CGFloat = (UIScreen.main.bounds.width-32)/4
@@ -73,7 +73,7 @@ extension MarketCell {
         currentLabel.font = .systemFont(ofSize: 12, weight: .regular)
         currentLabel.textColor = .mainText
         currentLabel.textAlignment = .right
-
+        
         changeStackView.axis = .vertical
         changeStackView.isLayoutMarginsRelativeArrangement = true
         changeStackView.layoutMargins = UIEdgeInsets(top: 8, left: 0, bottom: 0, right: 0)
@@ -81,10 +81,10 @@ extension MarketCell {
         
         changeRateLabel.font = .systemFont(ofSize: 12, weight: .regular)
         changeRateLabel.textAlignment = .right
-
+        
         changePriceLabel.font = .systemFont(ofSize: 9, weight: .regular)
         changePriceLabel.textAlignment = .right
-
+        
         priceLabel.font = .systemFont(ofSize: 12, weight: .regular)
         priceLabel.textColor = .mainText
         priceLabel.textAlignment = .right
@@ -95,16 +95,16 @@ extension MarketCell {
     
     func configureData(_ data: MarketData) {
         let sign: Bool = (data.change == "RISE")
-
+        
         coinLabel.text = convertCoinName(data.market)
-
+        
         let currentText = NumberFormatter.formatterDigit0.string(for: data.tradePrice) ?? ""
         currentLabel.text = currentText
         
         let changeRateText = NumberFormatter.formatterDigit2.string(for: data.signedChangeRate) ?? ""
         changeRateLabel.text = changeRateText+"%"
         changeRateLabel.textColor = sign ? .mainRed : .mainBlue
-
+        
         let changePriceText = NumberFormatter.formatterDigit2.string(for: data.signedChangePrice) ?? ""
         changePriceLabel.text = changePriceText
         changePriceLabel.textColor = sign ? .mainRed : .mainBlue
@@ -133,5 +133,4 @@ extension MarketCell {
         }
         return result
     }
-
 }

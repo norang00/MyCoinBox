@@ -9,6 +9,12 @@ import Foundation
 
 enum Resources {
     
+    enum ButtonTitle: String {
+        case current = "현재가"
+        case change = "전일대비"
+        case price = "거래대금"
+    }
+    
     enum Writing: String {
         case placeholder = "검색어를 입력해주세요."
         case trendingKeyword = "인기 검색어"
@@ -76,8 +82,7 @@ enum Resources {
         }
         
         enum Message: String {
-            case emptyInput = ""
-            case noResult = "다른 단어를 입력해보세요"
+            case noResult = "다른 검색어를 입력해보세요"
             case warning = "관리자에게 문의하세요"
             case tooLongKeyword = "20자 이내로 적어주세요"
         }

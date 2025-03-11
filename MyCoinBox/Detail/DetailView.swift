@@ -195,7 +195,7 @@ final class DetailView: BaseView {
         }
         changeChart.snp.makeConstraints { make in
             make.top.equalTo(changePercentLabel.snp.bottom).offset(8)
-            make.horizontalEdges.equalTo(contentView).inset(16)
+            make.horizontalEdges.equalTo(contentView).inset(12)
             make.height.equalTo(200)
         }
         updateLabel.snp.makeConstraints { make in
