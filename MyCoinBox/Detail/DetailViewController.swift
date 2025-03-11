@@ -94,7 +94,7 @@ final class DetailViewController: BaseViewController {
         detailView.currentPriceLabel.text = "₩ \(data.currentPrice.formatted())"
         
         if let changeData = data.priceChangePercentage24h {
-            let formatted = NumberFormatter.formatter.string(for: abs(changeData)) ?? ""
+            let formatted = NumberFormatter.formatterDigit0.string(for: abs(changeData)) ?? ""
             if changeData > 0 {
                 detailView.changePercentLabel.textColor = .mainRed
                 detailView.changePercentLabel.text = "▲ \(formatted)%"
@@ -112,11 +112,11 @@ final class DetailViewController: BaseViewController {
             detailView.updateLabel.text = formattedString
         }
         
-        if let formatted = NumberFormatter.formatter.string(for: data.high24h) {
+        if let formatted = NumberFormatter.formatterDigit0.string(for: data.high24h) {
             detailView.high24hValueLabel.text = "₩\(formatted)"
         }
         
-        if let formatted = NumberFormatter.formatter.string(for: data.low24h) {
+        if let formatted = NumberFormatter.formatterDigit0.string(for: data.low24h) {
             detailView.low24hValueLabel.text = "₩\(formatted)"
         }
         
@@ -132,13 +132,13 @@ final class DetailViewController: BaseViewController {
             detailView.lowestDateLabel.text = formattedString
         }
         
-        if let formatted = NumberFormatter.formatter.string(for: data.marketCap) {
+        if let formatted = NumberFormatter.formatterDigit0.string(for: data.marketCap) {
             detailView.marketCapValueLabel.text = "₩\(formatted)"
         }
-        if let formatted = NumberFormatter.formatter.string(for: data.fullyDilutedValuation) {
+        if let formatted = NumberFormatter.formatterDigit0.string(for: data.fullyDilutedValuation) {
             detailView.fdvValueLabel.text = "₩\(formatted)"
         }
-        if let formatted = NumberFormatter.formatter.string(for: data.totalVolume) {
+        if let formatted = NumberFormatter.formatterDigit0.string(for: data.totalVolume) {
             detailView.totalVolumeValueLabel.text = "₩\(formatted)"
         }
         
@@ -189,11 +189,9 @@ final class DetailViewController: BaseViewController {
     }
     
     private func updateLikeButtonUI(_ isLiked: Bool) {
-        
         let navConfig = UIImage.SymbolConfiguration(pointSize: 20, weight: .bold)
         let likeResizedImage = UIImage(systemName: Resources.SystemImage.like.rawValue, withConfiguration: navConfig)
         let unLikeResizedImage = UIImage(systemName: Resources.SystemImage.unlike.rawValue, withConfiguration: navConfig)
-
         detailView.likeButton.setImage(isLiked ? likeResizedImage : unLikeResizedImage, for: .normal)
     }
 }

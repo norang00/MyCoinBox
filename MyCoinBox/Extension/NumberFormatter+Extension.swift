@@ -9,9 +9,17 @@ import Foundation
 
 extension NumberFormatter {
     
-    static let formatter: NumberFormatter = {
+    static let formatterDigit0: NumberFormatter = {
         let formatter = NumberFormatter()
         formatter.minimumFractionDigits = 0
+        formatter.maximumFractionDigits = 2
+        formatter.numberStyle = .decimal
+        return formatter
+    }()
+    
+    static let formatterDigit2: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.minimumFractionDigits = 2
         formatter.maximumFractionDigits = 2
         formatter.numberStyle = .decimal
         return formatter

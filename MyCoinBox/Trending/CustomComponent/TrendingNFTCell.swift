@@ -107,7 +107,7 @@ extension TrendingNFTCell {
         nameLabel.text = data.name
         priceLabel.text = data.data.floorPrice
         let changeData = Double(data.data.floorPriceInUsd24hPercentageChange) ?? 0
-        let formatted = NumberFormatter.formatter.string(for: changeData) ?? ""
+        let formatted = NumberFormatter.formatterDigit0.string(for: changeData) ?? ""
         if changeData > 0 {
             changeLabel.textColor = .mainRed
             changeLabel.text = "▲ \(formatted)%"

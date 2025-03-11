@@ -98,14 +98,14 @@ extension MarketCell {
 
         coinLabel.text = convertCoinName(data.market)
 
-        let currentText = NumberFormatter.formatter.string(for: data.tradePrice) ?? ""
+        let currentText = NumberFormatter.formatterDigit0.string(for: data.tradePrice) ?? ""
         currentLabel.text = currentText
         
-        let changeRateText = NumberFormatter.formatter.string(for: data.signedChangeRate) ?? ""
+        let changeRateText = NumberFormatter.formatterDigit2.string(for: data.signedChangeRate) ?? ""
         changeRateLabel.text = changeRateText+"%"
         changeRateLabel.textColor = sign ? .mainRed : .mainBlue
 
-        let changePriceText = NumberFormatter.formatter.string(for: data.signedChangePrice) ?? ""
+        let changePriceText = NumberFormatter.formatterDigit2.string(for: data.signedChangePrice) ?? ""
         changePriceLabel.text = changePriceText
         changePriceLabel.textColor = sign ? .mainRed : .mainBlue
         

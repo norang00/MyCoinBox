@@ -35,6 +35,12 @@ final class SearchViewController: BaseViewController {
         
         bind()
     }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        searchView.collectionView.reloadData()
+    }
     
     private func bind() {
         let input = SearchViewModel.Input(
@@ -51,7 +57,6 @@ final class SearchViewController: BaseViewController {
                     cell.configureData(item, isLiked)
                     cell.onLikeButtonTapped = { [weak self] in
                         guard let self = self else { return }
-
                         if isLiked {
                             self.dbManager.deleteLikedItem(coinId: item.id)
                             self.searchView.makeToast("\(item.name)이 즐겨찾기에서 제거되었습니다.", duration: 1.0)
