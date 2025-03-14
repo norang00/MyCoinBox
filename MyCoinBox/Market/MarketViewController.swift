@@ -57,20 +57,21 @@ final class MarketViewController: BaseViewController {
                 .compactMap { $0 },
             changeTap: marketView.changeButtonView.rx.tapGesture()
                 .when(.recognized)
-                .do(onNext: {_ in
-                    self.marketView.currentButtonView.setDefault()
-                    self.marketView.changeButtonView.updateStatus()
-                    self.marketView.priceButtonView.setDefault()
+                .do(onNext: { [weak self] _ in
+                    self?.marketView.currentButtonView.setDefault()
+                    self?.marketView.changeButtonView.updateStatus()
+                    self?.marketView.priceButtonView.setDefault()
                 })
                 .map { [weak self] _ in self?.marketView.changeButtonView.status }
                 .compactMap { $0 },
             priceTap: marketView.priceButtonView.rx.tapGesture()
                 .when(.recognized)
-                .do(onNext: {_ in
-                    self.marketView.currentButtonView.setDefault()
-                    self.marketView.changeButtonView.setDefault()
-                    self.marketView.priceButtonView.updateStatus()
-                })                .map { [weak self] _ in self?.marketView.priceButtonView.status }
+                .do(onNext: { [weak self] _ in
+                    self?.marketView.currentButtonView.setDefault()
+                    self?.marketView.changeButtonView.setDefault()
+                    self?.marketView.priceButtonView.updateStatus()
+                })
+                .map { [weak self] _ in self?.marketView.priceButtonView.status }
                 .compactMap { $0 }
         )
         let output = marketViewModel.transform(input)
