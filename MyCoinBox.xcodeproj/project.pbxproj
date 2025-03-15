@@ -279,8 +279,8 @@
 			children = (
 				EEF8FE8B2D7D7ACA0035C8AA /* CustomComponent */,
 				EECAF5002D79C3D600950F89 /* SearchView.swift */,
-				EECAF5012D79C3D600950F89 /* SearchViewController.swift */,
 				EEF8FE042D7D67980035C8AA /* SearchViewModel.swift */,
+				EECAF5012D79C3D600950F89 /* SearchViewController.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";

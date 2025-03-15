@@ -96,36 +96,60 @@ final class MarketViewModel: BaseViewModel {
     }
     
     private func sortList(_ data: [MarketData]) {
-        var sorted: [MarketData] = []
-        switch sortWith {
-        case .current:
-            switch sortBy {
-            case .deselect:
-                sortWith = .price
-                sorted = data.sorted { $1.accTradePrice24h < $0.accTradePrice24h }
-            case .descending:
-                sorted = data.sorted { $1.tradePrice < $0.tradePrice }
-            case .ascending:
-                sorted = data.sorted { $0.tradePrice < $1.tradePrice }
-            }
-        case .change:
-            switch sortBy {
-            case .deselect:
-                sortWith = .price
-                sorted = data.sorted { $1.accTradePrice24h < $0.accTradePrice24h }
-            case .descending:
-                sorted = data.sorted { $1.signedChangeRate < $0.signedChangeRate }
-            case .ascending:
-                sorted = data.sorted { $0.signedChangeRate < $1.signedChangeRate }
-            }
-        case .price:
-            switch sortBy {
-            case .deselect, .descending:
-                sorted = data.sorted { $1.accTradePrice24h < $0.accTradePrice24h }
-            case .ascending:
-                sorted = data.sorted { $0.accTradePrice24h < $1.accTradePrice24h }
-            }
-        }
-        list = sorted
+        list = data.sorted(by: getSortCriteria())
     }
+
+    private func getSortCriteria() -> (MarketData, MarketData) -> Bool {
+        switch (sortWith, sortBy) {
+        case (_, .deselect):
+            sortWith = .price
+            return { $1.accTradePrice24h < $0.accTradePrice24h }
+        case (.current, .descending):
+            return { $1.tradePrice < $0.tradePrice }
+        case (.current, .ascending):
+            return { $0.tradePrice < $1.tradePrice }
+        case (.change, .descending):
+            return { $1.signedChangeRate < $0.signedChangeRate }
+        case (.change, .ascending):
+            return { $0.signedChangeRate < $1.signedChangeRate }
+        case (.price, .descending):
+            return { $1.accTradePrice24h < $0.accTradePrice24h }
+        case (.price, .ascending):
+            return { $0.accTradePrice24h < $1.accTradePrice24h }
+        }
+    }
+    
+//    private func sortList(_ data: [MarketData]) {
+//        var sorted: [MarketData] = []
+//        switch sortWith {
+//        case .current:
+//            switch sortBy {
+//            case .deselect:
+//                sortWith = .price
+//                sorted = data.sorted { $1.accTradePrice24h < $0.accTradePrice24h }
+//            case .descending:
+//                sorted = data.sorted { $1.tradePrice < $0.tradePrice }
+//            case .ascending:
+//                sorted = data.sorted { $0.tradePrice < $1.tradePrice }
+//            }
+//        case .change:
+//            switch sortBy {
+//            case .deselect:
+//                sortWith = .price
+//                sorted = data.sorted { $1.accTradePrice24h < $0.accTradePrice24h }
+//            case .descending:
+//                sorted = data.sorted { $1.signedChangeRate < $0.signedChangeRate }
+//            case .ascending:
+//                sorted = data.sorted { $0.signedChangeRate < $1.signedChangeRate }
+//            }
+//        case .price:
+//            switch sortBy {
+//            case .deselect, .descending:
+//                sorted = data.sorted { $1.accTradePrice24h < $0.accTradePrice24h }
+//            case .ascending:
+//                sorted = data.sorted { $0.accTradePrice24h < $1.accTradePrice24h }
+//            }
+//        }
+//        list = sorted
+//    }
 }
