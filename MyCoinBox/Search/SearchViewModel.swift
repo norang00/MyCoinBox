@@ -11,10 +11,10 @@ import RxCocoa
 
 final class SearchViewModel: BaseViewModel {
     
-    let resultList = PublishRelay<[SearchCoin]>()
-    let errorMessage = PublishRelay<CustomError>()
+    private let resultList = PublishRelay<[SearchCoin]>()
+    private let errorMessage = PublishRelay<CustomError>()
 
-    let disposeBag = DisposeBag()
+    private let disposeBag = DisposeBag()
     
     struct Input {
         let searchClicked: ControlEvent<Void>
@@ -27,7 +27,6 @@ final class SearchViewModel: BaseViewModel {
     }
     
     func transform(_ input: Input) -> Output {
-        
         input.searchClicked
             .startWith(())
             .withLatestFrom(input.searchText)
