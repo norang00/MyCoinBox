@@ -13,6 +13,12 @@
 		EE1C7CC22D7C283000251E38 /* TrendingData.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1C7CC12D7C283000251E38 /* TrendingData.swift */; };
 		EE1C7CC72D7C327E00251E38 /* TrendingCoinCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1C7CC62D7C327E00251E38 /* TrendingCoinCell.swift */; };
 		EE1C7CC92D7C328D00251E38 /* TrendingNFTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1C7CC82D7C328D00251E38 /* TrendingNFTCell.swift */; };
+		EE2DECBB2D94587C003BC647 /* OrderBookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2DECBA2D94587C003BC647 /* OrderBookView.swift */; };
+		EE2DECBE2D945912003BC647 /* OrderBookCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2DECBD2D945912003BC647 /* OrderBookCell.swift */; };
+		EE2DECC02D945AC0003BC647 /* OrderBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2DECBF2D945AC0003BC647 /* OrderBookViewController.swift */; };
+		EE2DECC22D945ADB003BC647 /* OrderBookViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2DECC12D945ADB003BC647 /* OrderBookViewModel.swift */; };
+		EE2DECC42D945B76003BC647 /* OrderBookData.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2DECC32D945B76003BC647 /* OrderBookData.swift */; };
+		EE2DECC62D945C15003BC647 /* WebSocketManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2DECC52D945C15003BC647 /* WebSocketManager.swift */; };
 		EE97DEF32D7EEFB7000C5865 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE97DEF22D7EEFB7000C5865 /* DetailViewModel.swift */; };
 		EE97DEF62D7EF2F5000C5865 /* DGCharts in Frameworks */ = {isa = PBXBuildFile; productRef = EE97DEF52D7EF2F5000C5865 /* DGCharts */; };
 		EE97DEF82D7F0F55000C5865 /* DetailData.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE97DEF72D7F0F55000C5865 /* DetailData.swift */; };
@@ -87,6 +93,12 @@
 		EE1C7CC12D7C283000251E38 /* TrendingData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingData.swift; sourceTree = "<group>"; };
 		EE1C7CC62D7C327E00251E38 /* TrendingCoinCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingCoinCell.swift; sourceTree = "<group>"; };
 		EE1C7CC82D7C328D00251E38 /* TrendingNFTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingNFTCell.swift; sourceTree = "<group>"; };
+		EE2DECBA2D94587C003BC647 /* OrderBookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderBookView.swift; sourceTree = "<group>"; };
+		EE2DECBD2D945912003BC647 /* OrderBookCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderBookCell.swift; sourceTree = "<group>"; };
+		EE2DECBF2D945AC0003BC647 /* OrderBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderBookViewController.swift; sourceTree = "<group>"; };
+		EE2DECC12D945ADB003BC647 /* OrderBookViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderBookViewModel.swift; sourceTree = "<group>"; };
+		EE2DECC32D945B76003BC647 /* OrderBookData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderBookData.swift; sourceTree = "<group>"; };
+		EE2DECC52D945C15003BC647 /* WebSocketManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketManager.swift; sourceTree = "<group>"; };
 		EE97DEF22D7EEFB7000C5865 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
 		EE97DEF72D7F0F55000C5865 /* DetailData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailData.swift; sourceTree = "<group>"; };
 		EEC00B322D7FE19E00FF2B53 /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
@@ -166,6 +178,25 @@
 			children = (
 				EE1C7CC62D7C327E00251E38 /* TrendingCoinCell.swift */,
 				EE1C7CC82D7C328D00251E38 /* TrendingNFTCell.swift */,
+			);
+			path = CustomComponent;
+			sourceTree = "<group>";
+		};
+		EE2DECB92D945821003BC647 /* OrderBook */ = {
+			isa = PBXGroup;
+			children = (
+				EE2DECBC2D9458B5003BC647 /* CustomComponent */,
+				EE2DECBA2D94587C003BC647 /* OrderBookView.swift */,
+				EE2DECBF2D945AC0003BC647 /* OrderBookViewController.swift */,
+				EE2DECC12D945ADB003BC647 /* OrderBookViewModel.swift */,
+			);
+			path = OrderBook;
+			sourceTree = "<group>";
+		};
+		EE2DECBC2D9458B5003BC647 /* CustomComponent */ = {
+			isa = PBXGroup;
+			children = (
+				EE2DECBD2D945912003BC647 /* OrderBookCell.swift */,
 			);
 			path = CustomComponent;
 			sourceTree = "<group>";
@@ -265,6 +296,7 @@
 				EECAF51E2D79C43900950F89 /* NetworkManager.swift */,
 				EEDF530A2D7B118A001F0A2C /* NetworkRequest.swift */,
 				EEDF53082D7B111C001F0A2C /* API_info.swift */,
+				EE2DECC52D945C15003BC647 /* WebSocketManager.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -308,6 +340,7 @@
 				EECAF5062D79C3D600950F89 /* Info.plist */,
 				EECAF4F02D79C3D600950F89 /* App */,
 				EECAF4F42D79C3D600950F89 /* Base */,
+				EE2DECB92D945821003BC647 /* OrderBook */,
 				EECAF4FB2D79C3D600950F89 /* Market */,
 				EECAF5052D79C3D600950F89 /* Trending */,
 				EECAF5022D79C3D600950F89 /* Search */,
@@ -337,6 +370,7 @@
 				EE1C7CC12D7C283000251E38 /* TrendingData.swift */,
 				EEF8FE062D7D687F0035C8AA /* SearchData.swift */,
 				EE97DEF72D7F0F55000C5865 /* DetailData.swift */,
+				EE2DECC32D945B76003BC647 /* OrderBookData.swift */,
 			);
 			path = Decodable;
 			sourceTree = "<group>";
@@ -458,6 +492,7 @@
 				EEF8FE052D7D67980035C8AA /* SearchViewModel.swift in Sources */,
 				EEF2BAAB2D7AC26400ABEA79 /* MarketViewModel.swift in Sources */,
 				EE1C7CC22D7C283000251E38 /* TrendingData.swift in Sources */,
+				EE2DECBE2D945912003BC647 /* OrderBookCell.swift in Sources */,
 				EECAF50C2D79C3D600950F89 /* AppDelegate.swift in Sources */,
 				EEC00B892D7FF22000FF2B53 /* ErrorViewController.swift in Sources */,
 				EE1C7CC92D7C328D00251E38 /* TrendingNFTCell.swift in Sources */,
@@ -469,10 +504,12 @@
 				EECAF50F2D79C3D600950F89 /* BaseView.swift in Sources */,
 				EEDF53962D7B1450001F0A2C /* MarketData.swift in Sources */,
 				EEF800402D7DE4DE0035C8AA /* LikedCoin.swift in Sources */,
+				EE2DECC02D945AC0003BC647 /* OrderBookViewController.swift in Sources */,
 				EEF8FF172D7D7E810035C8AA /* RankLabel.swift in Sources */,
 				EE1C7CB12D7C128800251E38 /* DateFormatter+Extension.swift in Sources */,
 				EECAF5102D79C3D600950F89 /* BaseViewController.swift in Sources */,
 				EECAF5112D79C3D600950F89 /* BaseViewModel.swift in Sources */,
+				EE2DECC22D945ADB003BC647 /* OrderBookViewModel.swift in Sources */,
 				EEC00C022D80403800FF2B53 /* LoadingView.swift in Sources */,
 				EEFBB3732D93EBF4008AE8A7 /* PortfolioViewModel.swift in Sources */,
 				EEF8FE8D2D7D7AE70035C8AA /* SearchCoinCell.swift in Sources */,
@@ -484,16 +521,19 @@
 				EEC00B8B2D7FF24300FF2B53 /* ErrorView.swift in Sources */,
 				EECAF5152D79C3D600950F89 /* MarketViewController.swift in Sources */,
 				EEDF530B2D7B118A001F0A2C /* NetworkRequest.swift in Sources */,
+				EE2DECBB2D94587C003BC647 /* OrderBookView.swift in Sources */,
 				EECAF5162D79C3D600950F89 /* PortfolioView.swift in Sources */,
 				EE97DEF32D7EEFB7000C5865 /* DetailViewModel.swift in Sources */,
 				EECAF5172D79C3D600950F89 /* PortfolioViewController.swift in Sources */,
 				EECAF51D2D79C43300950F89 /* DBManager.swift in Sources */,
 				EEC00B332D7FE19E00FF2B53 /* NetworkMonitor.swift in Sources */,
 				EE97DEF82D7F0F55000C5865 /* DetailData.swift in Sources */,
+				EE2DECC62D945C15003BC647 /* WebSocketManager.swift in Sources */,
 				EE1C7CB32D7C12A800251E38 /* NumberFormatter+Extension.swift in Sources */,
 				EE1C7CC72D7C327E00251E38 /* TrendingCoinCell.swift in Sources */,
 				EECAF5182D79C3D600950F89 /* SearchView.swift in Sources */,
 				EECAF5192D79C3D600950F89 /* SearchViewController.swift in Sources */,
+				EE2DECC42D945B76003BC647 /* OrderBookData.swift in Sources */,
 				EECAF51A2D79C3D600950F89 /* TrendingView.swift in Sources */,
 				EEF2BB0B2D7AD54F00ABEA79 /* MarketCell.swift in Sources */,
 				EECAF51B2D79C3D600950F89 /* TrendingViewController.swift in Sources */,

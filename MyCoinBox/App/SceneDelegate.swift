@@ -48,19 +48,22 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     // MARK: - TabBarController
     static func getMainTabBarController() -> UITabBarController {
-        let marketVC = UINavigationController(rootViewController: MarketViewController())
+        let orderbookVC = OrderBookViewController()
+        let marketVC = MarketViewController()
         let trendingVC = UINavigationController(rootViewController: TrendingViewController())
         let portfolioVC = UINavigationController(rootViewController: PortfolioViewController())
 
         let tabBarController = UITabBarController()
-        tabBarController.setViewControllers([marketVC, trendingVC, portfolioVC], animated: true)
+        tabBarController.setViewControllers([orderbookVC, marketVC, trendingVC, portfolioVC], animated: true)
         tabBarController.tabBar.tintColor = .accent
-        tabBarController.tabBar.items![0].title = Resources.Tab.Title.market.rawValue
-        tabBarController.tabBar.items![0].image = UIImage(systemName: Resources.Tab.Image.market.rawValue)
-        tabBarController.tabBar.items![1].title = Resources.Tab.Title.trending.rawValue
-        tabBarController.tabBar.items![1].image = UIImage(systemName: Resources.Tab.Image.trending.rawValue)
-        tabBarController.tabBar.items![2].title = Resources.Tab.Title.portfolio.rawValue
-        tabBarController.tabBar.items![2].image = UIImage(systemName: Resources.Tab.Image.portfolio.rawValue)
+        tabBarController.tabBar.items![0].title = Resources.Tab.Title.orderbook.rawValue
+        tabBarController.tabBar.items![0].image = UIImage(systemName: Resources.Tab.Image.orderbook.rawValue)
+        tabBarController.tabBar.items![1].title = Resources.Tab.Title.market.rawValue
+        tabBarController.tabBar.items![1].image = UIImage(systemName: Resources.Tab.Image.market.rawValue)
+        tabBarController.tabBar.items![2].title = Resources.Tab.Title.trending.rawValue
+        tabBarController.tabBar.items![2].image = UIImage(systemName: Resources.Tab.Image.trending.rawValue)
+        tabBarController.tabBar.items![3].title = Resources.Tab.Title.portfolio.rawValue
+        tabBarController.tabBar.items![3].image = UIImage(systemName: Resources.Tab.Image.portfolio.rawValue)
         return tabBarController
     }
 }

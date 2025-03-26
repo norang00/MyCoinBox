@@ -53,12 +53,14 @@ enum Resources {
     
     enum Tab {
         enum Title: String {
+            case orderbook = "호가"
             case market = "거래소"
             case trending = "코인정보"
             case portfolio = "포트폴리오"
         }
         
         enum Image: String {
+            case orderbook = "bitcoinsign.circle"
             case market = "chart.line.uptrend.xyaxis"
             case trending = "chart.bar.fill"
             case portfolio = "star"
@@ -67,6 +69,7 @@ enum Resources {
     
     enum Navigation {
         enum Title: String {
+            case orderbook = "호가창"
             case market = "거래소"
             case trending = "가상자산/심볼 검색"
             case portfolio = "관심목록"
