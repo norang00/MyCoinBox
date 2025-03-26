@@ -1,15 +1,15 @@
 //
-//  SearchCoinCell.swift
+//  LikedCoinCell.swift
 //  MyCoinBox
 //
-//  Created by Kyuhee hong on 3/9/25.
+//  Created by Kyuhee hong on 3/26/25.
 //
 
 import UIKit
 import SnapKit
 import Kingfisher
 
-final class SearchCoinCell: UICollectionViewCell {
+final class LikedCoinCell: UICollectionViewCell {
 
     static var identifier: String {
         return String(describing: self)
@@ -19,10 +19,7 @@ final class SearchCoinCell: UICollectionViewCell {
     let stackView = UIStackView()
     let symbolView = UIView()
     let symbolLabel = UILabel()
-    let rankLabel = RankLabel()
     let nameLabel = UILabel()
-    let likeButton = UIButton()
-    var onLikeButtonTapped: (() -> Void)?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -36,16 +33,13 @@ final class SearchCoinCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
 
-        configureData(Coin(id: "", name: "", symbol: "", marketCapRank: 0, thumb: ""), false)
+        configureData(LikedCoin(coinId: "", name: "", symbol: "", thumb: ""))
     }
 
-    @objc private func likeButtonTapped() {
-        onLikeButtonTapped?()
-    }
 }
 
 // MARK: - Setup View
-extension SearchCoinCell {
+extension LikedCoinCell {
     
     private func setupView() {
         configureHierarchy()
@@ -60,9 +54,6 @@ extension SearchCoinCell {
         stackView.addArrangedSubview(symbolView)
         stackView.addArrangedSubview(nameLabel)
         symbolView.addSubview(symbolLabel)
-        symbolView.addSubview(rankLabel)
-
-        contentView.addSubview(likeButton)
     }
     
     private func configureLayout() {
@@ -84,16 +75,6 @@ extension SearchCoinCell {
             make.centerY.equalTo(symbolView)
             make.leading.equalTo(symbolView)
         }
-        rankLabel.snp.makeConstraints { make in
-            make.centerY.equalTo(symbolView)
-            make.leading.equalTo(symbolLabel.snp.trailing).offset(8)
-        }
-        likeButton.snp.makeConstraints { make in
-            make.centerY.equalTo(contentView)
-            make.leading.equalTo(stackView.snp.trailing).offset(8)
-            make.trailing.equalTo(contentView).inset(24)
-            make.size.equalTo(40)
-        }
     }
 
     private func configureView() {
@@ -106,27 +87,15 @@ extension SearchCoinCell {
         symbolLabel.font = .systemFont(ofSize: 12, weight: .bold)
         nameLabel.textColor = .subText
         nameLabel.font = .systemFont(ofSize: 12, weight: .regular)
-        
-        likeButton.tintColor = .accent
-        likeButton.setImage(UIImage(systemName: Resources.SystemImage.unlike.rawValue), for: .normal)
-        likeButton.imageView?.contentMode = .scaleAspectFit
-        likeButton.addTarget(self, action: #selector(likeButtonTapped), for: .touchUpInside)
     }
 }
 
 // MARK: - Setup Data
-extension SearchCoinCell {
+extension LikedCoinCell {
     
-    func configureData(_ data: Coin, _ isLiked: Bool) {
+    func configureData(_ data: LikedCoin) {
         symbolLabel.text = data.symbol
-        if let rank = data.marketCapRank {
-            rankLabel.text = "#\(rank)"
-        }
         nameLabel.text = data.name
-        likeButton.setImage(UIImage(systemName: isLiked ?
-                                    Resources.SystemImage.like.rawValue :
-                                    Resources.SystemImage.unlike.rawValue), for: .normal)
-        
         if let url = URL(string:data.thumb) {
             iconImageView.kf.setImage(with: url)
         } else {

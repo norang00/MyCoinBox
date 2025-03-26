@@ -88,7 +88,9 @@ final class TrendingViewController: BaseViewController {
         
         trendingView.trendingCoinCollectionView.rx.modelSelected(TrendingCoin.self)
             .bind(with: self) { owner, value in
-                owner.pushToDetailView(value.item.id)
+                let item = value.item
+                let coin = Coin(id: item.id, name: item.name, symbol: item.symbol, thumb: item.thumb)
+                owner.pushToDetailView(coin)
             }
             .disposed(by: disposeBag)
     }
@@ -109,9 +111,9 @@ final class TrendingViewController: BaseViewController {
         navigationController?.pushViewController(nextVC, animated: true)
     }
     
-    private func pushToDetailView(_ id: String) {
+    private func pushToDetailView(_ coin: Coin) {
         let nextVC = DetailViewController()
-        nextVC.id = id
+        nextVC.coin = coin
         navigationController?.pushViewController(nextVC, animated: true)
     }
 }

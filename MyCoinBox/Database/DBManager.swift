@@ -9,29 +9,34 @@ import Foundation
 import RealmSwift
 
 protocol LikeProtocol {
-    func getLikedItem() -> Results<LikedItem>
-    func createLikedItem(coinId: String)
+    func getLikedItem() -> Results<LikedCoin>
+    func createLikedItem(coinId: String, name: String, symbol: String, thumb: String)
     func deleteLikedItem(coinId: String)
+    func checkIsLiked(_ coinId: String) -> Bool
 }
 
 final class DBManager: LikeProtocol {
     
+    static let shared = DBManager()
+
     private let realm = try! Realm()
+    
+    private init() { }
     
     func getFileURL() {
         print(realm.configuration.fileURL!)
     }
     
-    func getLikedItem() -> Results<LikedItem> {
-        let data = realm.objects(LikedItem.self)
+    func getLikedItem() -> Results<LikedCoin> {
+        let data = realm.objects(LikedCoin.self)
         return data
     }
 
-    func createLikedItem(coinId: String) {
+    func createLikedItem(coinId: String, name: String, symbol: String, thumb: String) {
         do {
             try realm.write {
-                let data = LikedItem(coinId: coinId)
-                realm.add(data)
+                let data = LikedCoin(coinId: coinId, name: name, symbol: symbol, thumb: thumb)
+                realm.add(data, update: .modified)
             }
         } catch {
             print("Realm save failed")
@@ -40,7 +45,7 @@ final class DBManager: LikeProtocol {
     
     func deleteLikedItem(coinId: String) {
         do {
-            let data = realm.objects(LikedItem.self).where { $0.coinId == coinId }
+            let data = realm.objects(LikedCoin.self).where { $0.coinId == coinId }
             try realm.write {
                 realm.delete(data)
                 print("Deleted item with coinId:", coinId)
@@ -48,5 +53,11 @@ final class DBManager: LikeProtocol {
         } catch {
             print("Realm delete failed")
         }
+    }
+    
+    func checkIsLiked(_ coinId: String) -> Bool {
+        return realm.objects(LikedCoin.self)
+            .where { $0.coinId == coinId }
+            .first != nil
     }
 }

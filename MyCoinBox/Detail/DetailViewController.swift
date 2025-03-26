@@ -18,11 +18,10 @@ final class DetailViewController: BaseViewController {
     let detailView = DetailView()
     let detailViewModel = DetailViewModel()
     
-    let dbManager = DBManager()
-    var likedList: Results<LikedItem>!
+    let dbManager = DBManager.shared
+    var likedList: Results<LikedCoin>!
     
-    var id: String = ""
-    var name: String = ""
+    var coin = Coin(id: "", name: "", symbol: "", marketCapRank: 0, thumb: "")
     
     let disposeBag = DisposeBag()
     
@@ -40,7 +39,7 @@ final class DetailViewController: BaseViewController {
     
     private func bind() {
         let input = DetailViewModel.Input(
-            id: id,
+            id: coin.id,
             likeTap: detailView.likeButton.rx.tap
         )
         let output = detailViewModel.transform(input)
@@ -53,13 +52,16 @@ final class DetailViewController: BaseViewController {
         
         detailView.likeButton.rx.tap
             .bind(with: self) { owner, _ in
-                var isLiked = owner.checkIsLiked(owner.id)
+                var isLiked = owner.dbManager.checkIsLiked(owner.coin.id)
                 if isLiked {
-                    self.dbManager.deleteLikedItem(coinId: owner.id)
-                    self.detailView.makeToast("\(owner.name) 즐겨찾기에서 제거되었습니다.", duration: 1.0)
+                    owner.dbManager.deleteLikedItem(coinId: owner.coin.id)
+                    owner.detailView.makeToast("\(owner.coin.name) 즐겨찾기에서 제거되었습니다.", duration: 1.0)
                 } else {
-                    self.dbManager.createLikedItem(coinId: owner.id)
-                    self.detailView.makeToast("\(owner.name) 즐겨찾기되었습니다.", duration: 1.0)
+                    owner.dbManager.createLikedItem(coinId: owner.coin.id,
+                                                    name: owner.coin.name,
+                                                    symbol: owner.coin.symbol,
+                                                    thumb: owner.coin.thumb)
+                    owner.detailView.makeToast("\(owner.coin.name) 즐겨찾기되었습니다.", duration: 1.0)
                 }
                 isLiked.toggle()
                 owner.updateLikeButtonUI(isLiked)
@@ -87,7 +89,7 @@ final class DetailViewController: BaseViewController {
         output.result
             .drive(with: self) { owner, data in
                 guard let data = data.first else { return }
-                owner.name = data.name
+                owner.coin.name = data.name
                 owner.drawData(data)
             }
             .disposed(by: disposeBag)
@@ -107,7 +109,7 @@ final class DetailViewController: BaseViewController {
         }
         detailView.coinSymbolLabel.text = data.symbol.uppercased()
         
-        let isLiked = checkIsLiked(data.id)
+        let isLiked = dbManager.checkIsLiked(data.id)
         updateLikeButtonUI(isLiked)
         
         detailView.currentPriceLabel.text = "₩ \(data.currentPrice.formatted())"
@@ -175,7 +177,7 @@ final class DetailViewController: BaseViewController {
         dataSet.drawHorizontalHighlightIndicatorEnabled = false
         dataSet.drawVerticalHighlightIndicatorEnabled = false
         
-        let gradientColors = [UIColor.mainBlue.cgColor, UIColor.white.cgColor] as CFArray
+        let gradientColors = [UIColor.mainBlue.cgColor, UIColor.mainBlue.cgColor, UIColor.white.cgColor] as CFArray
         let colorLocations: [CGFloat] = [1.0, 0.0]
         let gradient = CGGradient(colorsSpace: CGColorSpaceCreateDeviceRGB(),
                                   colors: gradientColors, locations: colorLocations)
@@ -199,12 +201,6 @@ final class DetailViewController: BaseViewController {
     
     private func popView() {
         navigationController?.popViewController(animated: true)
-    }
-    
-    private func checkIsLiked(_ id: String) -> Bool {
-        likedList = dbManager.getLikedItem()
-        let result = likedList.where { $0.coinId == id }
-        return !result.isEmpty
     }
     
     private func updateLikeButtonUI(_ isLiked: Bool) {

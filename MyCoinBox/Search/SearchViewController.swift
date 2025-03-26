@@ -16,8 +16,8 @@ final class SearchViewController: BaseViewController {
     let searchView = SearchView()
     let searchViewModel = SearchViewModel()
     
-    let dbManager = DBManager()
-    var likedList: Results<LikedItem>!
+    let dbManager = DBManager.shared
+    var likedList: Results<LikedCoin>!
     
     let disposeBag = DisposeBag()
     
@@ -28,8 +28,7 @@ final class SearchViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        searchView.collectionView.showsVerticalScrollIndicator = false
-        searchView.collectionView.register(SearchCoinCell.self, forCellWithReuseIdentifier: SearchCoinCell.identifier)
+        
         
         searchView.loadingView.showSpinner()
         
@@ -85,7 +84,10 @@ final class SearchViewController: BaseViewController {
                             self.dbManager.deleteLikedItem(coinId: item.id)
                             self.searchView.makeToast("\(item.name) 즐겨찾기에서 제거되었습니다.", duration: 1.0)
                         } else {
-                            self.dbManager.createLikedItem(coinId: item.id)
+                            self.dbManager.createLikedItem(coinId: item.id,
+                                                           name: item.name,
+                                                           symbol: item.symbol,
+                                                           thumb: item.thumb)
                             self.searchView.makeToast("\(item.name) 즐겨찾기되었습니다.", duration: 1.0)
                         }
                         isLiked.toggle()
@@ -102,10 +104,10 @@ final class SearchViewController: BaseViewController {
             }
             .disposed(by: disposeBag)
         
-        searchView.collectionView.rx.modelSelected(SearchCoin.self)
+        searchView.collectionView.rx.modelSelected(Coin.self)
             .subscribe(with: self) { owner, item in
                 let nextVC = DetailViewController()
-                nextVC.id = item.id
+                nextVC.coin = item
                 owner.navigationController?.pushViewController(nextVC, animated: true)
             }
             .disposed(by: disposeBag)
@@ -121,7 +123,7 @@ final class SearchViewController: BaseViewController {
         navigationController?.popViewController(animated: true)
     }
     
-    private func checkIsLiked(_ item: SearchCoin) -> Bool {
+    private func checkIsLiked(_ item: Coin) -> Bool {
         likedList = dbManager.getLikedItem()
         let result = likedList.where { $0.coinId == item.id }
         return !result.isEmpty

@@ -11,7 +11,7 @@ import RxCocoa
 
 final class SearchViewModel: BaseViewModel {
     
-    private let resultList = PublishRelay<[SearchCoin]>()
+    private let resultList = PublishRelay<[Coin]>()
     private let errorMessage = PublishRelay<CustomError>()
 
     private let disposeBag = DisposeBag()
@@ -22,7 +22,7 @@ final class SearchViewModel: BaseViewModel {
     }
     
     struct Output {
-        let resultList: Driver<[SearchCoin]>
+        let resultList: Driver<[Coin]>
         let errorMessage: PublishRelay<CustomError>
     }
     

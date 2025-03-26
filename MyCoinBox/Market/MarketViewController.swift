@@ -15,6 +15,8 @@ final class MarketViewController: BaseViewController {
     private let marketView = MarketView()
     private let marketViewModel = MarketViewModel()
     
+    let dbManager = DBManager.shared
+
     private let disposeBag = DisposeBag()
     
     override func loadView() {

@@ -69,7 +69,7 @@ enum Resources {
         enum Title: String {
             case market = "거래소"
             case trending = "가상자산/심볼 검색"
-            case portfolio = "포트폴리오"
+            case portfolio = "관심목록"
         }
     }
     

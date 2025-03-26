@@ -8,15 +8,15 @@
 import Foundation
 
 struct SearchData: Decodable {
-    let coins: [SearchCoin]
+    let coins: [Coin]
 }
 
-struct SearchCoin: Decodable {
-  let id: String
-  let name: String
-  let symbol: String
-  let marketCapRank: Int?
-  let thumb: String
+struct Coin: Decodable {
+  var id: String
+  var name: String
+  var symbol: String
+  var marketCapRank: Int?
+  var thumb: String
 
     enum CodingKeys: String, CodingKey {
         case id

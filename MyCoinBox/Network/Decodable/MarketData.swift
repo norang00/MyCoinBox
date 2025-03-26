@@ -14,7 +14,7 @@ struct MarketData: Decodable {
   let signedChangePrice: Double // 전일대비 금액
   let signedChangeRate: Double // 전일대비 퍼센트
   let accTradePrice24h: Double // 거래대금
-    
+
     enum CodingKeys: String, CodingKey {
         case market
         case tradePrice = "trade_price"
