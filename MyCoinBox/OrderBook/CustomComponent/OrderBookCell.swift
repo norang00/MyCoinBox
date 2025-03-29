@@ -75,7 +75,8 @@ extension OrderBookCell {
     private func configureStyle() {
         [bidStack, askStack].forEach {
             $0.axis = .vertical
-            $0.spacing = 4
+            $0.alignment = .leading
+            $0.distribution = .equalCentering
         }
         
         bidPriceLabel.font = .systemFont(ofSize: 12, weight: .bold)
@@ -94,10 +95,39 @@ extension OrderBookCell {
 extension OrderBookCell {
     
     func configureData(_ data: OrderBookUnit) {
-        
-        askPriceLabel.text = String(format: "%.0f", data.askPrice)
-        askSizeLabel.text = String(format: "%.3f", data.askSize)
-        bidPriceLabel.text = String(format: "%.0f", data.bidPrice)
-        bidSizeLabel.text = String(format: "%.3f", data.bidSize)
+        let priceFormatter = NumberFormatter()
+        priceFormatter.numberStyle = .decimal
+        priceFormatter.usesGroupingSeparator = true
+        priceFormatter.groupingSeparator = ","  // 세 자리마다 쉼표
+        priceFormatter.minimumFractionDigits = 0
+        priceFormatter.maximumFractionDigits = 0
+
+        let sizeFormatter = NumberFormatter()
+        sizeFormatter.numberStyle = .decimal
+        sizeFormatter.usesGroupingSeparator = true
+        sizeFormatter.groupingSeparator = ","
+        sizeFormatter.minimumFractionDigits = 3
+        sizeFormatter.maximumFractionDigits = 3
+
+        askPriceLabel.text = priceFormatter.string(from: NSNumber(value: data.askPrice))
+        askSizeLabel.text = sizeFormatter.string(from: NSNumber(value: data.askSize))
+        bidPriceLabel.text = priceFormatter.string(from: NSNumber(value: data.bidPrice))
+        bidSizeLabel.text = sizeFormatter.string(from: NSNumber(value: data.bidSize))
+
+        askPriceLabel.textAlignment = .left
+        askSizeLabel.textAlignment = .left
+        bidPriceLabel.textAlignment = .left
+        bidSizeLabel.textAlignment = .left
     }
+    
+//    func configureData(_ data: OrderBookUnit) {
+//        askPriceLabel.text = String(format: "%.0f", data.askPrice)
+//        askSizeLabel.text = String(format: "%.3f", data.askSize)
+//        bidPriceLabel.text = String(format: "%.0f", data.bidPrice)
+//        bidSizeLabel.text = String(format: "%.3f", data.bidSize)
+//        askPriceLabel.textAlignment = .left
+//        askSizeLabel.textAlignment = .left
+//        bidPriceLabel.textAlignment = .left
+//        bidSizeLabel.textAlignment = .left
+//    }
 }

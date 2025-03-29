@@ -21,6 +21,7 @@ final class WebSocketManager {
     func connect() {
         let url = URL(string: "wss://api.upbit.com/websocket/v1")!
         webSocketTask = session.webSocketTask(with: url)
+
         webSocketTask?.resume()
         listen()
         sendInitialMessage()
